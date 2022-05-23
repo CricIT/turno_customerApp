@@ -22,8 +22,8 @@ jobs:
       - run: flutter build appbundle
       - name: Create a Release in GitHub
         uses: ncipollo/release-action@v1
-          with:
-            artifacts: "build/app/outputs/apk/release/*.apk"
-            token: ${{ secrets.TURNO_TOKEN }}
-            commit: master
+        with:
+          artifacts: "build/app/outputs/apk/release/*.apk,build/app/outputs/bundle/release/app-release.aab"
+          token: ${{ secrets.TURNO_TOKEN }}
+          commit: development
             tag: v1.0.${{ github.run_number }}
