@@ -5,6 +5,7 @@ on:
     branches: [ development ]
 
 jobs:
+  build:
     name: Build APK and Create release
     runs-on: ubuntu-latest
     steps:
