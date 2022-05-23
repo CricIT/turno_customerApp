@@ -1,33 +1,37 @@
-#The name of your workflow.
-name:  Test, build and deploy
-# Trigger the workflow on push or pull request
-on: [push]
-#A workflow run is made up of one or more jobs. Jobs run in parallel by default.
-jobs:
+name: Demo App Android Release
 
-  test:
-    #The type of machine to run the job on. [windows,macos, ubuntu , self-hosted]
-    runs-on: macos-latest
-    #sequence of tasks called
+on:
+  push:
+    branches: [ development ]
+
+jobs:
+   build:
+    name: Build APK and Create release
+    needs: [ version ]
+    runs-on: ubuntu-latest
     steps:
-      # The branch or tag ref that triggered the workflow will be checked out.
-      # https://github.com/actions/checkout
       - uses: actions/checkout@v1
-      # Setup a flutter environment.
-      # https://github.com/marketplace/actions/flutter-action
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: '3.0.0'
-          channel: 'dev'
-      - run: flutter pub get
-      # run static analys code
-      - run: flutter  analyze
-      # run  flutter widgets tests  and unit tests
-      - run: flutter test --coverage
-      # Upload coverage reports to Codecov
-      # https://github.com/marketplace/actions/codecov
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+      - name: Get version.txt
+        uses: actions/download-artifact@v2
         with:
+          name: gitversion
+      - name: Read version
+        id: version
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: version.txt
+      - run: flutter pub get
+      - run: flutter test
+      - run: flutter build apk --release --split-per-abi
+      - run: flutter build appbundle
+      - name: Create a Release in GitHub
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/apk/release/*.apk,build/app/outputs/bundle/release/app-release.aab"
           token: ${{ secrets.TURNO_TOKEN }}
-          file: coverage/lcov.info
