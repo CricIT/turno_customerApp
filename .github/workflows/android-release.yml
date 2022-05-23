@@ -26,3 +26,4 @@ jobs:
           artifacts: "build/app/outputs/apk/release/*.apk,build/app/outputs/bundle/release/app-release.aab"
           token: ${{ secrets.TURNO_TOKEN }}
           commit: development
+          tag: v1.0.${{ github.run_id }}
