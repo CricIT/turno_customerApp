@@ -4,13 +4,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:turno_customer_application/presentation/controllers/home/home_controller.dart';
 
 import '../../app/config/constant.dart';
 
 
 
 
-class MyHomePage extends StatelessWidget{
+class MyHomePage extends GetView<HomeController>{
 
 
   @override
@@ -75,13 +76,13 @@ class MyHomePage extends StatelessWidget{
                       child: GestureDetector(
                         child: Text(Constants.languages[index]),
                         onTap: () {
-                          print(Constants.locale[index]['name']);
                           Get.back();
                           Get.updateLocale(Constants.locale[index]['locale']);
+                          controller.setUserPreferredLanguage(Constants.locale[index]['name']);
                         },),
                     );
                   }, separatorBuilder: (context, index) {
-                return Divider(
+                return const Divider(
                   color: Colors.blue,
                 );
               }, itemCount: Constants.languages.length

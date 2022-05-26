@@ -4,10 +4,12 @@ import 'package:get/get.dart';
 import 'app/config/constant.dart';
 import 'app/routes/app_route.dart';
 import 'app/routes/page_route.dart';
+import 'app/services/local_storage.dart';
 import 'app/util/messages.dart';
 void main() async  {
-
   WidgetsFlutterBinding.ensureInitialized();
+
+  await initServices();
 
   //fetch all languages .json files and convert
   Map<String, Map<String, String>> _languages = await Messages.getAllTranslations();
@@ -15,11 +17,15 @@ void main() async  {
   runApp( MyApp(_languages));
 }
 
+initServices() async {
+  await Get.putAsync(() => LocalStorageService().init());
+}
+
+
 
 class MyApp extends StatelessWidget {
   final Map<String, Map<String, String>> languages;
-  MyApp(this.languages, {Key? key}) : super(key: key);
-
+  const MyApp(this.languages, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
