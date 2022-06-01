@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "982307019519",
+    "project_id": "turno-customer-app",
+    "storage_bucket": "turno-customer-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:982307019519:android:27c4793bd2b8ce93090aca",
+        "android_client_info": {
+          "package_name": "com.customerapp.turno.turno_customer_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "982307019519-r06rq64796b9btgkf7lcpfnn5asndnls.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIfxWy5rnlfHxlChleX2OZF7dN9e2DpOM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "982307019519-r06rq64796b9btgkf7lcpfnn5asndnls.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

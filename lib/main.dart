@@ -1,6 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:turno_customer_application/app/services/firebase.dart';
 import 'app/config/constant.dart';
 import 'app/routes/app_route.dart';
 import 'app/routes/page_route.dart';
@@ -8,20 +9,17 @@ import 'app/services/local_storage.dart';
 import 'app/util/messages.dart';
 void main() async  {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await Firebase.initializeApp();
   await initServices();
-
   //fetch all languages .json files and convert
-  Map<String, Map<String, String>> _languages = await Messages.getAllTranslations();
-
-  runApp( MyApp(_languages));
+  Map<String, Map<String, String>> languages = await Messages.getAllTranslations();
+  runApp( MyApp(languages));
 }
 
 initServices() async {
-  await Get.putAsync(() => LocalStorageService().init());
+    await Get.putAsync(() => LocalStorageService().init());
+    Get.put(FirebaseService(),permanent :true);
 }
-
-
 
 class MyApp extends StatelessWidget {
   final Map<String, Map<String, String>> languages;
