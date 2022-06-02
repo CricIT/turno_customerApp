@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 enum _Key {
   lang,
+  fcmToken,
 }
 
 
@@ -32,12 +33,18 @@ class LocalStorageService extends GetxService {
       _sharedPreferences?.setString(
           _Key.lang.toString(),"en_US");
     }
-
+    
   }
 
+  String? get getFCMToken {
+    final token = _sharedPreferences?.getString(_Key.fcmToken.toString());
+    return token;
+  }
 
-
-
-
+  set setToken(String? value) {
+    if (value != null) {
+      _sharedPreferences?.setString(_Key.fcmToken.toString(), value);
+    }
+  }
 
 }

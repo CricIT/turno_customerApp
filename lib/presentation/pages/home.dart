@@ -65,8 +65,8 @@ class MyHomePage extends GetView<HomeController>{
     showDialog(context: context,
         builder: (builder) {
           return AlertDialog(
-            title: Text('Choose Your Language'),
-            content: Container(
+            title: const Text('Choose Your Language'),
+            content: SizedBox(
               width: double.maxFinite,
               child: ListView.separated(
                   shrinkWrap: true,
