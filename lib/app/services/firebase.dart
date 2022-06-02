@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -18,18 +16,18 @@ class FirebaseService extends GetxService {
     super.onReady();
   }
 
-  // Future<void> _firebaseMessagingBackgroundHandler(
-  //     RemoteMessage message) async {
-  //   // If you're going to use other Firebase services in the background, such as Firestore,
-  //   // make sure you call `initializeApp` before using other Firebase services.
-  //   TrackHandler.trackEvent(
-  //     eventName: 'BackgroundNotificationReceived',
-  //     params: {'messageId': message.messageId},
-  //   );
-  //   if (kDebugMode) {
-  //     print('Handling a background message ${message.messageId}');
-  //   }
-  // }
+  Future<void> _firebaseMessagingBackgroundHandler(
+      RemoteMessage message) async {
+    // If you're going to use other Firebase services in the background, such as Firestore,
+    // make sure you call `initializeApp` before using other Firebase services.
+    TrackHandler.trackEvent(
+      eventName: 'BackgroundNotificationReceived',
+      params: {'messageId': message.messageId},
+    );
+    if (kDebugMode) {
+      print('Handling a background message ${message.messageId}');
+    }
+  }
 
   /// initialize [TrackHandler]
   /// prepare 3rd party trakers (Mixpanel, Amplitude, etc)
@@ -40,11 +38,8 @@ class FirebaseService extends GetxService {
 
 //initializing all firebase services
   Future<void> _initFirebase() async {
-    print('inittttiiiiiaaaaalllliiiiizzzeeeedddddd');
     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
-    const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('ic_notification');
     const AndroidNotificationChannel channel = AndroidNotificationChannel(
       'high_importance_channel', // id
       'High Importance Notifications', // title
@@ -53,7 +48,7 @@ class FirebaseService extends GetxService {
       enableVibration: true,
       playSound: true,
     );
-    // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     await FirebaseMessaging.instance
         .setForegroundNotificationPresentationOptions(
       alert: true,
