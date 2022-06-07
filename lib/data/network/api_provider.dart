@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:get/get_connect/connect.dart';
-import 'package:turno_customer_application/data/providers/network/api_request_representable.dart';
+
+import 'api_request_representable.dart';
 
 class APIProvider {
   static const requestTimeOut = Duration(seconds: 25);
@@ -28,21 +31,29 @@ class APIProvider {
   }
 
   dynamic _returnResponse(Response<dynamic> response) {
-    switch (response.statusCode) {
-      case 200:
-        return response.body;
-      case 400:
-        throw BadRequestException(response.body.toString());
-      case 401:
-      case 403:
-        throw UnauthorisedException(response.body.toString());
-      case 404:
-        throw BadRequestException('Not found');
-      case 500:
-        throw FetchDataException('Internal Server Error');
-      default:
-        throw FetchDataException(
-            'Error occured while Communication with Server with StatusCode : ${response.statusCode}');
+    try {
+      switch (response.statusCode) {
+        case 200:
+          Map<String, dynamic> body = Map<String, dynamic>.from(response.body);
+          if (body['statusCode'] != 200) {
+            return body["message"];
+          }
+          return response.body;
+        case 400:
+          return BadRequestException(response.body.toString());
+        case 401:
+        case 403:
+          throw UnauthorisedException(response.body.toString());
+        case 404:
+          throw BadRequestException('Not found');
+        case 500:
+          throw FetchDataException('Internal Server Error');
+        default:
+          throw FetchDataException(
+              'Error occured while Communication with Server with StatusCode : ${response.statusCode}');
+      }
+    } catch (error) {
+      debugPrint(error.toString());
     }
   }
 }
@@ -54,6 +65,7 @@ class AppException implements Exception {
 
   AppException({this.code, this.message, this.details});
 
+  @override
   String toString() {
     return "[$code]: $message \n $details";
   }
