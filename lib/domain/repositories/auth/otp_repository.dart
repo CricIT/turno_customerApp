@@ -1,5 +1,5 @@
-import 'package:turno_customer_application/domain/entities/user.dart';
+import 'package:turno_customer_application/domain/entities/auth.dart';
 
 abstract class OtpRepository {
-  Future<User> verifyOTP(String mobile, String otp);
+  Future<Auth> verifyOTP(String mobile, String otp);
 }

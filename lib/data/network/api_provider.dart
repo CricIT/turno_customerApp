@@ -1,9 +1,8 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:get/get_connect/connect.dart';
-
 import 'api_request_representable.dart';
 
 class APIProvider {
@@ -34,10 +33,6 @@ class APIProvider {
     try {
       switch (response.statusCode) {
         case 200:
-          Map<String, dynamic> body = Map<String, dynamic>.from(response.body);
-          if (body['statusCode'] != 200) {
-            return body["message"];
-          }
           return response.body;
         case 400:
           return BadRequestException(response.body.toString());
