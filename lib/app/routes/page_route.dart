@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:turno_customer_application/presentation/controllers/auth/login_binding.dart';
 import 'package:turno_customer_application/presentation/controllers/auth/otp_binding.dart';
 import 'package:turno_customer_application/presentation/controllers/home/home_binding.dart';
+import 'package:turno_customer_application/presentation/pages/language.dart';
 import 'package:turno_customer_application/presentation/pages/login.dart';
 import 'package:turno_customer_application/presentation/pages/otp.dart';
 
@@ -25,6 +26,11 @@ class Routes {
         name: AppRoutes.OTP,
         page: () => OtpScreen(),
         binding: OtpBinding(),
+      ),
+      GetPage(
+        name: AppRoutes.LANGUAGE,
+        page: () => ChooseLanguage(),
+        binding: HomeBinding(),
       ),
     ];
   }

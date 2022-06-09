@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/services/firebase.dart';
-import 'package:turno_customer_application/app/util/dependency.dart';
 import 'package:turno_customer_application/data/repositories/login_repository.dart';
 import 'package:turno_customer_application/data/repositories/otp_repository.dart';
 import 'app/config/constant.dart';
@@ -43,7 +42,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: AppRoutes.LOGIN,
+      initialRoute: AppRoutes.LANGUAGE,
       getPages: Routes.getAllPages(),
       defaultTransition: Transition.topLevel,
       transitionDuration: const Duration(milliseconds: 500),
