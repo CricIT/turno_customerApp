@@ -5,7 +5,7 @@ import 'package:turno_customer_application/app/config/app_colors.dart';
 
 class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appBar;
-  const BaseAppBar({required this.appBar});
+  BaseAppBar({required this.appBar});
   final Color backgroundColor = AppColors.primaryColor;
 
   @override
