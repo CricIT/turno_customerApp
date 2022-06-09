@@ -1,11 +1,24 @@
-
-
-
-
 {
-  "hello": "ಹಲೋ ವರ್ಲ್ಡ್",
-  "message":"ಪ್ರೋಟೋ ಕೋಡರ್ ಪಾಯಿಂಟ್‌ಗೆ ಸುಸ್ವಾಗತ",
-  "title":"ಬೀಸು ಭಾಷೆ - ಸ್ಥಳೀಕರಣ",
-  "subscribe":"ವಂತಿಗೆ ಕೊಡು",
-  "changelang":"ಭಾಷೆ ಬದಲಿಸ"
+  "hello" : "Hello",
+  "message" : "ಪ್ರೋಟೋ ಕೋಡರ್ ಪಾಯಿಂಟ್‌ಗೆ ಸುಸ್ವಾಗತ",
+  "title" : "ಬೀಸು ಭಾಷೆ - ಸ್ಥಳೀಕರಣ",
+  "subscribe" : "ವಂತಿಗೆ ಕೊಡು",
+  "changelog" : "ಭಾಷೆ ಬದಲಿಸ",
+  "choose_language" : "Choose your langauge",
+  "login" : "Login",
+  "login_1" : "We will send you an ",
+  "login_2" : "One Time Password ",
+  "login_3" : "on this mobile number",
+  "enter_number" : "Enter your number",
+  "alert" : "Alert!",
+  "ten_digit" : "Please enter 10 digit mobile number",
+  "ok" : "OK",
+  "next" : "Next",
+  "phone_verification" : "Phone Number Verification",
+  "enter_code" : "Enter the code sent to ",
+  "invalid_otp" : "Invalid OTP",
+  "code_not_get" : "Didn't receive the code? ",
+  "otp_resent" : "OTP Resent!!!",
+  "resend" : "Resend",
+  "verify" : "Verify"
 }
