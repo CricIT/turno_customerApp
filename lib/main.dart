@@ -11,7 +11,8 @@ import 'app/routes/app_route.dart';
 import 'app/routes/page_route.dart';
 import 'app/services/local_storage.dart';
 import 'app/util/messages.dart';
-void main() async  {
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -23,39 +24,40 @@ void main() async  {
   ));
   await initServices();
   //fetch all languages .json files and convert
-  Map<String, Map<String, String>> languages = await Messages.getAllTranslations();
-  runApp( MyApp(languages));
+  Map<String, Map<String, String>> languages =
+      await Messages.getAllTranslations();
+  runApp(MyApp(languages));
 }
 
 initServices() async {
-    await Firebase.initializeApp();
-    await Get.putAsync(() => LocalStorageService().init());
-    Get.put(FirebaseService(),permanent :true);
-    Get.put(LoginRepositoryIml());
-    Get.put(OtpRepositoryIml());
+  await Firebase.initializeApp();
+  await Get.putAsync(() => LocalStorageService().init());
+  Get.put(FirebaseService(), permanent: true);
+  Get.put(LoginRepositoryIml());
+  Get.put(OtpRepositoryIml());
 }
 
 class MyApp extends StatelessWidget {
   final Map<String, Map<String, String>> languages;
-  const MyApp(this.languages, {Key? key}) : super(key: key);
+  final store = Get.find<LocalStorageService>();
+  MyApp(this.languages, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return GetMaterialApp(
-      title: Constants.APP_NAME,
+      title: Constants.appName,
       debugShowCheckedModeBanner: false,
-      locale:const Locale('en','US'),
+      locale: const Locale('en', 'US'),
       translations: Messages(languages: languages),
-      fallbackLocale: const Locale('en','US'),
+      fallbackLocale: const Locale('en', 'US'),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: AppRoutes.LANGUAGE,
+      initialRoute:
+          store.isLoggedIn ? AppRoutes.LANDING_PAGE : AppRoutes.LANGUAGE,
       getPages: Routes.getAllPages(),
       defaultTransition: Transition.topLevel,
       transitionDuration: const Duration(milliseconds: 500),
     );
   }
 }
-
