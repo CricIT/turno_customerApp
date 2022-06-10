@@ -8,6 +8,6 @@ class OtpBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => OtpUseCase(Get.find<OtpRepositoryIml>()));
-    Get.put(OtpController(Get.find()), permanent: true);
+    Get.lazyPut(()=>OtpController(Get.find()));
   }
 }

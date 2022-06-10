@@ -14,12 +14,6 @@ class LoginController extends GetxController {
     super.onReady();
   }
 
-  @override
-  onClose() {
-    phoneController.dispose();
-    super.onClose();
-  }
-
   String get getPhoneNumber {
     return phoneNumber;
   }
@@ -49,6 +43,14 @@ class LoginController extends GetxController {
           ],
         );
       }
-    } catch (error) {}
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  @override
+  onClose() {
+   // phoneController.dispose();
+    super.onClose();
   }
 }

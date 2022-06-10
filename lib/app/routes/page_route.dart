@@ -14,7 +14,7 @@ class Routes {
   static List<GetPage> getAllPages() {
     return [
       GetPage(
-        name: AppRoutes.HOME,
+        name: AppRoutes.LANDING_PAGE,
         page: () => const LandingPage(),
         binding: LandingPageBinding(),
       ),

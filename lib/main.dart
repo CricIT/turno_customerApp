@@ -42,9 +42,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    Constants.DeviceHeight=MediaQuery.of(context).size.height;
-    Constants.DeviceWidth=MediaQuery.of(context).size.height;
-
     return GetMaterialApp(
       title: Constants.APP_NAME,
       debugShowCheckedModeBanner: false,

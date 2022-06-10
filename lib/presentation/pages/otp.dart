@@ -188,7 +188,7 @@ class OtpScreen extends GetView<OtpController> {
                     },
                     child: Text(
                       "resend".tr,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: AppColors.primaryColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,

@@ -10,6 +10,7 @@ import 'package:turno_customer_application/app/config/app_colors.dart';
 import 'package:turno_customer_application/presentation/pages/profile.dart';
 import 'package:turno_customer_application/presentation/pages/support.dart';
 import 'package:turno_customer_application/presentation/widgets/appbar.dart';
+import '../../app/config/constant.dart';
 import '../../app/config/dimentions.dart';
 import '../controllers/landing_page/landing_page_controller.dart';
 import 'my_vehicle.dart';
@@ -25,27 +26,30 @@ class LandingPage extends GetView<LandingPageController> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(80.0),
-            // here the desired height
-            child: BaseAppBar(customerName: "Ramesh",vehicleName: "Piaggio Ape Electrik",),
-          ),
-          bottomNavigationBar:
-          buildBottomNavigationMenu(context, controller),
-          body: Obx(() =>
-              IndexedStack(
-                index: controller.selectedIndex.value,
-                children: const [
-                  MyVehicle(),
-                  Loan(),
-                  Support(),
-                  Profile(),
-                  More(),
-                ],
-              )),
-        ));
+    Constants.DeviceHeight=MediaQuery.of(context).size.height;
+    Constants.DeviceWidth=MediaQuery.of(context).size.width;
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(80.0),
+        // here the desired height
+        child: BaseAppBar(customerName: "Ramesh",vehicleName: "Piaggio Ape Electrik",),
+      ),
+      bottomNavigationBar:
+      buildBottomNavigationMenu(context, controller),
+      body: SafeArea(
+        child: Obx(() =>
+            IndexedStack(
+              index: controller.selectedIndex.value,
+              children: const [
+                MyVehicle(),
+                Loan(),
+                Support(),
+                Profile(),
+                More(),
+              ],
+            )),
+      ),
+    );
   }
 
   buildBottomNavigationMenu(context, landingPageController) {
