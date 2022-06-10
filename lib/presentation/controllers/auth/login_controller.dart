@@ -26,7 +26,7 @@ class LoginController extends GetxController {
   signUpWith(String mobile) async {
     try {
       final response = await _loginUseCase.execute(mobile);
-      debugPrint(response.toString());
+      debugPrint(response.message);
       if (response.status == 'success') {
         Get.toNamed(AppRoutes.OTP);
       } else {
@@ -50,7 +50,7 @@ class LoginController extends GetxController {
 
   @override
   onClose() {
-   // phoneController.dispose();
+    // phoneController.dispose();
     super.onClose();
   }
 }
