@@ -1,18 +1,44 @@
+
+
+
+
 import 'package:flutter/material.dart';
 
-/// AppTextStyle format as follows:
-/// [fontWeight][fontSize][colorName][opacity]
-/// Example: bold18White05
-///
-class AppTextStyles {
-  static TextStyle title = const TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w500,
-    color: Colors.black,
-  );
+import 'app_colors.dart';
+import 'constant.dart';
 
-  static TextStyle body = const TextStyle(
-    fontSize: 13,
-    color: Colors.grey,
-  );
-}
+
+const TextStyle lightBlackNormal12 =  TextStyle(
+  color: AppColors.lightBlack,
+  fontWeight: FontWeight.w400,
+  fontStyle: FontStyle.normal,
+  fontSize: 12,
+  fontFamily: Constants.POPPINS,
+);
+
+const TextStyle blackNormal14 =
+TextStyle(
+  color: AppColors.black,
+  fontWeight: FontWeight.w400,
+  fontStyle: FontStyle.normal,
+  fontSize: 14,
+  fontFamily: Constants.POPPINS,
+);
+
+const TextStyle lightBlackBold16 =  TextStyle(
+  color: AppColors.lightBlack,
+  fontWeight: FontWeight.w600,
+  fontStyle: FontStyle.normal,
+  fontSize: 16,
+  fontFamily: Constants.POPPINS,
+);
+
+
+const TextStyle darkGrayNormal10 =
+TextStyle(
+  color: AppColors.darkGray,
+  fontWeight: FontWeight.w500,
+  fontStyle: FontStyle.normal,
+  fontSize: 10,
+  fontFamily: Constants.POPPINS,
+);

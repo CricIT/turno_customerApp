@@ -32,7 +32,7 @@ class OtpController extends GetxController {
       if (response.status == 'success') {
         isLoggedIn.value = true;
         isLoggedIn.refresh();
-        Get.toNamed(AppRoutes.HOME);
+        Get.offAllNamed(AppRoutes.LANDING_PAGE);
       } else {
         Get.defaultDialog(
           title: 'Oh no!',
@@ -56,11 +56,7 @@ class OtpController extends GetxController {
     Get.offAll(AppRoutes.LOGIN);
   }
 
-  @override
-  onClose() {
-    otpController.dispose();
-    super.onClose();
-  }
+
 
   void startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -77,5 +73,12 @@ class OtpController extends GetxController {
     _timer.cancel();
     count = 59;
     update();
+  }
+
+  @override
+  onClose() {
+    /*  otpController.dispose();
+    loginController.dispose();*/
+    super.onClose();
   }
 }
