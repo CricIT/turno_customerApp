@@ -5,6 +5,18 @@ import 'package:get/get.dart';
 import '../core/tracker/tracker.dart';
 import 'local_storage.dart';
 
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  TrackHandler.trackEvent(
+    eventName: 'BackgroundNotificationReceived',
+    params: {'messageId': message.messageId},
+  );
+  if (kDebugMode) {
+    print('Handling a background message ${message.messageId}');
+  }
+}
+
 class FirebaseService extends GetxService {
   final store = Get.find<LocalStorageService>();
 
@@ -14,19 +26,6 @@ class FirebaseService extends GetxService {
     _initNotifications();
     _initEventTracking();
     super.onReady();
-  }
-
-  Future<void> _firebaseMessagingBackgroundHandler(
-      RemoteMessage message) async {
-    // If you're going to use other Firebase services in the background, such as Firestore,
-    // make sure you call `initializeApp` before using other Firebase services.
-    TrackHandler.trackEvent(
-      eventName: 'BackgroundNotificationReceived',
-      params: {'messageId': message.messageId},
-    );
-    if (kDebugMode) {
-      print('Handling a background message ${message.messageId}');
-    }
   }
 
   /// initialize [TrackHandler]
@@ -85,7 +84,7 @@ class FirebaseService extends GetxService {
               onDidReceiveLocalNotification: (_, s, a, b) async {});
 
       MacOSInitializationSettings initializationSettingsMacOS =
-          MacOSInitializationSettings();
+          const MacOSInitializationSettings();
 
       final InitializationSettings initializationSettings =
           InitializationSettings(
@@ -109,12 +108,9 @@ class FirebaseService extends GetxService {
           notification.title,
           notification.body,
           NotificationDetails(
-            android: AndroidNotificationDetails(
-              channel.id,
-              channel.name,
-              channelDescription: channel.description,
-              icon: '@mipmap/ic_launcher'
-            ),
+            android: AndroidNotificationDetails(channel.id, channel.name,
+                channelDescription: channel.description,
+                icon: '@mipmap/ic_launcher'),
           ),
         );
       }
