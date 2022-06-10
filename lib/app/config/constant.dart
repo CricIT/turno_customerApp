@@ -4,8 +4,6 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-
 class Constants {
   static const String APP_NAME = 'Turno';
 
@@ -18,6 +16,7 @@ class Constants {
     {'name': 'ta_IN', 'locale': Locale('ta', 'IN')},
     {'name': 'te_IN', 'locale': Locale('te', 'IN')},
   ];
+  static const String otpGifImage = 'assets/images/otp.gif';
 
   static const String  POPPINS='Poppins';
 
@@ -26,4 +25,10 @@ class Constants {
 
   static double  DeviceHeight=0;
   static double  DeviceWidth=0;
+  static const List<String> loginPageImages = [
+    'assets/images/img1.png',
+    'assets/images/img2.png',
+    'assets/images/img3.png',
+    'assets/images/img4.png',
+  ];
 }

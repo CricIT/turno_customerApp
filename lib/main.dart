@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/services/firebase.dart';
 import 'app/config/app_colors.dart';
+import 'package:turno_customer_application/data/repositories/login_repository.dart';
+import 'package:turno_customer_application/data/repositories/otp_repository.dart';
 import 'app/config/constant.dart';
 import 'app/routes/app_route.dart';
 import 'app/routes/page_route.dart';
@@ -11,7 +13,9 @@ import 'app/services/local_storage.dart';
 import 'app/util/messages.dart';
 void main() async  {
   WidgetsFlutterBinding.ensureInitialized();
-
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: AppColors.mediumGray,
     statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
@@ -27,8 +31,10 @@ initServices() async {
     await Firebase.initializeApp();
     await Get.putAsync(() => LocalStorageService().init());
     Get.put(FirebaseService(),permanent :true);
+    Get.put(LoginRepositoryIml());
+    Get.put(OtpRepositoryIml());
 }
- 
+
 class MyApp extends StatelessWidget {
   final Map<String, Map<String, String>> languages;
   const MyApp(this.languages, {Key? key}) : super(key: key);
@@ -48,7 +54,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: AppRoutes.HOME,
+      initialRoute: AppRoutes.LANGUAGE,
       getPages: Routes.getAllPages(),
       defaultTransition: Transition.topLevel,
       transitionDuration: const Duration(milliseconds: 500),
