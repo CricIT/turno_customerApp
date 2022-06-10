@@ -14,6 +14,9 @@ class AppColors {
   static const Color white = Color(0xFFFFFFFF);
   static const Color dividerGray = Color(0xFFDDDDDD);
   static const Color lightPurple = Color(0xFF6462D9);
+  static const Color xlightPurple = Color(0xFFEDEDFF);
+
+
 
 
 }

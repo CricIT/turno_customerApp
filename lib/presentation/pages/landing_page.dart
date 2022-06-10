@@ -55,8 +55,8 @@ class LandingPage extends GetView<LandingPageController> {
             child: SizedBox(
               child: BottomNavigationBar(
                 type: BottomNavigationBarType.fixed,
-                selectedFontSize: 14,
-                unselectedFontSize: 12,
+                selectedFontSize: Dimensions.FONT_SIZE_DEFAULT,
+                unselectedFontSize: Dimensions.FONT_SIZE_SMALL,
                 onTap: landingPageController.setSelectedIndex,
                 currentIndex: landingPageController.selectedIndex.value,
                 backgroundColor: Colors.white,
@@ -70,35 +70,35 @@ class LandingPage extends GetView<LandingPageController> {
                   BottomNavigationBarItem(
                     icon: const Icon(
                       Icons.home,
-                      size: Dimensions.RADIUS_VERY_EXTRA_LARGE,
+                      size: Dimensions.RADIUS_XXLARGE,
                     ),
                     label: 'my_vehicle'.tr,
                   ),
                   BottomNavigationBarItem(
                     icon: const Icon(
                       Icons.search,
-                      size: Dimensions.RADIUS_VERY_EXTRA_LARGE,
+                      size: Dimensions.RADIUS_XXLARGE,
                     ),
                     label: 'loan_details'.tr,
                   ),
                   BottomNavigationBarItem(
                     icon: const Icon(
                       Icons.support_agent,
-                      size: Dimensions.RADIUS_VERY_EXTRA_LARGE,
+                      size: Dimensions.RADIUS_XXLARGE,
                     ),
                     label: 'help'.tr,
                   ),
                   BottomNavigationBarItem(
                     icon: const Icon(
                       Icons.account_circle,
-                      size:Dimensions.RADIUS_VERY_EXTRA_LARGE,
+                      size:Dimensions.RADIUS_XXLARGE,
                     ),
                     label: 'profile'.tr,
                   ),
                    BottomNavigationBarItem(
                     icon: const Icon(
                       Icons.more_vert,
-                      size:Dimensions.RADIUS_VERY_EXTRA_LARGE,
+                      size:Dimensions.RADIUS_XXLARGE,
                     ),
                     label: 'more'.tr,
                   ),

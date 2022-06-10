@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:turno_customer_application/app/config/dimentions.dart';
 import '../../app/config/app_colors.dart';
 import '../../app/constants/images.dart';
 import '../controllers/home/home_controller.dart';
@@ -21,7 +22,7 @@ class MyVehicle extends GetView<HomeController> {
         body: SafeArea(
             child: SingleChildScrollView(
           child: Container(
-            margin: const EdgeInsets.all(15),
+            margin: const EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +33,7 @@ class MyVehicle extends GetView<HomeController> {
                   ),
                   CustomLabel(
                     title: "3_years_return_value".tr,
-                    fontSize: 16,
+                    fontSize: Dimensions.FONT_SIZE_LARGE,
                     fontWeight: FontWeight.w600,
                     color: AppColors.black,
                   ),
@@ -41,7 +42,7 @@ class MyVehicle extends GetView<HomeController> {
                   ),
                   CustomLabel(
                     title: "3_years_calculation_desc".tr,
-                    fontSize: 12,
+                    fontSize: Dimensions.FONT_SIZE_SMALL,
                     fontWeight: FontWeight.w400,
                     color: AppColors.darkGray,
                   ),
@@ -60,10 +61,11 @@ class MyVehicle extends GetView<HomeController> {
 
   _vehicleSocAndCurrentBuyBackValue() {
     return Container(
-        padding: const EdgeInsets.only(top: 20,bottom: 20,left: 30,right: 30),
+        padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_LARGE,bottom: Dimensions.PADDING_SIZE_LARGE,
+            left: Dimensions.PADDING_SIZE_XXLARGE,right: Dimensions.PADDING_SIZE_XXLARGE),
         decoration: BoxDecoration(
             color: AppColors.white,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(Dimensions.RADIUS_DEFAULT),
             border: Border.all(
               color: AppColors.borderGray,
               width: 1,
@@ -85,7 +87,7 @@ class MyVehicle extends GetView<HomeController> {
                       ),
                       CustomLabel(
                         title: "charge".tr,
-                        fontSize: 12,
+                        fontSize: Dimensions.FONT_SIZE_SMALL,
                         fontWeight: FontWeight.w400,
                         color: AppColors.darkGray,
                       )
@@ -96,7 +98,7 @@ class MyVehicle extends GetView<HomeController> {
                   ),
                   const CustomLabel(
                       title: "58%",
-                      fontSize: 21,
+                      fontSize: Dimensions.FONT_SIZE_XXLARGE,
                       fontWeight: FontWeight.w400,
                       color: AppColors.black)
                 ],
@@ -111,7 +113,7 @@ class MyVehicle extends GetView<HomeController> {
                       ),
                       CustomLabel(
                           title: "available_range".tr,
-                          fontSize: 12,
+                          fontSize: Dimensions.FONT_SIZE_SMALL,
                           fontWeight: FontWeight.w400,
                           color: AppColors.darkGray)
                     ],
@@ -121,7 +123,7 @@ class MyVehicle extends GetView<HomeController> {
                   ),
                   const CustomLabel(
                       title: "97 KM",
-                      fontSize: 21,
+                      fontSize: Dimensions.FONT_SIZE_XXLARGE,
                       fontWeight: FontWeight.w400,
                       color: AppColors.black)
                 ],
@@ -129,7 +131,7 @@ class MyVehicle extends GetView<HomeController> {
             ],
           ),
           Container(
-            margin: const EdgeInsets.only(top: 15, bottom: 15),
+            margin: const EdgeInsets.only(top:  Dimensions.PADDING_SIZE_DEFAULT, bottom: Dimensions.PADDING_SIZE_DEFAULT),
             child: const Divider(
               height: 2,
               color: AppColors.dividerGray,
@@ -140,8 +142,8 @@ class MyVehicle extends GetView<HomeController> {
             spanText2: " ₹ 1,30,000",
             color1: AppColors.darkGray,
             color2: AppColors.black,
-            fontSize1: 18,
-            fontSize2: 18,
+            fontSize1: Dimensions.FONT_SIZE_XLARGE,
+            fontSize2:  Dimensions.FONT_SIZE_XLARGE,
           )
         ]));
   }

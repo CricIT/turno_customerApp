@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'package:turno_customer_application/app/config/constant.dart';
 
 import '../../app/config/app_colors.dart';
 import '../../app/config/app_text_styles.dart';
+import '../../app/config/dimentions.dart';
 import 'custom_label.dart';
 
 class GuageCardView extends StatelessWidget {
@@ -23,7 +26,7 @@ class GuageCardView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: MediaQuery.of(context).size.width / 2.22,
-        padding: const EdgeInsets.only(top: 20, bottom: 20),
+        padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_LARGE, bottom: Dimensions.PADDING_SIZE_LARGE),
         decoration: BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.circular(8),
@@ -38,7 +41,7 @@ class GuageCardView extends StatelessWidget {
               Center(
                 child: CustomLabel(
                   title: header,
-                  fontSize: 16,
+                  fontSize: Dimensions.FONT_SIZE_LARGE,
                   fontWeight: FontWeight.w500,
                   color: AppColors.black,
                 ),
@@ -70,22 +73,21 @@ class GuageCardView extends StatelessWidget {
                                     Text(centreText, style: darkGrayNormal10)
                                   ],
                                 )),
-
-                             GaugeAnnotation(
+                            GaugeAnnotation(
                               angle: 180,
                               positionFactor: 1,
-                              widget:
-                              Container(
+                              widget: Container(
                                   margin: const EdgeInsets.only(top: 30),
-                                  child: Text(startRange,  style: lightBlackNormal12)),
+                                  child: Text(startRange,
+                                      style: lightBlackNormal12)),
                             ),
-                             GaugeAnnotation(
+                            GaugeAnnotation(
                               angle: 360,
-                              positionFactor: isSingleColour?1:0.8,
-                              widget:
-                              Container(
+                              positionFactor: isSingleColour ? 1 : 0.8,
+                              widget: Container(
                                   margin: const EdgeInsets.only(top: 30),
-                                  child: Text(endRange, textAlign: TextAlign.left,
+                                  child: Text(endRange,
+                                      textAlign: TextAlign.left,
                                       style: lightBlackNormal12)),
                             ),
                           ],
@@ -127,7 +129,8 @@ class GuageCardView extends StatelessWidget {
                                 value: 65,
                                 child: Container(
                                     margin: const EdgeInsets.only(top: 20.0),
-                                    child: const Icon(Icons.arrow_drop_down,color:AppColors.primaryColor)))
+                                    child: const Icon(Icons.arrow_drop_down,
+                                        color: AppColors.primaryColor)))
                           ]),
                     ],
                   ),
@@ -136,9 +139,36 @@ class GuageCardView extends StatelessWidget {
               CustomLabel(
                   title: description,
                   textAlign: TextAlign.center,
-                  fontSize: 12,
+                  fontSize: Dimensions.FONT_SIZE_SMALL,
+                  maxLines: 5,
                   fontWeight: FontWeight.w400,
-                  color: AppColors.black)
+                  color: AppColors.black),
+               SizedBox(
+                height: Constants.DeviceHeight*0.02*0.03,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                   CircleAvatar(
+                    radius: Dimensions.RADIUS_DEFAULT,
+                    backgroundColor: AppColors.xlightPurple,
+                    child: Icon(
+                      Icons.question_mark,
+                      size: Constants.DeviceWidth*0.02,
+                      color: AppColors.primaryColor,
+                    ),
+                  ),
+                   SizedBox(
+                    width: Constants.DeviceWidth*0.02,
+                  ),
+                  CustomLabel(
+                      title: "how_is_it_calculated".tr,
+                      textAlign: TextAlign.center,
+                      fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
+                      maxLines: 2,
+                      fontWeight: FontWeight.w400),
+                ],
+              )
             ]));
   }
 }
