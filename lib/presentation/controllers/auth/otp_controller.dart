@@ -10,7 +10,6 @@ import '../../../app/services/local_storage.dart';
 class OtpController extends GetxController {
   OtpController(this.otpUseCase);
   final OtpUseCase otpUseCase;
-  var isLoggedIn = false.obs;
   final store = Get.find<LocalStorageService>();
   TextEditingController otpController = TextEditingController();
   final LoginController loginController = Get.find<LoginController>();
@@ -22,7 +21,6 @@ class OtpController extends GetxController {
   void onInit() {
     super.onInit();
     startTimer();
-    isLoggedIn.value = store.user != null;
   }
 
   verifyOtp(String mobile, String otp) async {
@@ -30,8 +28,7 @@ class OtpController extends GetxController {
       final response = await otpUseCase.execute(Tuple2(mobile, otp));
       debugPrint(response.toString());
       if (response.status == 'success') {
-        isLoggedIn.value = true;
-        isLoggedIn.refresh();
+        store.isLoggedIn = true;
         Get.offAllNamed(AppRoutes.LANDING_PAGE);
       } else {
         Get.defaultDialog(
@@ -52,11 +49,9 @@ class OtpController extends GetxController {
 
   logout() {
     store.user = null;
-    isLoggedIn.value = false;
+    store.isLoggedIn = false;
     Get.offAll(AppRoutes.LOGIN);
   }
-
-
 
   void startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
