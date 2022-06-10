@@ -1,11 +1,14 @@
-
-
-
-
 {
-  "hello": "ಹಲೋ ವರ್ಲ್ಡ್",
-  "message":"ಪ್ರೋಟೋ ಕೋಡರ್ ಪಾಯಿಂಟ್‌ಗೆ ಸುಸ್ವಾಗತ",
-  "title":"ಬೀಸು ಭಾಷೆ - ಸ್ಥಳೀಕರಣ",
-  "subscribe":"ವಂತಿಗೆ ಕೊಡು",
-  "changelang":"ಭಾಷೆ ಬದಲಿಸ"
+  "my_vehicle": "My Vehicle",
+  "loan_details":"Loan Details",
+  "help":"Help",
+  "profile":"Profile",
+  "more":"More",
+  "logout": "Logout",
+  "rewards": "Rewards",
+  "refer_earn": "Refer and Earn",
+  "choose_language": "Choose your Language",
+  "apply_loan": "Apply for New Loan",
+  "vehicle_catalogue": "Vehicle Catalogue",
+  "vehicle_stats": "Vehicel Stats"
 }

@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/services/firebase.dart';
+import 'app/config/app_colors.dart';
 import 'app/config/constant.dart';
 import 'app/routes/app_route.dart';
 import 'app/routes/page_route.dart';
@@ -9,7 +11,12 @@ import 'app/services/local_storage.dart';
 import 'app/util/messages.dart';
 void main() async  {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: AppColors.mediumGray,
+    statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+    statusBarBrightness: Brightness.light, // For iOS (dark icons)
+  ));
   await initServices();
   //fetch all languages .json files and convert
   Map<String, Map<String, String>> languages = await Messages.getAllTranslations();
@@ -17,10 +24,11 @@ void main() async  {
 }
 
 initServices() async {
+    await Firebase.initializeApp();
     await Get.putAsync(() => LocalStorageService().init());
     Get.put(FirebaseService(),permanent :true);
 }
-
+ 
 class MyApp extends StatelessWidget {
   final Map<String, Map<String, String>> languages;
   const MyApp(this.languages, {Key? key}) : super(key: key);

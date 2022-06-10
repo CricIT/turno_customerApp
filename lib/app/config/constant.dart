@@ -19,6 +19,13 @@ class Constants {
     {'name': 'te_IN', 'locale': Locale('te', 'IN')},
   ];
 
+  static const String  POPPINS='Poppins';
+
+
+
+  static const int  minHeight=50 ;
+
+  static const int  maxHeight=80;
 
 
 }

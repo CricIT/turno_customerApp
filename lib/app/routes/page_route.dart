@@ -1,9 +1,9 @@
 
 
 import 'package:get/get.dart';
-import 'package:turno_customer_application/presentation/controllers/home/home_binding.dart';
 
-import '../../presentation/pages/home.dart';
+import '../../presentation/controllers/landing_page/landing_page_binding.dart';
+import '../../presentation/pages/landing_page.dart';
 import 'app_route.dart';
 
 
@@ -12,8 +12,8 @@ class Routes {
     return [
       GetPage(
         name: AppRoutes.HOME,
-        page: () => MyHomePage(),
-        binding: HomeBinding(),
+        page: () => const LandingPage(),
+        binding: LandingPageBinding(),
       ),
 
 

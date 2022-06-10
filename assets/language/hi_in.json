@@ -1,10 +1,14 @@
-
-
-
 {
-  "hello": "नमस्ते दुनिया",
-  "message":"प्रोटो कोडर प्वाइंट में आपका स्वागत है",
-  "title":"स्पंदन भाषा - स्थानीयकरण",
-  "subscribe":"सब्सक्राइब",
-  "changelang":"भाषा बदलो"
+  "my_vehicle": "My Vehicle",
+  "loan_details":"Loan Details",
+  "help":"Help",
+  "profile":"Profile",
+  "more":"More",
+  "logout": "Logout",
+  "rewards": "Rewards",
+  "refer_earn": "Refer and Earn",
+  "choose_language": "Choose your Language",
+  "apply_loan": "Apply for New Loan",
+  "vehicle_catalogue": "Vehicle Catalogue",
+  "vehicle_stats": "Vehicel Stats"
 }
