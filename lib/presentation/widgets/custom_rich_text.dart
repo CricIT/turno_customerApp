@@ -1,10 +1,5 @@
-
-
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
-
 import '../../app/config/constant.dart';
 
 class CustomRichText extends StatelessWidget {
@@ -15,24 +10,27 @@ class CustomRichText extends StatelessWidget {
   final String fontFamily1, fontFamily2;
   final double fontSize1, fontSize2;
 
-  CustomRichText(
-      {required this.spanText1,
-        required this.spanText2,
-        this.color1 = AppColors.primaryColor,
-        this.color2 = AppColors.primaryColor,
-        this.fontWeight1 = FontWeight.w400,
-        this.fontWeight2 = FontWeight.w400,
-        this.fontStyle1 = FontStyle.normal,
-        this.fontStyle2 = FontStyle.normal,
-        this.fontFamily1 = Constants.POPPINS,
-        this.fontFamily2 = Constants.POPPINS,
-        this.fontSize1 = 12,
-        this.fontSize2 = 18});
+  const CustomRichText(
+      {Key? key,
+      required this.spanText1,
+      required this.spanText2,
+      this.color1 = AppColors.primaryColor,
+      this.color2 = AppColors.primaryColor,
+      this.fontWeight1 = FontWeight.w400,
+      this.fontWeight2 = FontWeight.w400,
+      this.fontStyle1 = FontStyle.normal,
+      this.fontStyle2 = FontStyle.normal,
+      this.fontFamily1 = Constants.poppins,
+      this.fontFamily2 = Constants.poppins,
+      this.fontSize1 = 12,
+      this.fontSize2 = 18})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return RichText(
-        text: TextSpan(children: [
+      text: TextSpan(
+        children: [
           TextSpan(
               text: spanText1,
               style: TextStyle(
@@ -43,14 +41,17 @@ class CustomRichText extends StatelessWidget {
                 fontStyle: fontStyle1,
               )),
           TextSpan(
-              text: spanText2,
-              style: TextStyle(
-                fontFamily: fontFamily2,
-                color: color2,
-                fontSize: fontSize2,
-                fontWeight: fontWeight2,
-                fontStyle: fontStyle2,
-              )),
-        ]));
+            text: spanText2,
+            style: TextStyle(
+              fontFamily: fontFamily2,
+              color: color2,
+              fontSize: fontSize2,
+              fontWeight: fontWeight2,
+              fontStyle: fontStyle2,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

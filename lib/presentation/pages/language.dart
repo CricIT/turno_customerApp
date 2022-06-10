@@ -10,8 +10,8 @@ class ChooseLanguage extends GetView<LangController> {
 
   @override
   Widget build(BuildContext context) {
-    Constants.DeviceHeight=MediaQuery.of(context).size.height;
-    Constants.DeviceWidth=MediaQuery.of(context).size.width;
+    Constants.deviceHeight = MediaQuery.of(context).size.height;
+    Constants.deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       body: SafeArea(

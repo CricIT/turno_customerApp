@@ -23,6 +23,7 @@ class OtpScreen extends GetView<OtpController> {
         width: MediaQuery.of(context).size.width,
         child: ListView(
           children: <Widget>[
+            _buildBackButton(),
             const SizedBox(height: 30),
             _buildHeaderImage(context),
             const SizedBox(height: 8),
@@ -157,7 +158,7 @@ class OtpScreen extends GetView<OtpController> {
       children: [
         Text(
           "code_not_get".tr,
-          style: TextStyle(
+          style: const TextStyle(
             color: AppColors.subTextColor,
             fontSize: 15,
           ),
@@ -216,13 +217,24 @@ class OtpScreen extends GetView<OtpController> {
       child: Center(
         child: Text(
           "verify".tr.toUpperCase(),
-          style: TextStyle(
+          style: const TextStyle(
             color: AppColors.whiteColor,
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildBackButton() {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: const Icon(Icons.arrow_back_ios)),
     );
   }
 }

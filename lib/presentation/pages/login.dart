@@ -16,24 +16,19 @@ class LoginPage extends GetView<LoginController> {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(15),
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _buildLoginText(),
-                _buildCarouselSlider(),
-                _otpText(),
-                _buildPhoneInputField(),
-                const Spacer(),
-                _nextButton(),
-                const SizedBox(
-                  height: 48,
-                ),
-              ],
-            ),
+        child: Container(
+          padding: const EdgeInsets.all(15),
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              _buildLoginText(),
+              _buildCarouselSlider(),
+              _otpText(),
+              _buildPhoneInputField(),
+              const Spacer(),
+              _nextButton(),
+            ],
           ),
         ),
       ),
@@ -46,7 +41,7 @@ class LoginPage extends GetView<LoginController> {
       child: Center(
         child: Text(
           'login'.tr,
-          style: TextStyle(
+          style: const TextStyle(
             color: AppColors.blackColor,
             fontSize: 32,
             fontWeight: FontWeight.w900,
@@ -63,6 +58,7 @@ class LoginPage extends GetView<LoginController> {
         options: CarouselOptions(
           viewportFraction: 1,
           autoPlay: true,
+          autoPlayInterval: const Duration(milliseconds: 2500),
           aspectRatio: 1.5,
           padEnds: true,
           enlargeCenterPage: true,
