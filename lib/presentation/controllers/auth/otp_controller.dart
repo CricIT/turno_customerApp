@@ -28,6 +28,7 @@ class OtpController extends GetxController {
   verifyOtp(String mobile, String otp) async {
     try {
       final response = await otpUseCase.execute(Tuple2(mobile, otp));
+      debugPrint(response.toString());
       if (response.status == 'success') {
         isLoggedIn.value = true;
         isLoggedIn.refresh();

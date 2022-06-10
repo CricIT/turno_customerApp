@@ -32,7 +32,7 @@ class LoginController extends GetxController {
   signUpWith(String mobile) async {
     try {
       final response = await _loginUseCase.execute(mobile);
-      print(response.status);
+      debugPrint(response.toString());
       if (response.status == 'success') {
         Get.toNamed(AppRoutes.OTP);
       } else {
