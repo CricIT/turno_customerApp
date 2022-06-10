@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.customerapp.turno.turno_customer_application">
    <application
-        android:label="turno_customer_application"
+        android:label="Turno"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
