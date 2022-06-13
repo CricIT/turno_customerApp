@@ -5,7 +5,6 @@ import 'package:turno_customer_application/presentation/controllers/lang/lang_bi
 import 'package:turno_customer_application/presentation/pages/language.dart';
 import 'package:turno_customer_application/presentation/pages/login.dart';
 import 'package:turno_customer_application/presentation/pages/otp.dart';
-
 import '../../presentation/controllers/landing_page/landing_page_binding.dart';
 import '../../presentation/pages/landing_page.dart';
 import 'app_route.dart';

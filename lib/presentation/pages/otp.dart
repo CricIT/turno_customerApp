@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
+import 'package:turno_customer_application/app/config/dimentions.dart';
 import 'package:turno_customer_application/presentation/controllers/auth/otp_controller.dart';
+import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
 import '../../app/config/constant.dart';
 import 'package:get/get.dart';
 
@@ -60,12 +62,10 @@ class OtpScreen extends GetView<OtpController> {
   Widget _buildHeaderText() {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Text(
-        'phone_verification'.tr,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 22,
-        ),
+      child: CustomLabel(
+        title: 'phone_verification'.tr,
+        fontWeight: FontWeight.bold,
+        fontSize: Dimensions.FONT_SIZE_XXLARGE,
         textAlign: TextAlign.center,
       ),
     );
@@ -84,6 +84,7 @@ class OtpScreen extends GetView<OtpController> {
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
                 fontSize: 15,
+                fontFamily: Constants.poppins,
               ),
             ),
           ],
@@ -102,12 +103,14 @@ class OtpScreen extends GetView<OtpController> {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
         child: PinCodeTextField(
+          useExternalAutoFillGroup: true,
           autoFocus: true,
           controller: controller.otpController,
           appContext: context,
           pastedTextStyle: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
+            fontFamily: Constants.poppins,
           ),
           length: 6,
           animationType: AnimationType.fade,
@@ -183,6 +186,7 @@ class OtpScreen extends GetView<OtpController> {
                       );
                       controller.resetTimer();
                       controller.startTimer();
+                      controller.initOtpListening();
                       controller.loginController.signUpWith(
                         controller.loginController.phoneController.text,
                       );
@@ -215,13 +219,11 @@ class OtpScreen extends GetView<OtpController> {
         }
       },
       child: Center(
-        child: Text(
-          "verify".tr.toUpperCase(),
-          style: const TextStyle(
-            color: AppColors.whiteColor,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+        child: CustomLabel(
+          title: "verify".tr.toUpperCase(),
+          color: AppColors.whiteColor,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
