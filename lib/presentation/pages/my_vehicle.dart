@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/config/dimentions.dart';
+import 'package:turno_customer_application/presentation/controllers/landing_page/landing_page_controller.dart';
 import '../../app/config/app_colors.dart';
 import '../../app/constants/images.dart';
-import '../controllers/home/home_controller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/custom_label.dart';
 import '../widgets/custom_rich_text.dart';
 import '../widgets/guage_card.dart';
 
-class MyVehicle extends GetView<HomeController> {
+class MyVehicle extends GetView<LandingPageController> {
   const MyVehicle({Key? key}) : super(key: key);
 
   @override

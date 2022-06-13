@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
 import 'package:turno_customer_application/app/config/constant.dart';
+import 'package:turno_customer_application/app/config/dimentions.dart';
 import 'package:turno_customer_application/app/routes/app_route.dart';
 import 'package:turno_customer_application/presentation/controllers/lang/lang_controller.dart';
+import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
+
+import '../../app/services/local_storage.dart';
 
 class ChooseLanguage extends GetView<LangController> {
   ChooseLanguage({Key? key}) : super(key: key);
+
+  final store = Get.find<LocalStorageService>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +31,17 @@ class ChooseLanguage extends GetView<LangController> {
                   height: 50,
                 ),
                 Center(
-                  child: Text(
-                    'choose_language'.tr,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                    ),
+                  // child: Text(
+                  //   'choose_language'.tr,
+                  //   style: const TextStyle(
+                  //     fontSize: 24,
+                  //     fontWeight: FontWeight.w700,
+                  //   ),
+                  // ),
+                  child: CustomLabel(
+                    title: 'choose_language'.tr,
+                    fontWeight: FontWeight.w700,
+                    fontSize: Dimensions.FONT_SIZE_XXXLARGE,
                   ),
                 ),
                 const SizedBox(
@@ -57,19 +68,19 @@ class ChooseLanguage extends GetView<LangController> {
                         padding: const EdgeInsets.all(8.0),
                         child: GestureDetector(
                           child: Center(
-                              child: Text(
-                            Constants.languages[index],
-                            style: TextStyle(
-                              color: AppColors.whiteColor,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                            ),
+                              child: CustomLabel(
+                            title: Constants.languages[index],
+                            color: AppColors.whiteColor,
+                            fontSize: Dimensions.FONT_SIZE_XXLARGE,
+                            fontWeight: FontWeight.w700,
                           )),
                           onTap: () {
                             Get.updateLocale(Constants.locale[index]['locale']);
                             controller.setUserPreferredLanguage(
                                 Constants.locale[index]['name']);
-                            Get.toNamed(AppRoutes.LOGIN);
+                            store.isLoggedIn
+                                ? Get.offAllNamed(AppRoutes.LANDING_PAGE)
+                                : Get.toNamed(AppRoutes.LOGIN);
                           },
                         ),
                       );

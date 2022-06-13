@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
-import 'package:turno_customer_application/presentation/controllers/more/more_controller.dart';
+import 'package:turno_customer_application/app/routes/app_route.dart';
+import 'package:turno_customer_application/presentation/controllers/landing_page/more_controller.dart';
 import '../../app/config/dimentions.dart';
 import '../widgets/custom_label.dart';
 
@@ -32,7 +33,9 @@ class More extends GetView<MoreController> {
               _moreItem(
                   itemName: "choose_language".tr,
                   itemIcon: Icons.language,
-                  onClick: () {}),
+                  onClick: () {
+                    Get.offAllNamed(AppRoutes.LANGUAGE);
+                  }),
               _moreItem(
                   itemName: "refer_earn".tr,
                   itemIcon: Icons.people_alt_sharp,
@@ -44,7 +47,9 @@ class More extends GetView<MoreController> {
               _moreItem(
                   itemName: "logout".tr,
                   itemIcon: Icons.logout,
-                  onClick: () {}),
+                  onClick: () {
+                    controller.logout();
+                  }),
             ],
           ),
         ),
@@ -57,7 +62,9 @@ class More extends GetView<MoreController> {
       required IconData itemIcon,
       required Function onClick}) {
     return InkWell(
-      onTap: onClick(),
+      onTap: () {
+        onClick();
+      },
       child: Container(
         margin: const EdgeInsets.only(bottom: 1),
         padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE),
