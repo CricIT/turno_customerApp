@@ -17,8 +17,7 @@ class AppColors {
   static const Color dividerGray = Color(0xFFDDDDDD);
   static const Color lightPurple = Color(0xFF6462D9);
   static const Color xlightPurple = Color(0xFFEDEDFF);
-
-
+  static const Color paleYello =    Color(0xFFFFF3CA);
 
 
   static Color primary = HexColor("05101A");

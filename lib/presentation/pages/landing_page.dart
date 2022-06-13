@@ -59,8 +59,8 @@ class LandingPage extends GetView<LandingPageController> {
             child: SizedBox(
               child: BottomNavigationBar(
                 type: BottomNavigationBarType.fixed,
-                selectedFontSize: Dimensions.FONT_SIZE_DEFAULT,
-                unselectedFontSize: Dimensions.FONT_SIZE_SMALL,
+                selectedFontSize: Dimensions.FONT_SIZE_SMALL,
+                unselectedFontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
                 onTap: landingPageController.setSelectedIndex,
                 currentIndex: landingPageController.selectedIndex.value,
                 backgroundColor: Colors.white,
@@ -68,6 +68,7 @@ class LandingPage extends GetView<LandingPageController> {
                 selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500,fontFamily: 'Poppins'),
                 unselectedIconTheme: const IconThemeData(
                   color: AppColors.darkGray,
+
                 ),
                 unselectedItemColor: AppColors.darkGray,
                 items:  [

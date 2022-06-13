@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:tuple/tuple.dart';
 import 'package:turno_customer_application/app/routes/app_route.dart';
 import 'package:turno_customer_application/domain/usecases/auth/otp_usecase.dart';
@@ -11,9 +12,11 @@ class OtpController extends GetxController {
   OtpController(this.otpUseCase);
   final OtpUseCase otpUseCase;
   var isLoggedIn = false.obs;
+  StreamController<ErrorAnimationType>? errorController;
+  final formKey = GlobalKey<FormState>();
   final store = Get.find<LocalStorageService>();
-  TextEditingController otpController = TextEditingController();
-  final LoginController loginController = Get.find<LoginController>();
+  TextEditingController otptxtController = TextEditingController();
+   LoginController loginController = Get.find<LoginController>();
 
   var count = 60;
   late Timer _timer;
@@ -75,10 +78,4 @@ class OtpController extends GetxController {
     update();
   }
 
-  @override
-  onClose() {
-    /*  otpController.dispose();
-    loginController.dispose();*/
-    super.onClose();
-  }
 }

@@ -23,15 +23,19 @@ class More extends GetView<MoreController> {
             _moreItem(
                 itemName: "vehicle_catalogue".tr,
                 itemIcon: Icons.car_repair,
-                onClick: () {}),
+                onClick: () {
+                  debugPrint("vehicle");
+                }),
             _moreItem(
                 itemName: "apply_loan".tr,
                 itemIcon: Icons.account_balance,
-                onClick: () {}),
+                onClick: () {
+                  print("loan");
+                }),
             _moreItem(
                 itemName: "vehicle_stats".tr,
                 itemIcon: Icons.stacked_bar_chart,
-                onClick: ()  {}),
+                onClick: () {}),
             _moreItem(
                 itemName: "choose_language".tr,
                 itemIcon: Icons.language,
@@ -41,15 +45,9 @@ class More extends GetView<MoreController> {
                 itemIcon: Icons.people_alt_sharp,
                 onClick: () {}),
             _moreItem(
-                itemName: "rewards".tr,
-                itemIcon: Icons.money,
-                onClick: () {}),
+                itemName: "rewards".tr, itemIcon: Icons.money, onClick: () {}),
             _moreItem(
-                itemName: "logout".tr,
-                itemIcon: Icons.logout,
-                onClick: () {
-
-                }),
+                itemName: "logout".tr, itemIcon: Icons.logout, onClick: () {}),
           ],
         ))));
   }
@@ -59,7 +57,9 @@ class More extends GetView<MoreController> {
       required IconData itemIcon,
       required Function onClick}) {
     return InkWell(
-      onTap: onClick(),
+      onTap: () {
+        onClick();
+      },
       child: Container(
         margin: const EdgeInsets.only(bottom: 1),
         padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE),
@@ -71,7 +71,9 @@ class More extends GetView<MoreController> {
               width: 15,
             ),
             CustomLabel(
-                title: itemName, fontSize: Dimensions.FONT_SIZE_LARGE, fontWeight: FontWeight.w500)
+                title: itemName,
+                fontSize: Dimensions.FONT_SIZE_LARGE,
+                fontWeight: FontWeight.w500)
           ],
         ),
       ),

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:turno_customer_application/app/config/constant.dart';
-
 import '../../app/config/app_colors.dart';
 import '../../app/config/app_text_styles.dart';
 import '../../app/config/dimentions.dart';
+import '../../app/constants/images.dart';
 import 'custom_label.dart';
 
 class GuageCardView extends StatelessWidget {
@@ -144,20 +145,12 @@ class GuageCardView extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                   color: AppColors.black),
                SizedBox(
-                height: Constants.DeviceHeight*0.02*0.03,
+                height: Constants.DeviceHeight*0.02,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                   CircleAvatar(
-                    radius: Dimensions.RADIUS_DEFAULT,
-                    backgroundColor: AppColors.xlightPurple,
-                    child: Icon(
-                      Icons.question_mark,
-                      size: Constants.DeviceWidth*0.02,
-                      color: AppColors.primaryColor,
-                    ),
-                  ),
+                  SvgPicture.asset(Images.iconQuestion),
                    SizedBox(
                     width: Constants.DeviceWidth*0.02,
                   ),

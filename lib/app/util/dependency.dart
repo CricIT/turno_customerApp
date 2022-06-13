@@ -4,7 +4,8 @@ import 'package:turno_customer_application/data/repositories/otp_repository.dart
 
 class DependencyCreator {
   static init() {
-    Get.lazyPut(() => LoginRepositoryIml());
-    Get.lazyPut(() => OtpRepositoryIml());
+    Get.lazyPut(() => LoginRepositoryIml(),fenix: true);
+    Get.lazyPut(() => OtpRepositoryIml(),fenix: true);
+
   }
 }

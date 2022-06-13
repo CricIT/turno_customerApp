@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import '../../../app/services/local_storage.dart';
 
 
-
 class LandingPageController extends GetxController {
 
   final store = Get.find<LocalStorageService>();

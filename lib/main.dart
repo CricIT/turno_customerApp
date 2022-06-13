@@ -4,14 +4,15 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/services/firebase.dart';
 import 'app/config/app_colors.dart';
-import 'package:turno_customer_application/data/repositories/login_repository.dart';
-import 'package:turno_customer_application/data/repositories/otp_repository.dart';
+import 'package:turno_customer_application/app/util/dependency.dart';
+
 import 'app/config/constant.dart';
 import 'app/routes/app_route.dart';
 import 'app/routes/page_route.dart';
 import 'app/services/local_storage.dart';
 import 'app/util/messages.dart';
 void main() async  {
+  DependencyCreator.init();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -31,8 +32,7 @@ initServices() async {
     await Firebase.initializeApp();
     await Get.putAsync(() => LocalStorageService().init());
     Get.put(FirebaseService(),permanent :true);
-    Get.put(LoginRepositoryIml());
-    Get.put(OtpRepositoryIml());
+
 }
 
 class MyApp extends StatelessWidget {

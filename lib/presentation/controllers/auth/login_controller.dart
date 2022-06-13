@@ -7,7 +7,7 @@ class LoginController extends GetxController {
   LoginController(this._loginUseCase);
   final LoginUseCase _loginUseCase;
   TextEditingController phoneController = TextEditingController();
-  String phoneNumber = '';
+  String _phoneNumber = '';
 
   @override
   void onReady() {
@@ -15,12 +15,12 @@ class LoginController extends GetxController {
   }
 
   String get getPhoneNumber {
-    return phoneNumber;
+    return _phoneNumber;
   }
 
   set setPhoneNumber(String number) {
     debugPrint(number);
-    phoneNumber = number;
+    _phoneNumber = number;
   }
 
   signUpWith(String mobile) async {
@@ -50,7 +50,7 @@ class LoginController extends GetxController {
 
   @override
   onClose() {
-   // phoneController.dispose();
+    phoneController.dispose();
     super.onClose();
   }
 }
