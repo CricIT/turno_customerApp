@@ -36,7 +36,7 @@ class CustomTextButton extends StatelessWidget {
     this.fontWeight = FontWeight.normal,
     this.fontSize = Dimensions.FONT_SIZE_DEFAULT,
     this.color = AppColors.primaryColor,
-    this.fontFamily = Constants.POPPINS,
+    this.fontFamily = Constants.poppins,
     this.textAlign = TextAlign.left,
     this.maxLines = 1,
     this.height = 1.2,
@@ -56,7 +56,7 @@ class CustomTextButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all( Dimensions.PADDING_SIZE_LARGE),
         decoration: isBorderVisibile? BoxDecoration(
-            color: AppColors.white,
+            color: AppColors.whiteColor,
             borderRadius: BorderRadius.circular(Dimensions.RADIUS_DEFAULT),
             border: Border.all(
               color: borderColor,

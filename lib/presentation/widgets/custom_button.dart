@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
 
 class CustomButton extends StatelessWidget {
-  CustomButton({
+  const CustomButton({
+    Key? key,
     required this.buttonAction,
     required this.child,
     this.width,
@@ -12,7 +13,7 @@ class CustomButton extends StatelessWidget {
     this.bgColor,
     this.paddingWidth = 10.0,
     this.languageCode = false,
-  });
+  }) : super(key: key);
 
   final Widget? child;
   final Function() buttonAction;

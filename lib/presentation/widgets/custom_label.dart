@@ -4,7 +4,6 @@ import '../../app/config/constant.dart';
 import '../../app/config/dimentions.dart';
 
 class CustomLabel extends StatelessWidget {
-
   final String title;
   final String subTitle;
   final FontWeight fontWeight;
@@ -17,18 +16,19 @@ class CustomLabel extends StatelessWidget {
   final bool underLine, multiLine;
 
   const CustomLabel({
+    Key? key,
     required this.title,
     this.fontWeight = FontWeight.normal,
     this.fontSize = Dimensions.FONT_SIZE_DEFAULT,
     this.color = AppColors.primaryColor,
-    this.fontFamily = Constants.POPPINS,
+    this.fontFamily = Constants.poppins,
     this.textAlign = TextAlign.start,
     this.maxLines = 2,
     this.height = 1.4,
     this.subTitle = '',
     this.underLine = false,
     this.multiLine = false,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +38,8 @@ class CustomLabel extends StatelessWidget {
           TextSpan(
             text: title != null
                 ? title.contains('*')
-                ? title.replaceAll("*", "")
-                : title
+                    ? title.replaceAll("*", "")
+                    : title
                 : "",
             style: TextStyle(
                 color: color,
@@ -54,8 +54,8 @@ class CustomLabel extends StatelessWidget {
           TextSpan(
             text: title != null
                 ? title.contains('*')
-                ? "*"
-                : ""
+                    ? "*"
+                    : ""
                 : "",
             style: TextStyle(
                 color: Colors.red,
