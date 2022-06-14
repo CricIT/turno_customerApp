@@ -26,13 +26,12 @@ class LoginController extends GetxController {
   signUpWith(String mobile) async {
     try {
       final response = await _loginUseCase.execute(mobile);
-      debugPrint(response.toString());
-      if (response.status == 'success') {
+      if (response.isRight()) {
         Get.toNamed(AppRoutes.OTP);
-      } else {
+      } else if(response.isLeft()) {
         Get.defaultDialog(
           title: 'Oh no!',
-          middleText: response.message.toString(),
+          middleText: "test",
           actions: [
             TextButton(
               onPressed: () {
