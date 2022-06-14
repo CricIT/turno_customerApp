@@ -1,11 +1,5 @@
-
-
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:turno_customer_application/app/config/app_colors.dart';
 import 'package:turno_customer_application/presentation/pages/profile.dart';
 import 'package:turno_customer_application/presentation/pages/support.dart';
@@ -23,11 +17,10 @@ class LandingPage extends GetView<LandingPageController> {
 
   const LandingPage({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
-    Constants.DeviceHeight=MediaQuery.of(context).size.height;
-    Constants.DeviceWidth=MediaQuery.of(context).size.width;
+    Constants.deviceHeight = MediaQuery.of(context).size.height;
+    Constants.deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80.0),
@@ -59,8 +52,8 @@ class LandingPage extends GetView<LandingPageController> {
             child: SizedBox(
               child: BottomNavigationBar(
                 type: BottomNavigationBarType.fixed,
-                selectedFontSize: Dimensions.FONT_SIZE_SMALL,
-                unselectedFontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
+                selectedFontSize: Dimensions.FONT_SIZE_DEFAULT,
+                unselectedFontSize: Dimensions.FONT_SIZE_SMALL,
                 onTap: landingPageController.setSelectedIndex,
                 currentIndex: landingPageController.selectedIndex.value,
                 backgroundColor: Colors.white,
@@ -68,7 +61,6 @@ class LandingPage extends GetView<LandingPageController> {
                 selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500,fontFamily: 'Poppins'),
                 unselectedIconTheme: const IconThemeData(
                   color: AppColors.darkGray,
-
                 ),
                 unselectedItemColor: AppColors.darkGray,
                 items:  [

@@ -4,21 +4,22 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:turno_customer_application/app/config/dimentions.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_text_button.dart';
+import 'package:turno_customer_application/presentation/controllers/landing_page/landing_page_controller.dart';
+
 import '../../app/config/app_colors.dart';
 import '../../app/constants/images.dart';
-import '../controllers/home/home_controller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/custom_label.dart';
 import '../widgets/custom_rich_text.dart';
 import '../widgets/guage_card.dart';
 
-class MyVehicle extends GetView<HomeController> {
+class MyVehicle extends GetView<LandingPageController> {
   const MyVehicle({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColors.white,
+        backgroundColor: AppColors.whiteColor,
         body: SafeArea(
             child: SingleChildScrollView(
           child: Container(
@@ -83,13 +84,10 @@ class MyVehicle extends GetView<HomeController> {
 
   _vehicleSocAndCurrentBuyBackValue() {
     return Container(
-        padding: const EdgeInsets.only(
-            top: Dimensions.PADDING_SIZE_LARGE,
-            bottom: Dimensions.PADDING_SIZE_LARGE,
-            left: Dimensions.PADDING_SIZE_XXLARGE,
-            right: Dimensions.PADDING_SIZE_XXLARGE),
+        padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_LARGE,bottom: Dimensions.PADDING_SIZE_LARGE,
+            left: Dimensions.PADDING_SIZE_XXLARGE,right: Dimensions.PADDING_SIZE_XXLARGE),
         decoration: BoxDecoration(
-            color: AppColors.white,
+            color: AppColors.whiteColor,
             borderRadius: BorderRadius.circular(Dimensions.RADIUS_DEFAULT),
             border: Border.all(
               color: AppColors.borderGray,
@@ -99,80 +97,78 @@ class MyVehicle extends GetView<HomeController> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
                 children: [
-                  Column(
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          SvgPicture.asset(Images.batteryChagre),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          CustomLabel(
-                            title: "charge".tr,
-                            fontSize: Dimensions.FONT_SIZE_SMALL,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.darkGray,
-                          )
-                        ],
-                      ),
+                      SvgPicture.asset(Images.batteryChagre),
                       const SizedBox(
-                        height: 10,
+                        width: 8,
                       ),
-                      const CustomLabel(
-                          title: "58%",
-                          fontSize: Dimensions.FONT_SIZE_XXLARGE,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.black)
+                      CustomLabel(
+                        title: "charge".tr,
+                        fontSize: Dimensions.FONT_SIZE_SMALL,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.darkGray,
+                      )
                     ],
                   ),
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          SvgPicture.asset(Images.bolt),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          CustomLabel(
-                              title: "available_range".tr,
-                              fontSize: Dimensions.FONT_SIZE_SMALL,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.darkGray)
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const CustomLabel(
-                          title: "97 KM",
-                          fontSize: Dimensions.FONT_SIZE_XXLARGE,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.black)
-                    ],
-                  )
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const CustomLabel(
+                      title: "58%",
+                      fontSize: Dimensions.FONT_SIZE_XXLARGE,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.black)
                 ],
               ),
-              Container(
-                margin: const EdgeInsets.only(
-                    top: Dimensions.PADDING_SIZE_DEFAULT,
-                    bottom: Dimensions.PADDING_SIZE_DEFAULT),
-                child: const Divider(
-                  height: 2,
-                  color: AppColors.dividerGray,
-                ),
-              ),
-              CustomRichText(
-                spanText1: "${"buy_back_value".tr}: ",
-                spanText2: " ₹ 1,30,000",
-                color1: AppColors.darkGray,
-                color2: AppColors.black,
-                fontSize1: Dimensions.FONT_SIZE_XLARGE,
-                fontSize2: Dimensions.FONT_SIZE_XLARGE,
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      SvgPicture.asset(Images.bolt),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      CustomLabel(
+                          title: "available_range".tr,
+                          fontSize: Dimensions.FONT_SIZE_SMALL,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.darkGray)
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const CustomLabel(
+                      title: "97 KM",
+                      fontSize: Dimensions.FONT_SIZE_XXLARGE,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.black)
+                ],
               )
-            ]));
+            ],
+          ),
+          Container(
+            margin: const EdgeInsets.only(top:  Dimensions.PADDING_SIZE_DEFAULT, bottom: Dimensions.PADDING_SIZE_DEFAULT),
+            child: const Divider(
+              height: 2,
+              color: AppColors.dividerGray,
+            ),
+          ),
+          CustomRichText(
+            spanText1: "${"buy_back_value".tr}: ",
+            spanText2: " ₹ 1,30,000",
+            color1: AppColors.darkGray,
+            color2: AppColors.black,
+            fontSize1: Dimensions.FONT_SIZE_XLARGE,
+            fontSize2:  Dimensions.FONT_SIZE_XLARGE,
+          )
+        ]));
   }
 
   _threeYearBuyBackValueCard() {
@@ -393,3 +389,5 @@ class MyVehicle extends GetView<HomeController> {
     );
   }
 }
+
+

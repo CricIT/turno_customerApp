@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return GetMaterialApp(
-      title: Constants.APP_NAME,
+      title: Constants.appName,
       debugShowCheckedModeBanner: false,
       locale:const Locale('en','US'),
       translations: Messages(languages: languages),
@@ -51,7 +51,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: AppRoutes.LANGUAGE,
+      initialRoute:
+      store.isLoggedIn ? AppRoutes.LANDING_PAGE : AppRoutes.LANGUAGE,
       getPages: Routes.getAllPages(),
       defaultTransition: Transition.topLevel,
       transitionDuration: const Duration(milliseconds: 500),
