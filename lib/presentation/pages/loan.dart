@@ -4,8 +4,9 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
 import 'package:turno_customer_application/app/config/dimentions.dart';
-import 'package:turno_customer_application/presentation/controllers/loan/loan_controller.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
+
+import '../controllers/landing_page/loan_controller.dart';
 
 class Loan extends GetView<LoanController> {
   const Loan({Key? key}) : super(key: key);

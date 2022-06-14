@@ -33,5 +33,14 @@
   "code_not_get" : "Didn't receive the code? ",
   "otp_resent" : "OTP Resent!!!",
   "resend" : "Resend",
-  "verify" : "Verify"
+  "verify" : "Verify",
+  "note_charging_practice": "Always use best charging practices for best performance and buyback value.",
+  "best_charging_practices": "Best charging practices",
+  "mileage" : "Mileage",
+  "on_previous_charge": "On previous charge ",
+  "others_are_getting": "Others are getting",
+  "km_charge": "km/ charge",
+  "last_charge_msg": "Your last average was very low ",
+  "get_help": "Get help"
+
 }

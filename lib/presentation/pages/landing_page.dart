@@ -1,11 +1,5 @@
-
-
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:turno_customer_application/app/config/app_colors.dart';
 import 'package:turno_customer_application/presentation/pages/profile.dart';
 import 'package:turno_customer_application/presentation/pages/support.dart';
@@ -23,11 +17,10 @@ class LandingPage extends GetView<LandingPageController> {
 
   const LandingPage({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
-    Constants.DeviceHeight=MediaQuery.of(context).size.height;
-    Constants.DeviceWidth=MediaQuery.of(context).size.width;
+    Constants.deviceHeight = MediaQuery.of(context).size.height;
+    Constants.deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80.0),

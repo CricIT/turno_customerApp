@@ -27,7 +27,8 @@ class CustomTextField extends StatelessWidget {
   final TextStyle? hintStyle;
   final String? prefixText;
 
-  CustomTextField({
+  const CustomTextField({
+    Key? key,
     required this.textController,
     this.labelText,
     this.hintText,
@@ -51,7 +52,7 @@ class CustomTextField extends StatelessWidget {
     this.labelStyle,
     this.hintStyle,
     this.prefixText,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -84,8 +85,8 @@ class CustomTextField extends StatelessWidget {
               color: Colors.grey,
             ),
           ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: const BorderRadius.all(
+          focusedBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(
               Radius.circular(10.0),
             ),
             borderSide: BorderSide(
@@ -93,7 +94,7 @@ class CustomTextField extends StatelessWidget {
             ),
           ),
           labelText: labelText,
-          labelStyle: TextStyle(
+          labelStyle: const TextStyle(
             color: AppColors.placeholderColor,
           ),
           hintText: hintText,
