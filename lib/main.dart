@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/services/firebase.dart';
+import 'package:turno_customer_application/presentation/controllers/lang/lang_controller.dart';
 import 'app/config/app_colors.dart';
 import 'package:turno_customer_application/app/util/dependency.dart';
 
@@ -32,13 +33,14 @@ initServices() async {
     await Firebase.initializeApp();
     await Get.putAsync(() => LocalStorageService().init());
     Get.put(FirebaseService(),permanent :true);
+    Get.put(LangController(),permanent: true);
 
 }
 
 class MyApp extends StatelessWidget {
   final Map<String, Map<String, String>> languages;
-  const MyApp(this.languages, {Key? key}) : super(key: key);
-
+  final store=Get.find<LocalStorageService>();
+  MyApp(this.languages, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
 
@@ -51,8 +53,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute:
-      store.isLoggedIn ? AppRoutes.LANDING_PAGE : AppRoutes.LANGUAGE,
+      initialRoute: store.isLoggedIn ? AppRoutes.LANDING_PAGE : AppRoutes.LANGUAGE,
       getPages: Routes.getAllPages(),
       defaultTransition: Transition.topLevel,
       transitionDuration: const Duration(milliseconds: 500),

@@ -104,7 +104,7 @@ class OtpScreen extends GetView<OtpController> {
         child: PinCodeTextField(
           useExternalAutoFillGroup: true,
           autoFocus: true,
-          controller: controller.otptxtController,
+          controller: controller.otpController,
           appContext: context,
           pastedTextStyle: const TextStyle(
             color: Colors.black,
@@ -208,12 +208,12 @@ class OtpScreen extends GetView<OtpController> {
   Widget _buildVerifyButton() {
     return CustomButton(
       buttonAction: () {
-        if (controller.otptxtController.text.length != 6) {
+        if (controller.otpController.text.length != 6) {
           controller.errorController!.add(ErrorAnimationType.shake);
         } else {
           controller.verifyOtp(
             controller.loginController.getPhoneNumber,
-            controller.otptxtController.text,
+            controller.otpController.text,
           );
         }
       },

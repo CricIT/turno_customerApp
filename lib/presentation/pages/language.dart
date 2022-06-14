@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
 import 'package:turno_customer_application/app/config/constant.dart';
 import 'package:turno_customer_application/app/config/dimentions.dart';
-import 'package:turno_customer_application/app/routes/app_route.dart';
 import 'package:turno_customer_application/presentation/controllers/lang/lang_controller.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
 
@@ -78,9 +77,7 @@ class ChooseLanguage extends GetView<LangController> {
                             Get.updateLocale(Constants.locale[index]['locale']);
                             controller.setUserPreferredLanguage(
                                 Constants.locale[index]['name']);
-                            store.isLoggedIn
-                                ? Get.offAllNamed(AppRoutes.LANDING_PAGE)
-                                : Get.toNamed(AppRoutes.LOGIN);
+
                           },
                         ),
                       );

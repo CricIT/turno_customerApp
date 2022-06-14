@@ -202,7 +202,7 @@ class MyVehicle extends GetView<LandingPageController> {
   _mileage() {
     return Container(
       decoration: BoxDecoration(
-          color: AppColors.white,
+          color: AppColors.whiteColor,
           borderRadius: BorderRadius.circular(Dimensions.RADIUS_DEFAULT),
           border: Border.all(
             color: AppColors.borderGray,
@@ -371,7 +371,7 @@ class MyVehicle extends GetView<LandingPageController> {
               Dimensions.PADDING_SIZE_SMALL,
             ),
             decoration: BoxDecoration(
-                color: AppColors.white,
+                color: AppColors.whiteColor,
                 border: Border.all(
                   color: AppColors.borderGray,
                   width: 1,

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:telephony/telephony.dart';
 import 'package:tuple/tuple.dart';
 import 'package:turno_customer_application/app/routes/app_route.dart';
@@ -13,6 +14,8 @@ class OtpController extends GetxController {
   final OtpUseCase otpUseCase;
   final store = Get.find<LocalStorageService>();
   TextEditingController otpController = TextEditingController(text: "");
+  StreamController<ErrorAnimationType>? errorController;
+
   final LoginController loginController = Get.find<LoginController>();
   String? _otpCode = "";
   final intRegex = RegExp("\\d{6}", multiLine: true);
