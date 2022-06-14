@@ -12,6 +12,7 @@ import 'app/routes/app_route.dart';
 import 'app/routes/page_route.dart';
 import 'app/services/local_storage.dart';
 import 'app/util/messages.dart';
+
 void main() async  {
   DependencyCreator.init();
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,9 +42,9 @@ class MyApp extends StatelessWidget {
   final Map<String, Map<String, String>> languages;
   final store=Get.find<LocalStorageService>();
   MyApp(this.languages, {Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-
     return GetMaterialApp(
       title: Constants.appName,
       debugShowCheckedModeBanner: false,
