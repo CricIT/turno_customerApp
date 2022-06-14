@@ -3,4 +3,5 @@ class AppRoutes {
   static const String OTP = '/OTP';
   static const String LANGUAGE = '/Language';
   static const String LANDING_PAGE = '/LandingPage';
+  static const String PAYMENT_HISTORY = '/PaymentHistory';
 }

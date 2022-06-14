@@ -20,6 +20,5 @@ class LangController extends GetxController {
     store.isLoggedIn
         ? Get.offAllNamed(AppRoutes.LANDING_PAGE)
         : Get.toNamed(AppRoutes.LOGIN);
-
   }
 }
