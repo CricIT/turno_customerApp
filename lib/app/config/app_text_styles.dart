@@ -1,14 +1,9 @@
-
-
-
-
 import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
 import 'constant.dart';
 
-
-const TextStyle lightBlackNormal12 =  TextStyle(
+TextStyle lightBlackNormal12 = const TextStyle(
   color: AppColors.lightBlack,
   fontWeight: FontWeight.w400,
   fontStyle: FontStyle.normal,
@@ -16,8 +11,7 @@ const TextStyle lightBlackNormal12 =  TextStyle(
   fontFamily: Constants.POPPINS,
 );
 
-const TextStyle blackNormal14 =
-TextStyle(
+TextStyle blackNormal14 = const TextStyle(
   color: AppColors.black,
   fontWeight: FontWeight.w400,
   fontStyle: FontStyle.normal,
@@ -25,7 +19,7 @@ TextStyle(
   fontFamily: Constants.POPPINS,
 );
 
-const TextStyle lightBlackBold16 =  TextStyle(
+TextStyle lightBlackBold16 = const TextStyle(
   color: AppColors.lightBlack,
   fontWeight: FontWeight.w600,
   fontStyle: FontStyle.normal,
@@ -33,9 +27,7 @@ const TextStyle lightBlackBold16 =  TextStyle(
   fontFamily: Constants.POPPINS,
 );
 
-
-const TextStyle darkGrayNormal10 =
-TextStyle(
+TextStyle darkGrayNormal10 = const TextStyle(
   color: AppColors.darkGray,
   fontWeight: FontWeight.w500,
   fontStyle: FontStyle.normal,
