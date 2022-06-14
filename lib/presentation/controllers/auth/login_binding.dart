@@ -7,7 +7,7 @@ import 'login_controller.dart';
 class LoginBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => LoginUseCase(Get.find<LoginRepositoryIml>()));
+    Get.lazyPut(() => LoginUseCase(Get.find<LoginRepositoryIml>()),fenix: true);
     Get.lazyPut(()=> LoginController(Get.find()));
   }
 }

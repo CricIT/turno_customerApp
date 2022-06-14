@@ -132,6 +132,7 @@ class LoginPage extends GetView<LoginController> {
     return CustomButton(
       buttonAction: () {
         if (controller.phoneController.text.length == 10) {
+          controller.setPhoneNumber=controller.phoneController.text;
           controller.signUpWith(controller.phoneController.text);
         } else {
           Get.defaultDialog(

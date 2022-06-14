@@ -24,7 +24,7 @@ class CustomLabel extends StatelessWidget {
     this.fontFamily = Constants.poppins,
     this.textAlign = TextAlign.start,
     this.maxLines = 2,
-    this.height = 1.2,
+    this.height = 1.4,
     this.subTitle = '',
     this.underLine = false,
     this.multiLine = false,

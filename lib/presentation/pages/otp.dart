@@ -1,5 +1,5 @@
 // ignore_for_file: deprecated_member_use, must_be_immutable
-import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
@@ -12,9 +12,8 @@ import 'package:get/get.dart';
 import '../widgets/custom_button.dart';
 
 class OtpScreen extends GetView<OtpController> {
-  OtpScreen({Key? key}) : super(key: key);
-  StreamController<ErrorAnimationType>? errorController;
-  final formKey = GlobalKey<FormState>();
+  const OtpScreen({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +78,7 @@ class OtpScreen extends GetView<OtpController> {
           text: 'enter_code'.tr,
           children: [
             TextSpan(
-              text: controller.loginController.phoneController.text,
+              text: controller.loginController.getPhoneNumber,
               style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
@@ -137,7 +136,7 @@ class OtpScreen extends GetView<OtpController> {
           cursorColor: Colors.black,
           animationDuration: const Duration(milliseconds: 300),
           enableActiveFill: true,
-          errorAnimationController: errorController,
+          errorAnimationController: controller.errorController,
           keyboardType: TextInputType.number,
           boxShadows: const [
             BoxShadow(
@@ -188,7 +187,7 @@ class OtpScreen extends GetView<OtpController> {
                       controller.startTimer();
                       controller.initOtpListening();
                       controller.loginController.signUpWith(
-                        controller.loginController.phoneController.text,
+                        controller.loginController.getPhoneNumber,
                       );
                     },
                     child: Text(
@@ -210,10 +209,10 @@ class OtpScreen extends GetView<OtpController> {
     return CustomButton(
       buttonAction: () {
         if (controller.otpController.text.length != 6) {
-          errorController!.add(ErrorAnimationType.shake);
+          controller.errorController!.add(ErrorAnimationType.shake);
         } else {
           controller.verifyOtp(
-            controller.loginController.phoneController.text,
+            controller.loginController.getPhoneNumber,
             controller.otpController.text,
           );
         }
