@@ -4,8 +4,10 @@ import 'package:turno_customer_application/app/config/app_colors.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/config/constant.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:turno_customer_application/app/config/dimentions.dart';
 import 'package:turno_customer_application/presentation/controllers/auth/login_controller.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_button.dart';
+import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_text_field.dart';
 
 class LoginPage extends GetView<LoginController> {
@@ -27,11 +29,10 @@ class LoginPage extends GetView<LoginController> {
                 _buildCarouselSlider(),
                 _otpText(),
                 _buildPhoneInputField(),
-                const Spacer(),
-                _nextButton(),
                 const SizedBox(
                   height: 48,
                 ),
+                _nextButton(),
               ],
             ),
           ),
@@ -44,13 +45,11 @@ class LoginPage extends GetView<LoginController> {
     return Container(
       margin: const EdgeInsets.all(16),
       child: Center(
-        child: Text(
-          'login'.tr,
-          style: TextStyle(
-            color: AppColors.blackColor,
-            fontSize: 32,
-            fontWeight: FontWeight.w900,
-          ),
+        child: CustomLabel(
+          title: 'login'.tr,
+          color: AppColors.blackColor,
+          fontSize: 32,
+          fontWeight: FontWeight.w900,
         ),
       ),
     );
@@ -63,6 +62,7 @@ class LoginPage extends GetView<LoginController> {
         options: CarouselOptions(
           viewportFraction: 1,
           autoPlay: true,
+          autoPlayInterval: const Duration(milliseconds: 2500),
           aspectRatio: 1.5,
           padEnds: true,
           enlargeCenterPage: true,
@@ -86,24 +86,27 @@ class LoginPage extends GetView<LoginController> {
           children: <TextSpan>[
             TextSpan(
               text: 'login_1'.tr,
-              style: TextStyle(
+              style: const TextStyle(
                 color: AppColors.blackColor,
                 fontSize: 17,
+                fontFamily: Constants.poppins,
               ),
             ),
             TextSpan(
               text: 'login_2'.tr,
-              style: TextStyle(
+              style: const TextStyle(
                 color: AppColors.blackColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 17,
+                fontFamily: Constants.poppins,
               ),
             ),
             TextSpan(
               text: 'login_3'.tr,
-              style: TextStyle(
+              style: const TextStyle(
                 color: AppColors.blackColor,
                 fontSize: 17,
+                fontFamily: Constants.poppins,
               ),
             ),
           ],
@@ -136,23 +139,22 @@ class LoginPage extends GetView<LoginController> {
             middleText: 'ten_digit'.tr,
             actions: [
               TextButton(
-                onPressed: () {
-                  Get.back();
-                },
-                child: Text('ok'.tr),
-              ),
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: CustomLabel(
+                    title: 'ok'.tr,
+                  )),
             ],
           );
         }
       },
       child: Center(
-        child: Text(
-          "next".tr.toUpperCase(),
-          style: TextStyle(
-            color: AppColors.whiteColor,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+        child: CustomLabel(
+          title: "next".tr.toUpperCase(),
+          color: AppColors.whiteColor,
+          fontSize: Dimensions.FONT_SIZE_XLARGE,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );

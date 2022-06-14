@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:telephony/telephony.dart';
 import 'package:tuple/tuple.dart';
 import 'package:turno_customer_application/app/routes/app_route.dart';
 import 'package:turno_customer_application/domain/usecases/auth/otp_usecase.dart';
@@ -10,10 +11,12 @@ import '../../../app/services/local_storage.dart';
 class OtpController extends GetxController {
   OtpController(this.otpUseCase);
   final OtpUseCase otpUseCase;
-  var isLoggedIn = false.obs;
   final store = Get.find<LocalStorageService>();
-  TextEditingController otpController = TextEditingController();
+  TextEditingController otpController = TextEditingController(text: "");
   final LoginController loginController = Get.find<LoginController>();
+  String? _otpCode = "";
+  final intRegex = RegExp("\\d{6}", multiLine: true);
+  final telephony = Telephony.instance;
 
   var count = 60;
   late Timer _timer;
@@ -22,7 +25,7 @@ class OtpController extends GetxController {
   void onInit() {
     super.onInit();
     startTimer();
-    isLoggedIn.value = store.user != null;
+    initOtpListening();
   }
 
   verifyOtp(String mobile, String otp) async {
@@ -30,9 +33,10 @@ class OtpController extends GetxController {
       final response = await otpUseCase.execute(Tuple2(mobile, otp));
       debugPrint(response.toString());
       if (response.status == 'success') {
-        isLoggedIn.value = true;
-        isLoggedIn.refresh();
-        Get.offAllNamed(AppRoutes.LANDING_PAGE);
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          store.isLoggedIn = true;
+          Get.offAllNamed(AppRoutes.LANDING_PAGE);
+        });
       } else {
         Get.defaultDialog(
           title: 'Oh no!',
@@ -50,14 +54,6 @@ class OtpController extends GetxController {
     } catch (error) {}
   }
 
-  logout() {
-    store.user = null;
-    isLoggedIn.value = false;
-    Get.offAll(AppRoutes.LOGIN);
-  }
-
-
-
   void startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (count > 0) {
@@ -73,6 +69,29 @@ class OtpController extends GetxController {
     _timer.cancel();
     count = 59;
     update();
+  }
+
+  Future<void> initOtpListening() async {
+    final bool? result = await telephony.requestPhoneAndSmsPermissions;
+    if (result != null && result) {
+      telephony.listenIncomingSms(
+          onNewMessage: (SmsMessage sms) {
+            String address = sms.address.toString();
+            String message = sms.body.toString();
+            if (address.contains('BLBLLE') && message.contains('OTP')) {
+              try {
+                RegExpMatch? match = intRegex.firstMatch(message);
+                _otpCode = match?.group(0);
+                otpController.text = _otpCode.toString();
+              } catch (e) {
+                printError();
+              }
+
+              update();
+            }
+          },
+          listenInBackground: false);
+    }
   }
 
   @override

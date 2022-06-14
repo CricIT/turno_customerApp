@@ -1,6 +1,4 @@
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/instance_manager.dart';
 import 'package:turno_customer_application/app/services/local_storage.dart';
 
 import '../../../app/config/constant.dart';
