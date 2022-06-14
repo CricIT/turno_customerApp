@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
   final Map<String, Map<String, String>> languages;
   final store = Get.find<LocalStorageService>();
   MyApp(this.languages, {Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
