@@ -18,7 +18,7 @@ class LangController extends GetxController {
   void setUserPreferredLanguage(locale) {
     store.setLanguage = locale;
     store.isLoggedIn
-        ? Get.offAllNamed(AppRoutes.LANDING_PAGE)
+        ? Get.back()
         : Get.toNamed(AppRoutes.LOGIN);
 
   }

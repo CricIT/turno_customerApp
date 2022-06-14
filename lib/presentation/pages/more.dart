@@ -34,7 +34,7 @@ class More extends GetView<MoreController> {
                   itemName: "choose_language".tr,
                   itemIcon: Icons.language,
                   onClick: () {
-                    Get.offAllNamed(AppRoutes.LANGUAGE);
+                    Get.toNamed(AppRoutes.LANGUAGE);
                   }),
               _moreItem(
                   itemName: "refer_earn".tr,
