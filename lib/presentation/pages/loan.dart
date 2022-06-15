@@ -23,11 +23,31 @@ class Loan extends GetView<LoanController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              _buildHeader(),
+              const Divider(),
               _buildEmiReminder(),
-              _buildOutstandingBox(),
+              _buildOutstandingBox(amount: 'Rs. 5,00,000'),
               _buildLoanDetails(),
-              _buildPaymentHistoryBox(context),
+              _buildPaymentHistoryBox(),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeader() {
+    return SizedBox(
+      height: Constants.deviceHeight * 0.07,
+      child: const Align(
+        alignment: Alignment.centerLeft,
+        child: Padding(
+          padding: EdgeInsets.only(top: 12),
+          child: CustomLabel(
+            title: 'My loan details',
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: AppColors.black,
           ),
         ),
       ),
@@ -39,6 +59,7 @@ class Loan extends GetView<LoanController> {
       padding: const EdgeInsets.all(
         Dimensions.PADDING_SIZE_DEFAULT,
       ),
+      margin: const EdgeInsets.only(top: 10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
@@ -72,193 +93,221 @@ class Loan extends GetView<LoanController> {
     );
   }
 
-  Widget _buildOutstandingBox() {
-    return Container();
-  }
-
-  Widget _buildLoanDetails() {
+  Widget _buildOutstandingBox({required String amount}) {
     return Container(
-      padding: const EdgeInsets.all(
-        Dimensions.PADDING_SIZE_DEFAULT,
-      ),
-      margin: const EdgeInsets.symmetric(
-        vertical: 20,
-      ),
+      margin: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
           color: AppColors.borderGray,
-        ),
-      ),
-      height: Constants.deviceHeight * 0.16,
-      child:
-          Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            _loanDetailsItemWidget('Outstanding amount', 'Rs. 4,20,000'),
-            SizedBox(
-              width: Constants.deviceWidth * 0.25,
-            ),
-            _loanDetailsItemWidget('EMI amount', 'Rs. 20,000'),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            _loanDetailsItemWidget('Started from', '1 Apr 2022'),
-            SizedBox(
-              width: Constants.deviceWidth * 0.33,
-            ),
-            _loanDetailsItemWidget('Ending at', '31 Mar 2024'),
-          ],
-        ),
-      ]),
-    );
-  }
-
-  Widget _loanDetailsItemWidget(String title, String subtitle) {
-    return SizedBox(
-      height: Constants.deviceHeight * 0.05,
+          border: Border.all(
+            color: AppColors.borderGray,
+          ),
+          borderRadius: BorderRadius.circular(15)),
+      height: Constants.deviceHeight * 0.1,
+      width: Constants.deviceWidth,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CustomLabel(
-            title: title,
-            color: AppColors.placeholderColor,
-            fontSize: 12,
+            title: amount,
+            fontSize: 18,
+            fontWeight: FontWeight.w400,
+            color: AppColors.black,
           ),
-          Text(
-            subtitle,
+          const CustomLabel(
+            title: 'Loan taken for 2 years',
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: AppColors.black,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+Widget _buildLoanDetails() {
+  return Container(
+    padding: const EdgeInsets.all(
+      Dimensions.PADDING_SIZE_DEFAULT,
+    ),
+    margin: const EdgeInsets.symmetric(
+      vertical: 20,
+    ),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(
+        color: AppColors.borderGray,
+      ),
+    ),
+    height: Constants.deviceHeight * 0.16,
+    child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          _loanDetailsItemWidget('Outstanding amount', 'Rs. 4,20,000'),
+          SizedBox(
+            width: Constants.deviceWidth * 0.25,
+          ),
+          _loanDetailsItemWidget('EMI amount', 'Rs. 20,000'),
+        ],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          _loanDetailsItemWidget('Started from', '1 Apr 2022'),
+          SizedBox(
+            width: Constants.deviceWidth * 0.33,
+          ),
+          _loanDetailsItemWidget('Ending at', '31 Mar 2024'),
+        ],
+      ),
+    ]),
+  );
+}
+
+Widget _loanDetailsItemWidget(String title, String subtitle) {
+  return SizedBox(
+    height: Constants.deviceHeight * 0.05,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CustomLabel(
+          title: title,
+          color: AppColors.placeholderColor,
+          fontSize: 12,
+        ),
+        Text(
+          subtitle,
+          style: lightBlackBold16,
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildPaymentHistoryBox() {
+  return Container(
+    height: Constants.deviceHeight * 0.42,
+    width: Constants.deviceWidth,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(
+        color: AppColors.borderGray,
+      ),
+    ),
+    padding: const EdgeInsets.all(
+      Dimensions.PADDING_SIZE_DEFAULT,
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Text(
+            'Total Amount paid',
             style: lightBlackBold16,
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPaymentHistoryBox(BuildContext context) {
-    return Container(
-      height: Constants.deviceHeight * 0.41,
-      width: Constants.deviceWidth,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: AppColors.borderGray,
         ),
-      ),
-      padding: const EdgeInsets.all(
-        Dimensions.PADDING_SIZE_DEFAULT,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Text(
-              'Total Amount paid',
-              style: lightBlackBold16,
-            ),
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 8.0),
+          child: CustomLabel(
+            title: 'Rs. 60,000',
+            color: AppColors.black,
+            fontSize: 18,
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.0),
-            child: CustomLabel(
-              title: 'Rs. 60,000',
-              color: AppColors.black,
-              fontSize: 18,
-            ),
-          ),
+        ),
 
-          //need to be changed
-          SizedBox(
-            height: Constants.deviceHeight * 0.24,
-            child: Column(
-              children: [
-                _buildEmiPaymentCard(
-                  date: '5 Jun 2022',
-                  amount: 'Rs. 20,000',
-                  modeOfPayment: 'Debit Card',
-                  index: 3,
-                ),
-                _buildEmiPaymentCard(
-                  date: '5 May 2022',
-                  amount: 'Rs. 20,000',
-                  modeOfPayment: 'UPI',
-                  index: 2,
-                ),
-                _buildEmiPaymentCard(
-                  date: '5 Apr 2022',
-                  amount: 'Rs. 20,000',
-                  modeOfPayment: 'NetBanking',
-                  index: 1,
-                ),
-              ],
-            ),
-          ),
-          const Divider(
-            thickness: 2,
-          ),
-          InkWell(
-            onTap: () {
-              Get.toNamed(AppRoutes.PAYMENT_HISTORY);
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                CustomLabel(title: 'View History'),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildEmiPaymentCard({
-    required String date,
-    required String amount,
-    required String modeOfPayment,
-    required int index,
-  }) {
-    return SizedBox(
-      width: Constants.deviceWidth * 0.9,
-      height: Constants.deviceHeight * 0.08,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+        //need to be changed
+        SizedBox(
+          height: Constants.deviceHeight * 0.24,
+          child: Column(
             children: [
-              Text(
-                date,
-                style: blackNormal14,
+              _buildEmiPaymentCard(
+                date: '5 Jun 2022',
+                amount: 'Rs. 20,000',
+                modeOfPayment: 'Debit Card',
+                index: 3,
               ),
-              const Spacer(),
-              SizedBox(
-                width: Constants.deviceWidth * 0.25,
-                height: Constants.deviceHeight * 0.04,
-                child: Row(
-                  children: [
-                    Text(amount),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    const Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      size: 14,
-                    )
-                  ],
-                ),
-              )
+              _buildEmiPaymentCard(
+                date: '5 May 2022',
+                amount: 'Rs. 20,000',
+                modeOfPayment: 'UPI',
+                index: 2,
+              ),
+              _buildEmiPaymentCard(
+                date: '5 Apr 2022',
+                amount: 'Rs. 20,000',
+                modeOfPayment: 'NetBanking',
+                index: 1,
+              ),
             ],
           ),
-          Text(
-            'EMI-$index   \u2022   Paid via $modeOfPayment',
-            style: lightBlackNormal12,
+        ),
+        const Divider(
+          thickness: 2,
+        ),
+        InkWell(
+          onTap: () {
+            Get.toNamed(AppRoutes.PAYMENT_HISTORY);
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              CustomLabel(title: 'View History'),
+            ],
           ),
-          const Divider(),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildEmiPaymentCard({
+  required String date,
+  required String amount,
+  required String modeOfPayment,
+  required int index,
+}) {
+  return SizedBox(
+    width: Constants.deviceWidth * 0.9,
+    height: Constants.deviceHeight * 0.08,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              date,
+              style: blackNormal14,
+            ),
+            const Spacer(),
+            SizedBox(
+              width: Constants.deviceWidth * 0.25,
+              height: Constants.deviceHeight * 0.04,
+              child: Row(
+                children: [
+                  Text(amount),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  const Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    size: 14,
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+        Text(
+          'EMI-$index   \u2022   Paid via $modeOfPayment',
+          style: lightBlackNormal12,
+        ),
+        const Divider(),
+      ],
+    ),
+  );
 }
