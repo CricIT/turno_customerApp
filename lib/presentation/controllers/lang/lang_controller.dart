@@ -20,6 +20,5 @@ class LangController extends GetxController {
     store.isLoggedIn
         ? Get.back()
         : Get.toNamed(AppRoutes.LOGIN);
-
   }
 }
