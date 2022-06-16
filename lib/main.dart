@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
 import 'package:turno_customer_application/app/services/firebase.dart';
 import 'package:turno_customer_application/presentation/controllers/lang/lang_controller.dart';
 import 'package:turno_customer_application/presentation/controllers/permissions/permission_controller.dart';
@@ -38,7 +39,11 @@ initServices() async {
   Get.put(FirebaseService(), permanent: true);
   Get.put(PermissionsController());
   Get.put(LangController(), permanent: true);
+
+
 }
+
+
 
 class MyApp extends StatelessWidget {
   final Map<String, Map<String, String>> languages;
@@ -48,6 +53,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return GetMaterialApp(
       title: Constants.appName,
       debugShowCheckedModeBanner: false,

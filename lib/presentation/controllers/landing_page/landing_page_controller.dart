@@ -13,6 +13,7 @@ class LandingPageController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    store.pushDataToBackEnd();
   }
 
 

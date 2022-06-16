@@ -15,6 +15,7 @@ import 'package:turno_customer_application/presentation/widgets/custom_label.dar
 
 import '../../domain/entities/emi_history.dart';
 import '../controllers/payment/payment_history_controller.dart';
+import '../widgets/generic_appbar.dart';
 
 class PaymentHistory extends GetView<LoanController> {
   const PaymentHistory({Key? key}) : super(key: key);
@@ -22,17 +23,9 @@ class PaymentHistory extends GetView<LoanController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: AppColors.whiteColor,
-          iconTheme: const IconThemeData(
-            color: AppColors.black,
-          ),
-          title: Text(
-            'Payment History',
-            style: lightBlackBold16,
-          ),
-        ),
+        appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(40.0),
+            child: GenericAppBar(heading: "Payment History")),
         body: FutureBuilder<Loan>(
             future: controller.myLoanDetails,
             builder: (context, snapshot) {

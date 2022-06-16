@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
 import 'package:turno_customer_application/presentation/pages/profile.dart';
 import 'package:turno_customer_application/presentation/pages/support.dart';
-import 'package:turno_customer_application/presentation/widgets/appbar.dart';
+import 'package:turno_customer_application/presentation/widgets/home_appbar.dart';
 import '../../app/config/constant.dart';
 import '../../app/config/dimentions.dart';
 import '../../app/constants/images.dart';

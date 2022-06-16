@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:turno_customer_application/app/config/dimentions.dart';
+import 'package:turno_customer_application/app/routes/app_route.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_text_button.dart';
 import 'package:turno_customer_application/presentation/controllers/landing_page/landing_page_controller.dart';
-
 import '../../app/config/app_colors.dart';
 import '../../app/constants/images.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../app/util/util.dart';
 import '../widgets/custom_label.dart';
 import '../widgets/custom_rich_text.dart';
 import '../widgets/guage_card.dart';
+import '../widgets/prefix_icon_text.dart';
 
 class MyVehicle extends GetView<LandingPageController> {
   const MyVehicle({Key? key}) : super(key: key);
@@ -70,7 +72,9 @@ class MyVehicle extends GetView<LandingPageController> {
                   CustomTextButton(
                     title: 'best_charging_practices'.tr,
                     textAlign: TextAlign.center,
-                    onTap: () {},
+                    onTap: () {
+
+                    },
                     showTrailingIcon: true,
                     borderColor: AppColors.darkBlue,
                   ),
@@ -176,6 +180,9 @@ class MyVehicle extends GetView<LandingPageController> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GuageCardView(
+          buttonAction: (){
+            Utils.showBottomSheetWithMsg("buy_back_msg".tr);
+          },
           header: "Buyback value",
           startRange: "0",
           endRange: "1,50,000",
@@ -186,6 +193,9 @@ class MyVehicle extends GetView<LandingPageController> {
           isSingleColour: false,
         ),
         GuageCardView(
+          buttonAction: (){
+            Utils.showBottomSheetWithMsg("buy_back_msg".tr);
+          },
           header: "Buyback value",
           startRange: "0",
           endRange: "120",
@@ -234,6 +244,7 @@ class MyVehicle extends GetView<LandingPageController> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomLabel(
                           title: "on_previous_charge".tr,
@@ -245,21 +256,26 @@ class MyVehicle extends GetView<LandingPageController> {
                           height: 8,
                         ),
                         const CustomLabel(
-                            title: "58",
+                            title: "58%",
                             fontSize: Dimensions.FONT_SIZE_XXLARGE,
                             fontWeight: FontWeight.w600,
                             color: AppColors.black),
                         const SizedBox(
-                          height: 2,
+                          height: 5,
                         ),
                         CustomLabel(
                             title: "km_charge".tr,
                             fontSize: Dimensions.FONT_SIZE_SMALL,
                             fontWeight: FontWeight.w400,
                             color: AppColors.darkGray),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                         PrefixIconTextView(icon: Images.icon_not_good,text: "not_good".tr,),
                       ],
                     ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomLabel(
                             title: "others_are_getting".tr,
@@ -270,18 +286,23 @@ class MyVehicle extends GetView<LandingPageController> {
                           height: 8,
                         ),
                         const CustomLabel(
-                            title: "97 ",
+                            title: "97%",
                             fontSize: Dimensions.FONT_SIZE_XXLARGE,
                             fontWeight: FontWeight.bold,
                             color: AppColors.black),
                         const SizedBox(
-                          height: 2,
+                          height: 5,
                         ),
                         CustomLabel(
                             title: "km_charge".tr,
                             fontSize: Dimensions.FONT_SIZE_SMALL,
                             fontWeight: FontWeight.w400,
                             color: AppColors.darkGray),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                         PrefixIconTextView(icon: Images.icon_good,text: "Good".tr,),
+
                       ],
                     )
                   ],
@@ -308,7 +329,9 @@ class MyVehicle extends GetView<LandingPageController> {
           CustomTextButton(
             title: 'best_charging_practices'.tr,
             textAlign: TextAlign.center,
-            onTap: () {},
+            onTap: () {
+              Get.toNamed(AppRoutes.BEST_PRACTICE );
+            },
             showTrailingIcon: true,
             color: AppColors.darkBlue,
             borderColor: AppColors.borderGray,
