@@ -39,11 +39,7 @@ initServices() async {
   Get.put(FirebaseService(), permanent: true);
   Get.put(PermissionsController());
   Get.put(LangController(), permanent: true);
-
-
 }
-
-
 
 class MyApp extends StatelessWidget {
   final Map<String, Map<String, String>> languages;
@@ -53,7 +49,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return GetMaterialApp(
       title: Constants.appName,
       debugShowCheckedModeBanner: false,
@@ -63,7 +58,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // initialRoute: AppRoutes.PERMISSIONS,
       initialRoute:
           store.isLoggedIn ? AppRoutes.LANDING_PAGE : AppRoutes.LANGUAGE,
       getPages: Routes.getAllPages(),
