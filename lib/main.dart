@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
 import 'package:turno_customer_application/app/services/firebase.dart';
 import 'package:turno_customer_application/presentation/controllers/lang/lang_controller.dart';
 import 'app/config/app_colors.dart';
@@ -36,7 +37,11 @@ initServices() async {
   await Get.putAsync(() => LocalStorageService().init());
   Get.put(FirebaseService(), permanent: true);
   Get.put(LangController(), permanent: true);
+
+
 }
+
+
 
 class MyApp extends StatelessWidget {
   final Map<String, Map<String, String>> languages;
@@ -45,6 +50,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return GetMaterialApp(
       title: Constants.appName,
       debugShowCheckedModeBanner: false,

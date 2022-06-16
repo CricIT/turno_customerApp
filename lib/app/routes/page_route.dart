@@ -1,11 +1,15 @@
 import 'package:get/get.dart';
 import 'package:turno_customer_application/presentation/controllers/auth/login_binding.dart';
 import 'package:turno_customer_application/presentation/controllers/auth/otp_binding.dart';
+import 'package:turno_customer_application/presentation/controllers/mileage_history/mileage_binding.dart';
 import 'package:turno_customer_application/presentation/controllers/payment/payment_history_binding.dart';
+import 'package:turno_customer_application/presentation/pages/best_charging_practice.dart';
 import 'package:turno_customer_application/presentation/pages/language.dart';
 import 'package:turno_customer_application/presentation/pages/login.dart';
+import 'package:turno_customer_application/presentation/pages/mileage_history.dart';
 import 'package:turno_customer_application/presentation/pages/otp.dart';
 import 'package:turno_customer_application/presentation/pages/payment_history.dart';
+import '../../presentation/controllers/charging_practice_controller/best_charging_practice_binding.dart';
 import '../../presentation/controllers/landing_page/landing_page_binding.dart';
 import '../../presentation/pages/landing_page.dart';
 import 'app_route.dart';
@@ -34,9 +38,25 @@ class Routes {
       ),
       GetPage(
         name: AppRoutes.PAYMENT_HISTORY,
-        page: () => const PaymentHistory(),
+        page: () =>  const PaymentHistory(),
         binding: PaymentHistoryBinding(),
-      )
+      ),
+      GetPage(
+        name: AppRoutes.MILEAGE_HISTORY,
+        page: () => MileageHistory(),
+        binding: MileageBinding(),
+      ),
+
+      GetPage(
+        name: AppRoutes.BEST_PRACTICE,
+        page: () => BestChargingPractice(),
+        binding: BestChargingPracticeBinding(),
+      ),
+
+
+
+
+
     ];
   }
 }

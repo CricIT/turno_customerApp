@@ -9,6 +9,7 @@ import 'package:turno_customer_application/app/config/dimentions.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
 
 import '../controllers/payment/payment_history_controller.dart';
+import '../widgets/generic_appbar.dart';
 
 class PaymentHistory extends GetView<PaymentHistoryController> {
   const PaymentHistory({Key? key}) : super(key: key);
@@ -16,28 +17,22 @@ class PaymentHistory extends GetView<PaymentHistoryController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: AppColors.whiteColor,
-          iconTheme: const IconThemeData(
-            color: AppColors.black,
-          ),
-          title: Text(
-            'Payment History',
-            style: lightBlackBold16,
-          ),
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 10,
-                ),
-                _buildTopContainer(amount: 'Rs. 20,000'),
-                _buildPaymentList(),
-              ],
+        appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(40.0),
+            child: GenericAppBar(heading: "mileage_history".tr)),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  _buildTopContainer(amount: 'Rs. 20,000'),
+                  _buildPaymentList(),
+                ],
+              ),
             ),
           ),
         ));
