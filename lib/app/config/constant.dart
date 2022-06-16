@@ -23,6 +23,8 @@ class Constants {
   ];
   static const String otpGifImage = 'assets/images/otp.gif';
 
+  static const String loginPageImage = 'assets/images/login_image.png';
+
   static const String poppins = 'Poppins';
 
   static const int minHeight = 50;
@@ -30,10 +32,4 @@ class Constants {
 
   static double deviceHeight = 0;
   static double deviceWidth = 0;
-  static const List<String> loginPageImages = [
-    'assets/images/img4.png',
-    'assets/images/img1.png',
-    'assets/images/img2.png',
-    'assets/images/img3.png',
-  ];
 }

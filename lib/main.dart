@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/services/firebase.dart';
 import 'package:turno_customer_application/presentation/controllers/lang/lang_controller.dart';
+import 'package:turno_customer_application/presentation/controllers/permissions/permission_controller.dart';
 import 'app/config/app_colors.dart';
 import 'package:turno_customer_application/app/util/dependency.dart';
 
@@ -35,6 +36,7 @@ initServices() async {
   await Firebase.initializeApp();
   await Get.putAsync(() => LocalStorageService().init());
   Get.put(FirebaseService(), permanent: true);
+  Get.put(PermissionsController());
   Get.put(LangController(), permanent: true);
 }
 
@@ -42,6 +44,7 @@ class MyApp extends StatelessWidget {
   final Map<String, Map<String, String>> languages;
   final store = Get.find<LocalStorageService>();
   MyApp(this.languages, {Key? key}) : super(key: key);
+  final permissions = Get.find<PermissionsController>();
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +57,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      // initialRoute: AppRoutes.PERMISSIONS,
       initialRoute:
           store.isLoggedIn ? AppRoutes.LANDING_PAGE : AppRoutes.LANGUAGE,
       getPages: Routes.getAllPages(),

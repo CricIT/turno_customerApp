@@ -1,38 +1,79 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
 import 'package:turno_customer_application/app/config/app_text_styles.dart';
 import 'package:turno_customer_application/app/config/constant.dart';
 import 'package:turno_customer_application/app/config/dimentions.dart';
 import 'package:turno_customer_application/app/routes/app_route.dart';
+import 'package:turno_customer_application/app/util/util.dart';
+import 'package:turno_customer_application/domain/entities/emi.dart';
+import 'package:turno_customer_application/domain/entities/emi_history.dart';
+import 'package:turno_customer_application/domain/entities/loan.dart';
+import 'package:turno_customer_application/presentation/pages/error.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
-
+import 'package:turno_customer_application/presentation/widgets/error_widget.dart';
 import '../controllers/landing_page/loan_controller.dart';
 
-class Loan extends GetView<LoanController> {
-  const Loan({Key? key}) : super(key: key);
+class LoanView extends GetView<LoanController> {
+  const LoanView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildHeader(),
-              const Divider(),
-              _buildEmiReminder(),
-              _buildOutstandingBox(amount: 'Rs. 5,00,000'),
-              _buildLoanDetails(),
-              _buildPaymentHistoryBox(),
-            ],
-          ),
-        ),
-      ),
+      child: FutureBuilder<Loan>(
+          future: controller.myLoanDetails,
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+                print('noooooooooo cooneerrccctionnn');
+                return const Center(
+                  child: Text('No connection'),
+                );
+              case ConnectionState.waiting:
+                print('wwwaaaatttiiinnnnggggggg');
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              case ConnectionState.active:
+                print('acccctttitiiiiivvvveeeee');
+                break;
+              case ConnectionState.done:
+                print('dddooonnnnneeeeeee');
+                if (snapshot.hasData && snapshot.data != null) {
+                  print('ddaaaatttttaaaaaa ${snapshot.data}');
+                  return Padding(
+                    padding:
+                        const EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildHeader(),
+                          const Divider(),
+                          _buildEmiReminder(snapshot.data?.upcomingEMI),
+                          _buildOutstandingBox(
+                            amount: snapshot.data?.loanAmount,
+                            tenure: snapshot.data?.loanTenure,
+                          ),
+                          _buildLoanDetails(
+                            outStandingAmount: snapshot.data?.outStandingAmount,
+                            emiAmount: snapshot.data?.emiAmount,
+                            startDate: snapshot.data?.loanStartDate,
+                            endDate: snapshot.data?.loanEndDate,
+                          ),
+                          _buildPaymentHistoryBox(
+                            emiHistory: snapshot.data?.emiHistory,
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                } else {
+                  return const ErrorWidgetView();
+                }
+            }
+            return Container();
+          }),
     );
   }
 
@@ -54,7 +95,7 @@ class Loan extends GetView<LoanController> {
     );
   }
 
-  Widget _buildEmiReminder() {
+  Widget _buildEmiReminder(EMI? emi) {
     return Container(
       padding: const EdgeInsets.all(
         Dimensions.PADDING_SIZE_DEFAULT,
@@ -70,22 +111,17 @@ class Loan extends GetView<LoanController> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              CustomLabel(
-                title: 'You have one EMI coming up'.tr,
-                color: AppColors.black,
-              ),
-              const Spacer(),
-              const Icon(Icons.close),
-            ],
+          CustomLabel(
+            title: 'You have one EMI coming up'.tr,
+            color: AppColors.black,
           ),
           Row(
-            children: const [
-              CustomLabel(title: 'Rs. 120000', color: AppColors.black),
-              Spacer(),
+            children: [
+              CustomLabel(title: '₹ ${emi?.amount}', color: AppColors.black),
+              const Spacer(),
               CustomLabel(
-                  title: 'Due Date : 10 Jun 2022', color: AppColors.black),
+                  title: 'Due Date : ${Utils.convertDate(emi?.dueDate)}',
+                  color: AppColors.black),
             ],
           ),
         ],
@@ -93,16 +129,18 @@ class Loan extends GetView<LoanController> {
     );
   }
 
-  Widget _buildOutstandingBox({required String amount}) {
+  Widget _buildOutstandingBox(
+      {required double? amount, required double? tenure}) {
     return Container(
       margin: const EdgeInsets.only(top: 10),
       padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
       decoration: BoxDecoration(
+        color: AppColors.borderGray,
+        border: Border.all(
           color: AppColors.borderGray,
-          border: Border.all(
-            color: AppColors.borderGray,
-          ),
-          borderRadius: BorderRadius.circular(15)),
+        ),
+        borderRadius: BorderRadius.circular(8),
+      ),
       height: Constants.deviceHeight * 0.1,
       width: Constants.deviceWidth,
       child: Column(
@@ -110,13 +148,13 @@ class Loan extends GetView<LoanController> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CustomLabel(
-            title: amount,
+            title: '₹ $amount',
             fontSize: 18,
             fontWeight: FontWeight.w400,
             color: AppColors.black,
           ),
-          const CustomLabel(
-            title: 'Loan taken for 2 years',
+          CustomLabel(
+            title: 'Loan taken for ${tenure.toString().substring(0, 1)} years',
             fontSize: 16,
             fontWeight: FontWeight.w600,
             color: AppColors.black,
@@ -127,7 +165,12 @@ class Loan extends GetView<LoanController> {
   }
 }
 
-Widget _buildLoanDetails() {
+Widget _buildLoanDetails({
+  double? outStandingAmount,
+  double? emiAmount,
+  int? startDate,
+  int? endDate,
+}) {
   return Container(
     padding: const EdgeInsets.all(
       Dimensions.PADDING_SIZE_DEFAULT,
@@ -146,21 +189,21 @@ Widget _buildLoanDetails() {
       Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          _loanDetailsItemWidget('Outstanding amount', 'Rs. 4,20,000'),
+          _loanDetailsItemWidget('Outstanding amount', '₹ $outStandingAmount'),
           SizedBox(
             width: Constants.deviceWidth * 0.25,
           ),
-          _loanDetailsItemWidget('EMI amount', 'Rs. 20,000'),
+          _loanDetailsItemWidget('EMI amount', '₹ $emiAmount'),
         ],
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          _loanDetailsItemWidget('Started from', '1 Apr 2022'),
+          _loanDetailsItemWidget('Started from', Utils.convertDate(startDate)),
           SizedBox(
-            width: Constants.deviceWidth * 0.33,
+            width: Constants.deviceWidth * 0.27,
           ),
-          _loanDetailsItemWidget('Ending at', '31 Mar 2024'),
+          _loanDetailsItemWidget('Ending at', Utils.convertDate(endDate)),
         ],
       ),
     ]),
@@ -188,9 +231,9 @@ Widget _loanDetailsItemWidget(String title, String subtitle) {
   );
 }
 
-Widget _buildPaymentHistoryBox() {
+Widget _buildPaymentHistoryBox({EmiHistory? emiHistory}) {
   return Container(
-    height: Constants.deviceHeight * 0.42,
+    height: Constants.deviceHeight * 0.26,
     width: Constants.deviceWidth,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(8),
@@ -211,39 +254,22 @@ Widget _buildPaymentHistoryBox() {
             style: lightBlackBold16,
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 8.0),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15.0),
           child: CustomLabel(
-            title: 'Rs. 60,000',
+            title: '₹ ${emiHistory?.totalAmountPaid}',
             color: AppColors.black,
             fontSize: 18,
           ),
         ),
-
-        //need to be changed
-        SizedBox(
-          height: Constants.deviceHeight * 0.24,
-          child: Column(
-            children: [
-              _buildEmiPaymentCard(
-                date: '5 Jun 2022',
-                amount: 'Rs. 20,000',
-                modeOfPayment: 'Debit Card',
-                index: 3,
-              ),
-              _buildEmiPaymentCard(
-                date: '5 May 2022',
-                amount: 'Rs. 20,000',
-                modeOfPayment: 'UPI',
-                index: 2,
-              ),
-              _buildEmiPaymentCard(
-                date: '5 Apr 2022',
-                amount: 'Rs. 20,000',
-                modeOfPayment: 'NetBanking',
-                index: 1,
-              ),
-            ],
+        Expanded(
+          child: ListView.builder(
+            itemCount: emiHistory?.emiHistory.length,
+            itemBuilder: (context, index) => _buildEmiPaymentCard(
+              date: Utils.convertDate(emiHistory?.emiHistory[index].dueDate),
+              amount: '${emiHistory?.emiHistory[index].amount}',
+              index: index + 1,
+            ),
           ),
         ),
         const Divider(
@@ -268,7 +294,6 @@ Widget _buildPaymentHistoryBox() {
 Widget _buildEmiPaymentCard({
   required String date,
   required String amount,
-  required String modeOfPayment,
   required int index,
 }) {
   return SizedBox(
@@ -303,7 +328,7 @@ Widget _buildEmiPaymentCard({
           ],
         ),
         Text(
-          'EMI-$index   \u2022   Paid via $modeOfPayment',
+          'EMI-$index',
           style: lightBlackNormal12,
         ),
         const Divider(),

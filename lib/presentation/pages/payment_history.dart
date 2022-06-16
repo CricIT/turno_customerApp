@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -6,11 +8,15 @@ import 'package:turno_customer_application/app/config/app_colors.dart';
 import 'package:turno_customer_application/app/config/app_text_styles.dart';
 import 'package:turno_customer_application/app/config/constant.dart';
 import 'package:turno_customer_application/app/config/dimentions.dart';
+import 'package:turno_customer_application/app/util/util.dart';
+import 'package:turno_customer_application/domain/entities/loan.dart';
+import 'package:turno_customer_application/presentation/controllers/landing_page/loan_controller.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
 
+import '../../domain/entities/emi_history.dart';
 import '../controllers/payment/payment_history_controller.dart';
 
-class PaymentHistory extends GetView<PaymentHistoryController> {
+class PaymentHistory extends GetView<LoanController> {
   const PaymentHistory({Key? key}) : super(key: key);
 
   @override
@@ -27,20 +33,26 @@ class PaymentHistory extends GetView<PaymentHistoryController> {
             style: lightBlackBold16,
           ),
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 10,
+        body: FutureBuilder<Loan>(
+            future: controller.myLoanDetails,
+            builder: (context, snapshot) {
+              return SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      _buildTopContainer(
+                          amount:
+                              '${snapshot.data?.emiHistory?.totalAmountPaid}'),
+                      _buildPaymentList(snapshot.data?.emiHistory),
+                    ],
+                  ),
                 ),
-                _buildTopContainer(amount: 'Rs. 20,000'),
-                _buildPaymentList(),
-              ],
-            ),
-          ),
-        ));
+              );
+            }));
   }
 
   Widget _buildTopContainer({required String amount}) {
@@ -75,25 +87,25 @@ class PaymentHistory extends GetView<PaymentHistoryController> {
     );
   }
 
-  Widget _buildPaymentList() {
+  Widget _buildPaymentList(EmiHistory? emiHistory) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 20),
       height: Constants.deviceHeight * 0.7,
       padding: const EdgeInsets.symmetric(horizontal: 14),
       child: ListView.builder(
-          itemCount: 5,
-          itemBuilder: (context, index) => _buildEmiPaymentCard(
-              date: '5 Jun 2022',
-              amount: 'Rs. 20,000',
-              modeOfPayment: 'Netbanking',
-              index: index)),
+        itemCount: emiHistory?.emiHistory.length,
+        itemBuilder: (context, index) => _buildEmiPaymentCard(
+          date: Utils.convertDate(emiHistory?.emiHistory[index].dueDate),
+          amount: '${emiHistory?.emiHistory[index].amount}',
+          index: index + 1,
+        ),
+      ),
     );
   }
 
   Widget _buildEmiPaymentCard({
     required String date,
     required String amount,
-    required String modeOfPayment,
     required int index,
   }) {
     return SizedBox(
@@ -128,7 +140,7 @@ class PaymentHistory extends GetView<PaymentHistoryController> {
             ],
           ),
           Text(
-            'EMI-$index   \u2022   Paid via $modeOfPayment',
+            'EMI-$index',
             style: lightBlackNormal12,
           ),
           const Divider(),

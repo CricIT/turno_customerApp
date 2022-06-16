@@ -4,4 +4,6 @@ class APIEndpoint {
   static String get loginapi => "$baseUrl/otp/generateAndSend?mobile=";
 
   static String get otpapi => "$baseUrl/otp/verify";
+
+  static String get loanapi => "$baseUrl/user/";
 }

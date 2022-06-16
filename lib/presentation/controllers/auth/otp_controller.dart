@@ -54,7 +54,9 @@ class OtpController extends GetxController {
           ],
         );
       }
-    } catch (error) {}
+    } catch (error) {
+      Get.toNamed(AppRoutes.ERROR);
+    }
   }
 
   void startTimer() {
