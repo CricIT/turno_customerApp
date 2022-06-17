@@ -24,27 +24,33 @@ class More extends GetView<MoreController> {
             _moreItem(
                 itemName: "vehicle_catalogue".tr,
                 itemIcon: Images.icon_vehicle_catalog,
-                onClick: () {}),
+                onClick: () {
+                  Get.toNamed(AppRoutes.COMING_SOON);
+                }),
             _moreItem(
                 itemName: "apply_loan".tr,
                 itemIcon: Images.icon_loan_application,
-                onClick: () {}),
-            _moreItem(
-                itemName: "vehicle_stats".tr,
-                itemIcon: Images.icon_stats,
-                onClick: () {}),
+                onClick: () {
+                  Get.toNamed(AppRoutes.COMING_SOON);
+                }),
             _moreItem(
                 itemName: "choose_language".tr,
-                itemIcon:Images.icon_language,
+                itemIcon: Images.icon_language,
                 onClick: () {
                   Get.toNamed(AppRoutes.LANGUAGE);
                 }),
             _moreItem(
                 itemName: "refer_earn".tr,
                 itemIcon: Images.icon_refer,
-                onClick: () {}),
+                onClick: () {
+                  Get.toNamed(AppRoutes.COMING_SOON);
+                }),
             _moreItem(
-                itemName: "rewards".tr, itemIcon: Images.icon_rewards, onClick: () {}),
+                itemName: "rewards".tr,
+                itemIcon: Images.icon_rewards,
+                onClick: () {
+                  Get.toNamed(AppRoutes.COMING_SOON);
+                }),
             _moreItem(
                 itemName: "logout".tr,
                 itemIcon: Images.icon_logout,

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 import 'dart:async';
 import 'dart:io';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get_connect/connect.dart';
 import 'api_request_representable.dart';
@@ -14,41 +15,35 @@ class APIProvider {
 
   Future request(APIRequestRepresentable request) async {
     try {
-      final response = await _client.request(
-        request.url,
-        request.method.string,
-        headers: request.headers,
-        query: request.query,
-        body: request.body
-      );
+      final response = await _client.request(request.url, request.method.string,
+          headers: request.headers, query: request.query, body: request.body);
+      print(request.url);
+
       return _returnResponse(response);
-    } on TimeoutException catch (_) {
-      throw TimeOutException(null);
-    } on SocketException {
-      throw FetchDataException('No Internet connection');
+    } on TimeoutException catch (e) {
+      throw TimeOutException(e.message);
+    } on SocketException catch (e) {
+      throw SocketException(e.message);
     }
   }
 
   dynamic _returnResponse(Response<dynamic> response) {
-    try {
-      switch (response.statusCode) {
-        case 200:
-          return response.body;
-        case 400:
-          return BadRequestException(response.body.toString());
-        case 401:
-        case 403:
-          throw UnauthorisedException(response.body.toString());
-        case 404:
-          throw BadRequestException('Not found');
-        case 500:
-          throw FetchDataException('Internal Server Error');
-        default:
-          throw FetchDataException(
-              'Error occured while Communication with Server with StatusCode : ${response.statusCode}');
-      }
-    } catch (error) {
-      debugPrint(error.toString());
+    // print(response.body);
+    switch (response.statusCode) {
+      case 200:
+        return response.body;
+      case 400:
+        return BadRequestException(response.body.toString());
+      case 401:
+      case 403:
+        throw UnauthorisedException(response.body.toString());
+      case 404:
+        throw BadRequestException('Not found');
+      case 500:
+        throw FetchDataException('Internal Server Error');
+      default:
+        throw SocketException(
+            'Error occured while Communication with Server with StatusCode : ${response.statusCode}');
     }
   }
 }

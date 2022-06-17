@@ -22,9 +22,9 @@ class LandingPage extends GetView<LandingPageController> {
     Constants.deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(80.0),
+        preferredSize: const Size.fromHeight(75.0),
         // here the desired height
-        child: Obx((){
+        child: Obx(() {
           return Visibility(
               visible: controller.selectedIndex.value == 0 ? true : false,
               child: BaseAppBar(
@@ -39,7 +39,7 @@ class LandingPage extends GetView<LandingPageController> {
               index: controller.selectedIndex.value,
               children: const [
                 MyVehicle(),
-                Loan(),
+                LoanView(),
                 Support(),
                 Profile(),
                 More(),
@@ -73,7 +73,6 @@ class LandingPage extends GetView<LandingPageController> {
                 label: 'my_vehicle'.tr,
                 activeIcon: SvgPicture.asset(
                   Images.icon_active_vehicle_icon,
-
                 ),
               ),
               BottomNavigationBarItem(
@@ -81,14 +80,13 @@ class LandingPage extends GetView<LandingPageController> {
                 label: 'loan_details'.tr,
                 activeIcon: SvgPicture.asset(
                   Images.icon_active_my_loan,
-
                 ),
               ),
               BottomNavigationBarItem(
                 icon: SvgPicture.asset(Images.icon_inactive_support),
                 label: 'help'.tr,
                 activeIcon: SvgPicture.asset(
-                    Images.icon_active_support,
+                  Images.icon_active_support,
                 ),
               ),
               BottomNavigationBarItem(
