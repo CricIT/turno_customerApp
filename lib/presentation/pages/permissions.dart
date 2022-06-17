@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
 import 'package:turno_customer_application/app/config/app_text_styles.dart';
-import 'package:turno_customer_application/app/config/constant.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_button.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
 
