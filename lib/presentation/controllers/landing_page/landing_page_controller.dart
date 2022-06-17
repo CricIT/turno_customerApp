@@ -12,13 +12,19 @@ class LandingPageController extends GetxController {
   var selectedIndex = 0.obs;
   Future<Vehicle>? myVehicleDetails;
 
-  //get the user preferred language and set
+
   @override
-  void onInit() async {
+  onInit(){
     super.onInit();
     myVehicleDetails = fetchVehicleData();
-    store.pushDataToBackEnd();
   }
+
+
+  void onReady() {
+    //store.pushDataToBackEnd();
+    super.onReady();
+  }
+
 
   //change the index of bottom nav based on user interaction
   void setSelectedIndex(int index) {

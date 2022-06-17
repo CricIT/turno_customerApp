@@ -42,7 +42,7 @@
   "get_help": "Get help",
   "mileage_history": "Mileage History",
   "note_best_practices": "Follow the best charging practices to get the  best performance and buyback value of your vehicle.",
-"not_good": "Not Good",
+  "not_good": "Not Good",
   "good": "Good",
   "last_charger_plugged_at":"Last charger plugged at",
   "charged_till": "Charged till",
@@ -57,5 +57,7 @@
   "best": "Best",
   "warning": "Warning",
   "danger": "Danger",
-  "buy_back_msg": "The 3 year buyback value of the vehicle is calculated based on the charging data like discharge level and charge level."
+  "buy_back_msg": "The 3 year buyback value of the vehicle is calculated based on the charging data like discharge level and charge level.",
+  "mileage_msg": "The 3 year mileage of the vehicle is calculated based on the charging data like discharge level and charge level."
+
 }

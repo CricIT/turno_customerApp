@@ -19,9 +19,7 @@
   "3_years_calculation_desc": "This is based on how you charge your vehicle",
   "how_is_it_calculated": "How is it calculated?",
   "login" : "Login",
-  "login_1" : "We will send you an ",
-  "login_2" : "One Time Password ",
-  "login_3" : "on this mobile number",
+  "login_text" : "We will send you an One Time Password on this mobile number",
   "enter_number" : "Enter your number",
   "alert" : "Alert!",
   "ten_digit" : "Please enter 10 digit mobile number",
@@ -59,5 +57,7 @@
   "best": "Best",
   "warning": "Warning",
   "danger": "Danger",
-  "buy_back_msg": "The 3 year buyback value of the vehicle is calculated based on the charging data like discharge level and charge level."
+  "buy_back_msg": "The 3 year buyback value of the vehicle is calculated based on the charging data like discharge level and charge level.",
+  "mileage_msg": "The 3 year mileage of the vehicle is calculated based on the charging data like discharge level and charge level."
+
 }

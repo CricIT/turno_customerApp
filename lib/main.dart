@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:turno_customer_application/app/services/firebase.dart';
 import 'package:turno_customer_application/presentation/controllers/lang/lang_controller.dart';
 import 'package:turno_customer_application/presentation/controllers/permissions/permission_controller.dart';
-import 'app/config/app_colors.dart';
 import 'package:turno_customer_application/app/util/dependency.dart';
 
 import 'app/config/constant.dart';

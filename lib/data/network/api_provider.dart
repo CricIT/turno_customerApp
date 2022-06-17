@@ -1,8 +1,6 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
 import 'dart:async';
 import 'dart:io';
-import 'package:dartz/dartz.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:get/get_connect/connect.dart';
 import 'api_request_representable.dart';
 
@@ -14,10 +12,10 @@ class APIProvider {
   static APIProvider get instance => _singleton;
 
   Future request(APIRequestRepresentable request) async {
+    print(request);
     try {
       final response = await _client.request(request.url, request.method.string,
           headers: request.headers, query: request.query, body: request.body);
-      print(request.url);
 
       return _returnResponse(response);
     } on TimeoutException catch (e) {

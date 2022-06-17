@@ -10,6 +10,8 @@ class Vehicle {
   int? buybackValueAfter3Year;
   int? idealMileage;
   int? mileageAfter3Year;
+  String? userName;
+  String? vehicleName;
 
   Vehicle({
     this.vin,
@@ -23,6 +25,8 @@ class Vehicle {
     this.previousChargeHeightOfCharge,
     required this.previousChargeMileage,
     required this.wasPreviousChargeMileageLow,
+    this.userName,
+    this.vehicleName
   });
 
   factory Vehicle.fromJson(Map<String, dynamic> json) {
@@ -37,7 +41,10 @@ class Vehicle {
         idealBuybackVehicleValue: json['idealBuybackVehicleValue'],
         buybackValueAfter3Year: json['buybackValueAfter3Year'],
         idealMileage: json['idealMileage'],
-        mileageAfter3Year: json['mileageAfter3Year']);
+        mileageAfter3Year: json['mileageAfter3Year'],
+        userName:json['userName'],
+        vehicleName:json['vehicleName']);
+
   }
 
   Map<String, dynamic> toJson() {
@@ -53,6 +60,8 @@ class Vehicle {
     data['buybackValueAfter3Year'] = buybackValueAfter3Year;
     data['idealMileage'] = idealMileage;
     data['mileageAfter3Year'] = mileageAfter3Year;
+    data['userName']=userName;
+    data['vehicleName']=vehicleName;
     return data;
   }
 }

@@ -8,6 +8,7 @@ import 'package:turno_customer_application/presentation/widgets/home_appbar.dart
 import '../../app/config/constant.dart';
 import '../../app/config/dimentions.dart';
 import '../../app/constants/images.dart';
+import '../../domain/entities/vehicle.dart';
 import '../controllers/landing_page/landing_page_controller.dart';
 import 'my_vehicle.dart';
 import 'loan.dart';
@@ -22,17 +23,32 @@ class LandingPage extends GetView<LandingPageController> {
     Constants.deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(75.0),
-        // here the desired height
-        child: Obx(() {
-          return Visibility(
-              visible: controller.selectedIndex.value == 0 ? true : false,
-              child: BaseAppBar(
-                customerName: "Ramesh",
-                vehicleName: "Piaggio Ape Electrik",
-              ));
-        }),
-      ),
+          preferredSize: Size.fromHeight(Constants.deviceHeight * 0.08),
+          child: Obx(() {
+            return Visibility(
+                visible: controller.selectedIndex.value == 0 ? true : false,
+                child: FutureBuilder<Vehicle>(
+                    future: controller.myVehicleDetails,
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.done:
+                          return BaseAppBar(
+                            customerName: snapshot.data?.userName,
+                            vehicleName: snapshot.data?.vehicleName,
+                          );
+                        case ConnectionState.none:
+                          break;
+                        case ConnectionState.waiting:
+                          break;
+                        case ConnectionState.active:
+                          break;
+                      }
+                      return BaseAppBar(
+                        customerName: "",
+                        vehicleName: "",
+                      );
+                    }));
+          })),
       bottomNavigationBar: buildBottomNavigationMenu(context, controller),
       body: SafeArea(
         child: Obx(() => IndexedStack(

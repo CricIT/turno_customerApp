@@ -1,25 +1,26 @@
 // ignore_for_file: use_key_in_widget_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 import 'package:turno_customer_application/app/config/app_colors.dart';
-import 'package:turno_customer_application/app/config/app_text_styles.dart';
+
 import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
 
 class BaseAppBar extends StatelessWidget {
-  String customerName, vehicleName;
+  String? customerName, vehicleName;
   BaseAppBar({required this.customerName, required this.vehicleName});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: Column(
+   crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(
             height: 24,
           ),
           CustomLabel(
-            title: "Welcome " + customerName,
+            title: "Welcome $customerName",
             color: Colors.white,
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -28,7 +29,7 @@ class BaseAppBar extends StatelessWidget {
             height: 10,
           ),
           CustomLabel(
-            title: vehicleName,
+            title: "$vehicleName",
             color: AppColors.whiteColor,
           ),
           const SizedBox(

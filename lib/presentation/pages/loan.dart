@@ -24,22 +24,20 @@ class LoanView extends GetView<LoanController> {
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.none:
-                print('noooooooooo cooneerrccctionnn');
                 return const Center(
                   child: Text('No connection'),
                 );
               case ConnectionState.waiting:
-                print('wwwaaaatttiiinnnnggggggg');
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return Container(
+                  height: Constants.deviceHeight*0.92,
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 );
               case ConnectionState.active:
-                print('acccctttitiiiiivvvveeeee');
                 break;
               case ConnectionState.done:
-                print('dddooonnnnneeeeeee');
                 if (snapshot.hasData && snapshot.data != null) {
-                  print('ddaaaatttttaaaaaa ${snapshot.data}');
                   return Padding(
                     padding:
                         const EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),

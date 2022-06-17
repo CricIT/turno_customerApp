@@ -1,4 +1,4 @@
-import 'dart:io';
+
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -48,7 +48,6 @@ class LoginController extends GetxController {
       response.fold(
           (l) => _showErrorMessage(l), (r) => Get.toNamed(AppRoutes.OTP));
     } catch (error) {
-      print('heere');
       Get.toNamed(AppRoutes.ERROR);
     }
   }

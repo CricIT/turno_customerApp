@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:turno_customer_application/app/config/constant.dart';
 import 'package:turno_customer_application/app/config/dimentions.dart';
 import 'package:turno_customer_application/app/routes/app_route.dart';
 import 'package:turno_customer_application/domain/entities/vehicle.dart';
@@ -31,16 +32,20 @@ class MyVehicle extends GetView<LandingPageController> {
               builder: (context, snapshot) {
                 switch (snapshot.connectionState) {
                   case ConnectionState.none:
-                    return const Center(
-                      child: Text('No connection'),
+                    return SizedBox(
+                      height: Constants.deviceHeight*0.92,
+                      child: const Center(
+                        child: ErrorWidgetView(),
+                      ),
                     );
                   case ConnectionState.waiting:
-                    print('wwwaaaatttiiinnnnggggggg');
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return SizedBox(
+                      height: Constants.deviceHeight*0.92,
+                      child: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
                     );
                   case ConnectionState.active:
-                    print('acccctttitiiiiivvvveeeee');
                     break;
                   case ConnectionState.done:
                     if (snapshot.hasData && snapshot.data != null) {
@@ -51,6 +56,7 @@ class MyVehicle extends GetView<LandingPageController> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+
                               _vehicleSocAndCurrentBuyBackValue(
                                 currentSoc: snapshot.data?.currentStateOfCharge,
                                 currentRangeLeft:
@@ -58,9 +64,8 @@ class MyVehicle extends GetView<LandingPageController> {
                                 buybackValueAfter3Year:
                                     snapshot.data?.buybackValueAfter3Year,
                               ),
-                              const SizedBox(
-                                height: 15,
-                              ),
+
+
                               _mileage(
                                 wasPreviousChargeMileageLow:
                                     snapshot.data!.wasPreviousChargeMileageLow,
@@ -68,27 +73,29 @@ class MyVehicle extends GetView<LandingPageController> {
                                     snapshot.data!.previousChargeMileage,
                                 idealMileage: snapshot.data?.idealMileage,
                               ),
-                              const SizedBox(
-                                height: 15,
-                              ),
+
                               CustomLabel(
                                 title: "3_years_return_value".tr,
                                 fontSize: Dimensions.FONT_SIZE_LARGE,
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.black,
                               ),
+
                               const SizedBox(
                                 height: 10,
                               ),
+
                               CustomLabel(
                                 title: "3_years_calculation_desc".tr,
                                 fontSize: Dimensions.FONT_SIZE_SMALL,
                                 fontWeight: FontWeight.w400,
                                 color: AppColors.darkGray,
                               ),
+
                               const SizedBox(
                                 height: 20,
                               ),
+
                               _threeYearBuyBackValueCard(
                                 idealBuybackVehicleValue:
                                     snapshot.data?.idealBuybackVehicleValue,
@@ -98,25 +105,32 @@ class MyVehicle extends GetView<LandingPageController> {
                                 mileageAfter3Year:
                                     snapshot.data?.mileageAfter3Year,
                               ),
+
                               const SizedBox(
                                 height: 15,
                               ),
+
                               CustomLabel(
                                   title: "note_charging_practice".tr,
                                   fontSize: Dimensions.FONT_SIZE_SMALL,
                                   maxLines: 3,
                                   fontWeight: FontWeight.w400,
                                   color: AppColors.black),
+
                               const SizedBox(
                                 height: 15,
                               ),
+
                               CustomTextButton(
                                 title: 'best_charging_practices'.tr,
                                 textAlign: TextAlign.center,
-                                onTap: () {},
+                                onTap: () {
+                                  Get.toNamed(AppRoutes.BEST_PRACTICE);
+                                },
                                 showTrailingIcon: true,
                                 borderColor: AppColors.darkBlue,
                               ),
+
                               const SizedBox(
                                 height: 5,
                               ),
@@ -273,11 +287,12 @@ class MyVehicle extends GetView<LandingPageController> {
     );
   }
 
-  _mileage(
-      {required bool wasPreviousChargeMileageLow,
+  _mileage({required bool wasPreviousChargeMileageLow,
       required int previousChargeMileage,
       required idealMileage}) {
+
     return Container(
+      margin: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_DEFAULT,bottom: Dimensions.PADDING_SIZE_DEFAULT),
       decoration: BoxDecoration(
           color: AppColors.whiteColor,
           borderRadius: BorderRadius.circular(Dimensions.RADIUS_DEFAULT),
@@ -462,7 +477,7 @@ class MyVehicle extends GetView<LandingPageController> {
                 )
               ],
             ),
-            Spacer(),
+            const Spacer(),
             InkWell(
               onTap: () {},
               child: Container(

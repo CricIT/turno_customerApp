@@ -4,7 +4,7 @@ import '../../app/config/constant.dart';
 import '../../app/config/dimentions.dart';
 
 class CustomLabel extends StatelessWidget {
-  final String title;
+  final String? title;
   final String subTitle;
   final FontWeight fontWeight;
   final String fontFamily;
@@ -37,8 +37,8 @@ class CustomLabel extends StatelessWidget {
         children: [
           TextSpan(
             text: title != null
-                ? title.contains('*')
-                    ? title.replaceAll("*", "")
+                ? title!.contains('*')
+                    ? title!.replaceAll("*", "")
                     : title
                 : "",
             style: TextStyle(
@@ -53,7 +53,7 @@ class CustomLabel extends StatelessWidget {
           ),
           TextSpan(
             text: title != null
-                ? title.contains('*')
+                ? title!.contains('*')
                     ? "*"
                     : ""
                 : "",
