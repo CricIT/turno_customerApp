@@ -30,13 +30,6 @@ class ChooseLanguage extends GetView<LangController> {
                   height: 50,
                 ),
                 Center(
-                  // child: Text(
-                  //   'choose_language'.tr,
-                  //   style: const TextStyle(
-                  //     fontSize: 24,
-                  //     fontWeight: FontWeight.w700,
-                  //   ),
-                  // ),
                   child: CustomLabel(
                     title: 'choose_language'.tr,
                     fontWeight: FontWeight.w700,
@@ -59,13 +52,18 @@ class ChooseLanguage extends GetView<LangController> {
                     ),
                     itemCount: Constants.languages.length,
                     itemBuilder: (context, index) {
-                      return Container(
-                        height: 100,
-                        decoration: BoxDecoration(
-                            color: AppColors.primaryColorLight,
-                            borderRadius: BorderRadius.circular(15)),
-                        padding: const EdgeInsets.all(8.0),
-                        child: GestureDetector(
+                      return GestureDetector(
+                        onTap: () {
+                          Get.updateLocale(Constants.locale[index]['locale']);
+                          controller.setUserPreferredLanguage(
+                              Constants.locale[index]['name']);
+                        },
+                        child: Container(
+                          height: 100,
+                          decoration: BoxDecoration(
+                              color: AppColors.primaryColorLight,
+                              borderRadius: BorderRadius.circular(15)),
+                          padding: const EdgeInsets.all(8.0),
                           child: Center(
                               child: CustomLabel(
                             title: Constants.languages[index],
@@ -73,12 +71,6 @@ class ChooseLanguage extends GetView<LangController> {
                             fontSize: Dimensions.FONT_SIZE_XXLARGE,
                             fontWeight: FontWeight.w700,
                           )),
-                          onTap: () {
-                            Get.updateLocale(Constants.locale[index]['locale']);
-                            controller.setUserPreferredLanguage(
-                                Constants.locale[index]['name']);
-
-                          },
                         ),
                       );
                     },

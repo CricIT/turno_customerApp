@@ -51,6 +51,8 @@ dependencies:
   dartz: ^0.10.1
   location: ^4.4.0
   intl: ^0.17.0
+  permission_handler: ^10.0.0
+  app_settings: ^4.1.8
 
 dev_dependencies:
   flutter_test:
