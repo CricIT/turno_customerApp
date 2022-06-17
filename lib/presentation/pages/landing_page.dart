@@ -22,7 +22,7 @@ class LandingPage extends GetView<LandingPageController> {
     Constants.deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(80.0),
+        preferredSize: const Size.fromHeight(75.0),
         // here the desired height
         child: Obx(() {
           return Visibility(

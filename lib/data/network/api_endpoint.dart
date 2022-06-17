@@ -5,5 +5,7 @@ class APIEndpoint {
 
   static String get otpapi => "$baseUrl/otp/verify";
 
+  static String get vehicleapi => "$baseUrl/user/";
+
   static String get loanapi => "$baseUrl/user/";
 }

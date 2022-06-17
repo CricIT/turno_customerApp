@@ -11,18 +11,27 @@ import 'custom_label.dart';
 
 class GuageCardView extends StatelessWidget {
   String header, startRange, endRange, description, centreValue, centreText;
+  int actualBuyback;
+  int idealBuyback;
+  int idealMileage;
+  int actualMileage;
   bool isSingleColour;
   final Function() buttonAction;
 
   GuageCardView(
       {Key? key,
+      required this.actualBuyback,
+      required this.idealBuyback,
+      required this.actualMileage,
+      required this.idealMileage,
       required this.header,
       required this.startRange,
       required this.centreText,
       required this.centreValue,
       required this.description,
       required this.endRange,
-      required this.isSingleColour,required this.buttonAction})
+      required this.isSingleColour,
+      required this.buttonAction})
       : super(key: key);
 
   @override
@@ -67,7 +76,8 @@ class GuageCardView extends StatelessWidget {
                         endAngle: 360,
                         radiusFactor: 0.9,
                         axisLineStyle: const AxisLineStyle(
-                            thickness: 0.1, thicknessUnit: GaugeSizeUnit.factor),
+                            thickness: 0.1,
+                            thicknessUnit: GaugeSizeUnit.factor),
                         annotations: <GaugeAnnotation>[
                           GaugeAnnotation(
                               verticalAlignment: GaugeAlignment.far,
@@ -84,8 +94,8 @@ class GuageCardView extends StatelessWidget {
                             positionFactor: 1,
                             widget: Container(
                                 margin: const EdgeInsets.only(top: 30),
-                                child:
-                                    Text(startRange, style: lightBlackNormal12)),
+                                child: Text(startRange,
+                                    style: lightBlackNormal12)),
                           ),
                           GaugeAnnotation(
                             angle: 360,
@@ -99,26 +109,26 @@ class GuageCardView extends StatelessWidget {
                         ],
                         pointers: <GaugePointer>[
                           isSingleColour
-                              ? const RangePointer(
-                                  value: 65,
+                              ? RangePointer(
+                                  value: (actualBuyback / idealBuyback) * 100,
                                   cornerStyle: CornerStyle.bothCurve,
                                   enableAnimation: true,
                                   animationDuration: 1200,
                                   sizeUnit: GaugeSizeUnit.factor,
-                                  gradient: SweepGradient(colors: <Color>[
+                                  gradient: const SweepGradient(colors: <Color>[
                                     Color(0xFF6462D9)
                                   ], stops: <double>[
                                     1,
                                   ]),
                                   color: Color(0xFF00A8B5),
                                   width: 0.1)
-                              : const RangePointer(
-                                  value: 65,
+                              : RangePointer(
+                                  value: (actualMileage / idealMileage) * 100,
                                   cornerStyle: CornerStyle.bothCurve,
                                   enableAnimation: true,
                                   animationDuration: 1200,
                                   sizeUnit: GaugeSizeUnit.factor,
-                                  gradient: SweepGradient(colors: <Color>[
+                                  gradient: const SweepGradient(colors: <Color>[
                                     Color(0xFFE84E4E),
                                     Color(0xFFF3C03B),
                                     Color(0xFF43EA7C),
@@ -132,7 +142,9 @@ class GuageCardView extends StatelessWidget {
                                   color: Color(0xFF00A8B5),
                                   width: 0.1),
                           WidgetPointer(
-                              value: 65,
+                              value: isSingleColour
+                                  ? (actualBuyback / idealBuyback) * 100
+                                  : (actualMileage / idealMileage) * 100,
                               child: Container(
                                   margin: const EdgeInsets.only(top: 20.0),
                                   child: const Icon(Icons.arrow_drop_down,
@@ -150,7 +162,7 @@ class GuageCardView extends StatelessWidget {
                 fontWeight: FontWeight.w400,
                 color: AppColors.black),
             SizedBox(
-              height: Constants.deviceHeight * 0.02 ,
+              height: Constants.deviceHeight * 0.02,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -22,7 +22,7 @@ void main() async {
     DeviceOrientation.portraitUp,
   ]);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: AppColors.mediumGray,
+    statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
     statusBarBrightness: Brightness.light, // For iOS (dark icons)
   ));

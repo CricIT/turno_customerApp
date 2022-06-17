@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
 import 'package:turno_customer_application/app/config/app_text_styles.dart';
+import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
 
 class BaseAppBar extends StatelessWidget {
   String customerName, vehicleName;
@@ -17,17 +18,25 @@ class BaseAppBar extends StatelessWidget {
           const SizedBox(
             height: 24,
           ),
-          Text("welcome ".tr + customerName, style: blackNormal14),
+          CustomLabel(
+            title: "Welcome " + customerName,
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
           const SizedBox(
             height: 10,
           ),
-          Text(vehicleName, style: lightBlackNormal12),
+          CustomLabel(
+            title: vehicleName,
+            color: AppColors.whiteColor,
+          ),
           const SizedBox(
-            height: 8,
+            height: 20,
           ),
         ],
       ),
-      backgroundColor: AppColors.mediumGray,
+      backgroundColor: AppColors.lightPurple,
     );
   }
 }

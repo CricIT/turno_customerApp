@@ -9,7 +9,6 @@ import 'package:turno_customer_application/app/util/util.dart';
 import 'package:turno_customer_application/domain/entities/emi.dart';
 import 'package:turno_customer_application/domain/entities/emi_history.dart';
 import 'package:turno_customer_application/domain/entities/loan.dart';
-import 'package:turno_customer_application/presentation/pages/error.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
 import 'package:turno_customer_application/presentation/widgets/error_widget.dart';
 import '../controllers/landing_page/loan_controller.dart';
@@ -106,7 +105,7 @@ class LoanView extends GetView<LoanController> {
           border: Border.all(
             color: AppColors.borderGray,
           ),
-          color: AppColors.lightGray),
+          color: AppColors.paleYello),
       height: Constants.deviceHeight * 0.1,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -135,7 +134,7 @@ class LoanView extends GetView<LoanController> {
       margin: const EdgeInsets.only(top: 10),
       padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
       decoration: BoxDecoration(
-        color: AppColors.borderGray,
+        color: AppColors.lightPurple,
         border: Border.all(
           color: AppColors.borderGray,
         ),
@@ -151,13 +150,13 @@ class LoanView extends GetView<LoanController> {
             title: '₹ $amount',
             fontSize: 18,
             fontWeight: FontWeight.w400,
-            color: AppColors.black,
+            color: AppColors.whiteColor,
           ),
           CustomLabel(
             title: 'Loan taken for ${tenure.toString().substring(0, 1)} years',
             fontSize: 16,
             fontWeight: FontWeight.w600,
-            color: AppColors.black,
+            color: AppColors.whiteColor,
           ),
         ],
       ),

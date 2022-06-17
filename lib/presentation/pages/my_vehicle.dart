@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:turno_customer_application/app/config/dimentions.dart';
 import 'package:turno_customer_application/app/routes/app_route.dart';
+import 'package:turno_customer_application/domain/entities/vehicle.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_text_button.dart';
 import 'package:turno_customer_application/presentation/controllers/landing_page/landing_page_controller.dart';
 import '../../app/config/app_colors.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../app/util/util.dart';
 import '../widgets/custom_label.dart';
 import '../widgets/custom_rich_text.dart';
+import '../widgets/error_widget.dart';
 import '../widgets/guage_card.dart';
 import '../widgets/prefix_icon_text.dart';
 
@@ -24,72 +26,119 @@ class MyVehicle extends GetView<LandingPageController> {
         backgroundColor: AppColors.whiteColor,
         body: SafeArea(
             child: SingleChildScrollView(
-          child: Container(
-            margin: const EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _vehicleSocAndCurrentBuyBackValue(),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  _mileage(),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  CustomLabel(
-                    title: "3_years_return_value".tr,
-                    fontSize: Dimensions.FONT_SIZE_LARGE,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.black,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  CustomLabel(
-                    title: "3_years_calculation_desc".tr,
-                    fontSize: Dimensions.FONT_SIZE_SMALL,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.darkGray,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  _threeYearBuyBackValueCard(),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  CustomLabel(
-                      title: "note_charging_practice".tr,
-                      fontSize: Dimensions.FONT_SIZE_SMALL,
-                      maxLines: 3,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.black),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  CustomTextButton(
-                    title: 'best_charging_practices'.tr,
-                    textAlign: TextAlign.center,
-                    onTap: () {
-
-                    },
-                    showTrailingIcon: true,
-                    borderColor: AppColors.darkBlue,
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                ]),
-          ),
+          child: FutureBuilder<Vehicle>(
+              future: controller.myVehicleDetails,
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.none:
+                    return const Center(
+                      child: Text('No connection'),
+                    );
+                  case ConnectionState.waiting:
+                    print('wwwaaaatttiiinnnnggggggg');
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  case ConnectionState.active:
+                    print('acccctttitiiiiivvvveeeee');
+                    break;
+                  case ConnectionState.done:
+                    if (snapshot.hasData && snapshot.data != null) {
+                      return Container(
+                        margin: const EdgeInsets.all(
+                            Dimensions.PADDING_SIZE_DEFAULT),
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _vehicleSocAndCurrentBuyBackValue(
+                                currentSoc: snapshot.data?.currentStateOfCharge,
+                                currentRangeLeft:
+                                    snapshot.data?.currentRangeLeft,
+                                buybackValueAfter3Year:
+                                    snapshot.data?.buybackValueAfter3Year,
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              _mileage(
+                                wasPreviousChargeMileageLow:
+                                    snapshot.data!.wasPreviousChargeMileageLow,
+                                previousChargeMileage:
+                                    snapshot.data!.previousChargeMileage,
+                                idealMileage: snapshot.data?.idealMileage,
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              CustomLabel(
+                                title: "3_years_return_value".tr,
+                                fontSize: Dimensions.FONT_SIZE_LARGE,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.black,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              CustomLabel(
+                                title: "3_years_calculation_desc".tr,
+                                fontSize: Dimensions.FONT_SIZE_SMALL,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.darkGray,
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              _threeYearBuyBackValueCard(
+                                idealBuybackVehicleValue:
+                                    snapshot.data?.idealBuybackVehicleValue,
+                                buybackValueAfter3Year:
+                                    snapshot.data?.buybackValueAfter3Year,
+                                idealMileage: snapshot.data?.idealMileage,
+                                mileageAfter3Year:
+                                    snapshot.data?.mileageAfter3Year,
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              CustomLabel(
+                                  title: "note_charging_practice".tr,
+                                  fontSize: Dimensions.FONT_SIZE_SMALL,
+                                  maxLines: 3,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.black),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              CustomTextButton(
+                                title: 'best_charging_practices'.tr,
+                                textAlign: TextAlign.center,
+                                onTap: () {},
+                                showTrailingIcon: true,
+                                borderColor: AppColors.darkBlue,
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                            ]),
+                      );
+                    } else {
+                      return const ErrorWidgetView();
+                    }
+                }
+                return Container();
+              }),
         )));
   }
 
-  _vehicleSocAndCurrentBuyBackValue() {
+  _vehicleSocAndCurrentBuyBackValue(
+      {int? currentSoc, int? currentRangeLeft, int? buybackValueAfter3Year}) {
     return Container(
-        padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_LARGE,bottom: Dimensions.PADDING_SIZE_LARGE,
-            left: Dimensions.PADDING_SIZE_XXLARGE,right: Dimensions.PADDING_SIZE_XXLARGE),
+        padding: const EdgeInsets.only(
+            top: Dimensions.PADDING_SIZE_LARGE,
+            bottom: Dimensions.PADDING_SIZE_LARGE,
+            left: Dimensions.PADDING_SIZE_XXLARGE,
+            right: Dimensions.PADDING_SIZE_XXLARGE),
         decoration: BoxDecoration(
             color: AppColors.whiteColor,
             borderRadius: BorderRadius.circular(Dimensions.RADIUS_DEFAULT),
@@ -101,107 +150,122 @@ class MyVehicle extends GetView<LandingPageController> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
+                  Column(
                     children: [
-                      SvgPicture.asset(Images.batteryChagre),
+                      Row(
+                        children: [
+                          SvgPicture.asset(Images.batteryChagre),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          CustomLabel(
+                            title: "charge".tr,
+                            fontSize: Dimensions.FONT_SIZE_SMALL,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.darkGray,
+                          )
+                        ],
+                      ),
                       const SizedBox(
-                        width: 8,
+                        height: 10,
                       ),
                       CustomLabel(
-                        title: "charge".tr,
-                        fontSize: Dimensions.FONT_SIZE_SMALL,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.darkGray,
-                      )
+                          title: "$currentSoc %",
+                          fontSize: Dimensions.FONT_SIZE_XXLARGE,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.black)
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const CustomLabel(
-                      title: "58%",
-                      fontSize: Dimensions.FONT_SIZE_XXLARGE,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.black)
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          SvgPicture.asset(Images.bolt),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          CustomLabel(
+                              title: "available_range".tr,
+                              fontSize: Dimensions.FONT_SIZE_SMALL,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.darkGray)
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      CustomLabel(
+                          title: "$currentRangeLeft KM",
+                          fontSize: Dimensions.FONT_SIZE_XXLARGE,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.black)
+                    ],
+                  )
                 ],
               ),
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      SvgPicture.asset(Images.bolt),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      CustomLabel(
-                          title: "available_range".tr,
-                          fontSize: Dimensions.FONT_SIZE_SMALL,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.darkGray)
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const CustomLabel(
-                      title: "97 KM",
-                      fontSize: Dimensions.FONT_SIZE_XXLARGE,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.black)
-                ],
+              Container(
+                margin: const EdgeInsets.only(
+                    top: Dimensions.PADDING_SIZE_DEFAULT,
+                    bottom: Dimensions.PADDING_SIZE_DEFAULT),
+                child: const Divider(
+                  height: 2,
+                  color: AppColors.dividerGray,
+                ),
+              ),
+              CustomRichText(
+                spanText1: "${"buy_back_value".tr}: ",
+                spanText2: " ₹ $buybackValueAfter3Year",
+                color1: AppColors.darkGray,
+                color2: AppColors.black,
+                fontSize1: Dimensions.FONT_SIZE_XLARGE,
+                fontSize2: Dimensions.FONT_SIZE_XLARGE,
               )
-            ],
-          ),
-          Container(
-            margin: const EdgeInsets.only(top:  Dimensions.PADDING_SIZE_DEFAULT, bottom: Dimensions.PADDING_SIZE_DEFAULT),
-            child: const Divider(
-              height: 2,
-              color: AppColors.dividerGray,
-            ),
-          ),
-          CustomRichText(
-            spanText1: "${"buy_back_value".tr}: ",
-            spanText2: " ₹ 1,30,000",
-            color1: AppColors.darkGray,
-            color2: AppColors.black,
-            fontSize1: Dimensions.FONT_SIZE_XLARGE,
-            fontSize2:  Dimensions.FONT_SIZE_XLARGE,
-          )
-        ]));
+            ]));
   }
 
-  _threeYearBuyBackValueCard() {
+  _threeYearBuyBackValueCard({
+    int? idealBuybackVehicleValue,
+    int? buybackValueAfter3Year,
+    int? idealMileage,
+    int? mileageAfter3Year,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GuageCardView(
-          buttonAction: (){
+          idealBuyback: idealBuybackVehicleValue!,
+          actualBuyback: buybackValueAfter3Year!,
+          idealMileage: idealMileage!,
+          actualMileage: mileageAfter3Year!,
+          buttonAction: () {
             Utils.showBottomSheetWithMsg("buy_back_msg".tr);
           },
           header: "Buyback value",
           startRange: "0",
-          endRange: "1,50,000",
+          endRange: "$idealBuybackVehicleValue",
           description:
               "The value that you get on selling the vehicle back to Turno after 3 years",
-          centreValue: "₹ 1,30,000",
+          centreValue: "₹ $buybackValueAfter3Year",
           centreText: "Current value",
           isSingleColour: false,
         ),
         GuageCardView(
-          buttonAction: (){
+          idealBuyback: idealBuybackVehicleValue,
+          actualBuyback: buybackValueAfter3Year,
+          idealMileage: idealMileage,
+          actualMileage: mileageAfter3Year,
+          buttonAction: () {
             Utils.showBottomSheetWithMsg("buy_back_msg".tr);
           },
-          header: "Buyback value",
+          header: "Mileage",
           startRange: "0",
-          endRange: "120",
+          endRange: "$idealMileage",
           description:
               "The value that you get on selling the vehicle back to Turno after 3 years",
-          centreValue: "109",
+          centreValue: "$mileageAfter3Year",
           centreText: "km/charge",
           isSingleColour: true,
         )
@@ -209,7 +273,10 @@ class MyVehicle extends GetView<LandingPageController> {
     );
   }
 
-  _mileage() {
+  _mileage(
+      {required bool wasPreviousChargeMileageLow,
+      required int previousChargeMileage,
+      required idealMileage}) {
     return Container(
       decoration: BoxDecoration(
           color: AppColors.whiteColor,
@@ -232,7 +299,8 @@ class MyVehicle extends GetView<LandingPageController> {
                 fontWeight: FontWeight.w600,
                 color: AppColors.black),
           ),
-          Visibility(visible: true, child: _mileageAlertView()),
+          Visibility(
+              visible: wasPreviousChargeMileageLow, child: _mileageAlertView()),
           Padding(
             padding: const EdgeInsets.only(
                 left: Dimensions.PADDING_SIZE_LARGE,
@@ -244,7 +312,7 @@ class MyVehicle extends GetView<LandingPageController> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         CustomLabel(
                           title: "on_previous_charge".tr,
@@ -255,8 +323,8 @@ class MyVehicle extends GetView<LandingPageController> {
                         const SizedBox(
                           height: 8,
                         ),
-                        const CustomLabel(
-                            title: "58%",
+                        CustomLabel(
+                            title: "$previousChargeMileage",
                             fontSize: Dimensions.FONT_SIZE_XXLARGE,
                             fontWeight: FontWeight.w600,
                             color: AppColors.black),
@@ -271,11 +339,16 @@ class MyVehicle extends GetView<LandingPageController> {
                         const SizedBox(
                           height: 8,
                         ),
-                         PrefixIconTextView(icon: Images.icon_not_good,text: "not_good".tr,),
+                        PrefixIconTextView(
+                          icon: Utils.mileageStatusIcon(
+                              previousChargeMileage, idealMileage),
+                          text: Utils.mileageStatusText(
+                              previousChargeMileage, idealMileage),
+                        ),
                       ],
                     ),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         CustomLabel(
                             title: "others_are_getting".tr,
@@ -286,7 +359,7 @@ class MyVehicle extends GetView<LandingPageController> {
                           height: 8,
                         ),
                         const CustomLabel(
-                            title: "97%",
+                            title: "97",
                             fontSize: Dimensions.FONT_SIZE_XXLARGE,
                             fontWeight: FontWeight.bold,
                             color: AppColors.black),
@@ -301,8 +374,10 @@ class MyVehicle extends GetView<LandingPageController> {
                         const SizedBox(
                           height: 8,
                         ),
-                         PrefixIconTextView(icon: Images.icon_good,text: "Good".tr,),
-
+                        PrefixIconTextView(
+                          icon: Images.icon_good,
+                          text: "Good".tr,
+                        ),
                       ],
                     )
                   ],
@@ -330,7 +405,7 @@ class MyVehicle extends GetView<LandingPageController> {
             title: 'best_charging_practices'.tr,
             textAlign: TextAlign.center,
             onTap: () {
-              Get.toNamed(AppRoutes.BEST_PRACTICE );
+              Get.toNamed(AppRoutes.BEST_PRACTICE);
             },
             showTrailingIcon: true,
             color: AppColors.darkBlue,
@@ -354,8 +429,11 @@ class MyVehicle extends GetView<LandingPageController> {
             width: 1,
           )),
       child: Padding(
-        padding: const EdgeInsets.only(left:Dimensions.PADDING_SIZE_DEFAULT,
-        right: Dimensions.PADDING_SIZE_DEFAULT,top: Dimensions.PADDING_SIZE_LARGE,bottom: Dimensions.PADDING_SIZE_LARGE),
+        padding: const EdgeInsets.only(
+            left: Dimensions.PADDING_SIZE_DEFAULT,
+            right: Dimensions.PADDING_SIZE_DEFAULT,
+            top: Dimensions.PADDING_SIZE_LARGE,
+            bottom: Dimensions.PADDING_SIZE_LARGE),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -384,33 +462,29 @@ class MyVehicle extends GetView<LandingPageController> {
                 )
               ],
             ),
-        Spacer(),
-        InkWell(
-          onTap: (){
-
-          },
-          child: Container(
-            padding: const EdgeInsets.all(
-              Dimensions.PADDING_SIZE_SMALL,
-            ),
-            decoration: BoxDecoration(
-                color: AppColors.whiteColor,
-                border: Border.all(
-                  color: AppColors.borderGray,
-                  width: 1,
-                )),
-          child: CustomLabel(
-              title: "get_help".tr,
-              fontSize: Dimensions.FONT_SIZE_SMALL,
-              maxLines: 3,
-              fontWeight: FontWeight.w600,
-              color: AppColors.black)),
-        )
+            Spacer(),
+            InkWell(
+              onTap: () {},
+              child: Container(
+                  padding: const EdgeInsets.all(
+                    Dimensions.PADDING_SIZE_SMALL,
+                  ),
+                  decoration: BoxDecoration(
+                      color: AppColors.whiteColor,
+                      border: Border.all(
+                        color: AppColors.borderGray,
+                        width: 1,
+                      )),
+                  child: CustomLabel(
+                      title: "get_help".tr,
+                      fontSize: Dimensions.FONT_SIZE_SMALL,
+                      maxLines: 3,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.black)),
+            )
           ],
         ),
       ),
     );
   }
 }
-
-

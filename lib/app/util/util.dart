@@ -21,6 +21,40 @@ class Utils {
     return dateString;
   }
 
+  static String mileageStatusText(int ideal, int actual) {
+    double percent = ideal / actual;
+    if (percent <= 0.5) return 'Danger';
+    if (percent > 0.5 && percent < 0.8) return 'Not Good';
+    if (percent >= 0.8) return 'Good';
+    return '';
+  }
+
+  static String mileageStatusIcon(int ideal, int actual) {
+    double percent = ideal / actual;
+    if (percent <= 0.5) return Images.icon_danger;
+    if (percent > 0.5 && percent < 0.8) return Images.icon_not_good;
+    if (percent >= 0.8) return Images.icon_good;
+    return '';
+  }
+
+  static String chargingStatusText(int charge) {
+    if (charge <= 10) return 'Danger';
+    if (charge > 10 && charge <= 20) return 'Not Good';
+    if (charge > 10 && charge <= 80) return 'Good';
+    if (charge > 80 && charge <= 90) return 'Not Good';
+    if (charge > 90) return 'Danger';
+    return '';
+  }
+
+  static String chargingStatusIcon(int charge) {
+    if (charge <= 10) return Images.icon_danger;
+    if (charge > 10 && charge <= 20) return Images.icon_not_good;
+    if (charge > 10 && charge <= 80) Images.icon_good;
+    if (charge > 80 && charge <= 90) return Images.icon_not_good;
+    if (charge > 90) return Images.icon_danger;
+    return '';
+  }
+
   static void showBottomSheetWithMsg(String message) {
     Get.bottomSheet(
       Container(

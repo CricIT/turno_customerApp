@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -21,7 +20,7 @@ class BestChargingPractice extends GetView<BestChargingPracticeController> {
     return Scaffold(
         appBar: PreferredSize(
             preferredSize: const Size.fromHeight(40.0),
-            child: GenericAppBar(heading: "mileage_history".tr)),
+            child: GenericAppBar(heading: "Best Practices".tr)),
         body: SafeArea(
             child: SingleChildScrollView(
           child: Container(
@@ -57,7 +56,6 @@ class BestChargingPractice extends GetView<BestChargingPracticeController> {
                             "guide_txt".tr,
                             style: darkGrayNormal12,
                           ),
-
                           const SizedBox(
                             height: 10,
                           ),
@@ -70,14 +68,10 @@ class BestChargingPractice extends GetView<BestChargingPracticeController> {
                             iconHeight: 18,
                             iconWidth: 18,
                           ),
-
                           _bestPracticeGuideContainer(),
-
-
                           const SizedBox(
                             height: 10,
                           ),
-
                           PrefixIconTextView(
                             icon: Images.icon_not_good,
                             text: "warning".tr,
@@ -100,7 +94,7 @@ class BestChargingPractice extends GetView<BestChargingPracticeController> {
                             iconHeight: 18,
                             iconWidth: 18,
                           ),
-                           _dangerContainer(),
+                          _dangerContainer(),
                         ],
                       ),
                     ),
@@ -338,7 +332,6 @@ class BestChargingPractice extends GetView<BestChargingPracticeController> {
               )
             ],
           ),
-
         ],
       ),
     );
