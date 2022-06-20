@@ -4,7 +4,6 @@ import 'package:turno_customer_application/app/config/app_colors.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/config/app_text_styles.dart';
 import 'package:turno_customer_application/app/config/constant.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:turno_customer_application/app/config/dimentions.dart';
 import 'package:turno_customer_application/presentation/controllers/auth/login_controller.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_button.dart';
@@ -31,7 +30,7 @@ class LoginPage extends GetView<LoginController> {
                 _otpText(),
                 _buildPhoneInputField(),
                 SizedBox(
-                  height: Constants.deviceHeight * 0.2,
+                  height: Constants.deviceHeight * 0.15,
                 ),
                 _nextButton(),
               ],
@@ -75,9 +74,8 @@ class LoginPage extends GetView<LoginController> {
   }
 
   Widget _buildPhoneInputField() {
-    return Container(
+    return SizedBox(
       height: 50,
-      margin: const EdgeInsets.all(10),
       child: CustomTextField(
         textController: controller.phoneController,
         keyboardInputType: TextInputType.phone,

@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:turno_customer_application/app/config/constant.dart';
 import 'package:turno_customer_application/app/config/dimentions.dart';
 import 'package:turno_customer_application/app/constants/network_used_case.dart';
@@ -19,7 +17,7 @@ import '../widgets/error_widget.dart';
 import '../widgets/guage_card.dart';
 import '../widgets/home_appbar.dart';
 import '../widgets/prefix_icon_text.dart';
-import 'coming_soon.dart';
+import '../widgets/coming_soon.dart';
 
 class MyVehicle extends GetView<VehicleDetailsController> {
   const MyVehicle({Key? key}) : super(key: key);
@@ -28,13 +26,18 @@ class MyVehicle extends GetView<VehicleDetailsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(Constants.deviceHeight * 0.08),
+          preferredSize: Size.fromHeight(Constants.deviceHeight * 0.09),
           child: Obx(() {
             return Visibility(
-                visible: controller.isDataAvailable.value? true : false,
+                visible: controller.isDataAvailable.value ? true : false,
                 child: BaseAppBar(
-                  customerName:controller.getVehicelDetails.value==null?"": controller.getVehicelDetails.value?.payload!.userName,
-                  vehicleName: controller.getVehicelDetails.value==null?"":controller.getVehicelDetails.value?.payload!.vehicleName,
+                  customerName: controller.getVehicelDetails.value == null
+                      ? ""
+                      : controller.getVehicelDetails.value?.payload!.userName,
+                  vehicleName: controller.getVehicelDetails.value == null
+                      ? ""
+                      : controller
+                          .getVehicelDetails.value?.payload!.vehicleName,
                 ));
           })),
       body: GetX(
@@ -164,13 +167,12 @@ class MyVehicle extends GetView<VehicleDetailsController> {
           buttonAction: () {
             Utils.showBottomSheetWithMsg("buy_back_msg".tr);
           },
-          header: "Buyback value",
+          header: "buy_back_value".tr,
           startRange: "0",
           endRange: "$idealBuybackVehicleValue",
-          description:
-              "The value that you get on selling the vehicle back to Turno after 3 years",
+          description: "buy_back_desc".tr,
           centreValue: "₹ $buybackValueAfter3Year",
-          centreText: "Current value",
+          centreText: "current_value".tr,
           isSingleColour: false,
         ),
         GuageCardView(
@@ -181,13 +183,12 @@ class MyVehicle extends GetView<VehicleDetailsController> {
           buttonAction: () {
             Utils.showBottomSheetWithMsg("buy_back_msg".tr);
           },
-          header: "Mileage",
+          header: "mileage".tr,
           startRange: "0",
           endRange: "$idealMileage",
-          description:
-              "The value that you get on selling the vehicle back to Turno after 3 years",
+          description: "mileage_desc".tr,
           centreValue: "$mileageAfter3Year",
-          centreText: "km/charge",
+          centreText: "km/charge".tr,
           isSingleColour: true,
         )
       ],
@@ -300,7 +301,7 @@ class MyVehicle extends GetView<VehicleDetailsController> {
                         ),
                         PrefixIconTextView(
                           icon: Images.icon_good,
-                          text: "Good".tr,
+                          text: "good".tr,
                         ),
                       ],
                     )
@@ -375,9 +376,9 @@ class MyVehicle extends GetView<VehicleDetailsController> {
                     fontWeight: FontWeight.w400,
                     color: AppColors.lightBlack),
                 Row(
-                  children: const [
+                  children: [
                     CustomLabel(
-                        title: "23 km/ charge ",
+                        title: "23 ${'km/charge'.tr} ",
                         fontSize: Dimensions.FONT_SIZE_DEFAULT,
                         maxLines: 3,
                         fontWeight: FontWeight.w600,
@@ -424,10 +425,10 @@ class MyVehicle extends GetView<VehicleDetailsController> {
       case NetworkUsedCase.error:
         return SizedBox(
           height: Constants.deviceHeight,
-          child:  Center(
+          child: Center(
             child: ErrorWidgetView(
-              buttonAction:() {
-                 controller.fetchVehicleData();
+              buttonAction: () {
+                controller.fetchVehicleData();
               },
             ),
           ),
@@ -435,8 +436,10 @@ class MyVehicle extends GetView<VehicleDetailsController> {
       case NetworkUsedCase.usernotfound:
         return SizedBox(
           height: Constants.deviceHeight,
-          child: const Center(
-            child: ComingSoon(),
+          child: Center(
+            child: ComingSoon(
+              showButton: false,
+            ),
           ),
         );
       case NetworkUsedCase.sucess:

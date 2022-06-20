@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
-import 'package:turno_customer_application/app/config/app_text_styles.dart';
 import 'package:turno_customer_application/app/config/constant.dart';
 
-import '../widgets/custom_button.dart';
-import '../widgets/custom_label.dart';
+import 'custom_button.dart';
+import 'custom_label.dart';
 
 class ComingSoon extends StatelessWidget {
-  const ComingSoon({Key? key}) : super(key: key);
+  bool showButton;
+  ComingSoon({Key? key, required this.showButton}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.whiteColor,
-      body: SafeArea(
+    print(showButton);
+    return SafeArea(
+      child: Container(
+        color: AppColors.whiteColor,
         child: Center(
           child: Column(
             children: [
@@ -31,10 +31,10 @@ class ComingSoon extends StatelessWidget {
               SizedBox(
                 height: Constants.deviceHeight * 0.05,
               ),
-              const Padding(
-                padding: EdgeInsets.all(16),
+              Padding(
+                padding: const EdgeInsets.all(16),
                 child: CustomLabel(
-                  title: 'This feature is coming soon',
+                  title: 'coming_soon'.tr,
                   color: AppColors.black,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -43,19 +43,20 @@ class ComingSoon extends StatelessWidget {
               SizedBox(
                 height: Constants.deviceHeight * 0.05,
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: CustomButton(
-                  width: Constants.deviceWidth * 0.95,
-                  buttonAction: () {
-                    Get.back();
-                  },
-                  child: const CustomLabel(
-                    title: 'Back',
-                    color: AppColors.whiteColor,
+              if (showButton == true)
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: CustomButton(
+                    width: Constants.deviceWidth * 0.95,
+                    buttonAction: () {
+                      Get.back();
+                    },
+                    child: CustomLabel(
+                      title: 'back'.tr,
+                      color: AppColors.whiteColor,
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
         ),

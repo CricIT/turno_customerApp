@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:turno_customer_application/app/config/app_colors.dart';
 
@@ -14,13 +15,13 @@ class BaseAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Column(
-   crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(
             height: 24,
           ),
           CustomLabel(
-            title: "Welcome $customerName",
+            title: "${'welcome'.tr} $customerName",
             color: Colors.white,
             fontSize: 16,
             fontWeight: FontWeight.w600,

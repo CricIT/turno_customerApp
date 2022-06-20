@@ -57,7 +57,7 @@ class Permissions extends GetView<PermissionsController> {
                       'Location',
                       'To prevent any fraudulent activities and provide location specific offers.'),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.25,
+                    height: MediaQuery.of(context).size.height * 0.1,
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,

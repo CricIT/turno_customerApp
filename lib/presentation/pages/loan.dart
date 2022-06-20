@@ -13,7 +13,7 @@ import 'package:turno_customer_application/presentation/widgets/custom_label.dar
 import 'package:turno_customer_application/presentation/widgets/error_widget.dart';
 import '../../app/constants/network_used_case.dart';
 import '../controllers/loan_controller/loan_controller.dart';
-import 'coming_soon.dart';
+import '../widgets/coming_soon.dart';
 
 class LoanView extends GetView<LoanController> {
   const LoanView({Key? key}) : super(key: key);
@@ -38,12 +38,12 @@ class LoanView extends GetView<LoanController> {
   Widget _buildHeader() {
     return SizedBox(
       height: Constants.deviceHeight * 0.07,
-      child: const Align(
+      child: Align(
         alignment: Alignment.centerLeft,
         child: Padding(
-          padding: EdgeInsets.only(top: 12),
+          padding: EdgeInsets.only(top: Constants.deviceHeight * 0.017),
           child: CustomLabel(
-            title: 'My loan details',
+            title: 'my_loan_details'.tr,
             fontSize: 20,
             fontWeight: FontWeight.w600,
             color: AppColors.black,
@@ -76,8 +76,10 @@ class LoanView extends GetView<LoanController> {
       case NetworkUsedCase.usernotfound:
         return SizedBox(
           height: Constants.deviceHeight,
-          child: const Center(
-            child: ComingSoon(),
+          child: Center(
+            child: ComingSoon(
+              showButton: false,
+            ),
           ),
         );
 
@@ -126,9 +128,7 @@ class LoanView extends GetView<LoanController> {
 
   Widget _buildEmiReminder(EMI? emi) {
     return Container(
-      padding: const EdgeInsets.all(
-        Dimensions.PADDING_SIZE_DEFAULT,
-      ),
+      padding: EdgeInsets.all(Constants.deviceHeight * 0.01),
       margin: const EdgeInsets.only(top: 10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
@@ -141,7 +141,7 @@ class LoanView extends GetView<LoanController> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           CustomLabel(
-            title: 'You have one EMI coming up'.tr,
+            title: 'emi_coming_up'.tr,
             color: AppColors.black,
           ),
           Row(
@@ -149,7 +149,8 @@ class LoanView extends GetView<LoanController> {
               CustomLabel(title: '₹ ${emi?.amount}', color: AppColors.black),
               const Spacer(),
               CustomLabel(
-                  title: 'Due Date : ${Utils.convertDate(emi?.dueDate)}',
+                  title:
+                      "${'due_date'.tr} : ${Utils.convertDate(emi?.dueDate)}",
                   color: AppColors.black),
             ],
           ),
@@ -162,7 +163,7 @@ class LoanView extends GetView<LoanController> {
       {required double? amount, required double? tenure}) {
     return Container(
       margin: const EdgeInsets.only(top: 10),
-      padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
+      padding: EdgeInsets.all(Constants.deviceHeight * 0.01),
       decoration: BoxDecoration(
         color: AppColors.lightPurple,
         border: Border.all(
@@ -183,7 +184,8 @@ class LoanView extends GetView<LoanController> {
             color: AppColors.whiteColor,
           ),
           CustomLabel(
-            title: 'Loan taken for ${tenure.toString().substring(0, 1)} years',
+            title:
+                "${'loan_taken_for'.tr} ${tenure.toString().substring(0, 1)} ${'years'.tr}",
             fontSize: 16,
             fontWeight: FontWeight.w600,
             color: AppColors.whiteColor,
@@ -201,9 +203,7 @@ Widget _buildLoanDetails({
   int? endDate,
 }) {
   return Container(
-    padding: const EdgeInsets.all(
-      Dimensions.PADDING_SIZE_DEFAULT,
-    ),
+    padding: EdgeInsets.all(Constants.deviceHeight * 0.01),
     margin: const EdgeInsets.symmetric(
       vertical: 20,
     ),
@@ -218,21 +218,23 @@ Widget _buildLoanDetails({
       Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          _loanDetailsItemWidget('Outstanding amount', '₹ $outStandingAmount'),
+          _loanDetailsItemWidget(
+              'outstanding_amount'.tr, '₹ $outStandingAmount'),
           SizedBox(
             width: Constants.deviceWidth * 0.25,
           ),
-          _loanDetailsItemWidget('EMI amount', '₹ $emiAmount'),
+          _loanDetailsItemWidget('emi_amount'.tr, '₹ $emiAmount'),
         ],
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          _loanDetailsItemWidget('Started from', Utils.convertDate(startDate)),
+          _loanDetailsItemWidget(
+              'started_from'.tr, Utils.convertDate(startDate)),
           SizedBox(
             width: Constants.deviceWidth * 0.27,
           ),
-          _loanDetailsItemWidget('Ending at', Utils.convertDate(endDate)),
+          _loanDetailsItemWidget('ending_at'.tr, Utils.convertDate(endDate)),
         ],
       ),
     ]),
@@ -241,7 +243,7 @@ Widget _buildLoanDetails({
 
 Widget _loanDetailsItemWidget(String title, String subtitle) {
   return SizedBox(
-    height: Constants.deviceHeight * 0.05,
+    height: Constants.deviceHeight * 0.06,
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -270,16 +272,14 @@ Widget _buildPaymentHistoryBox({EmiHistory? emiHistory}) {
         color: AppColors.borderGray,
       ),
     ),
-    padding: const EdgeInsets.all(
-      Dimensions.PADDING_SIZE_DEFAULT,
-    ),
+    padding: EdgeInsets.all(Constants.deviceHeight * 0.01),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Text(
-            'Total Amount paid',
+            'total_amount_paid'.tr,
             style: lightBlackBold16,
           ),
         ),
@@ -310,8 +310,8 @@ Widget _buildPaymentHistoryBox({EmiHistory? emiHistory}) {
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              CustomLabel(title: 'View History'),
+            children: [
+              CustomLabel(title: 'view_history'.tr),
             ],
           ),
         ),
@@ -327,7 +327,7 @@ Widget _buildEmiPaymentCard({
 }) {
   return SizedBox(
     width: Constants.deviceWidth * 0.9,
-    height: Constants.deviceHeight * 0.08,
+    height: Constants.deviceHeight * 0.09,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -357,7 +357,7 @@ Widget _buildEmiPaymentCard({
           ],
         ),
         Text(
-          'EMI-$index',
+          '${'emi'.tr}-$index',
           style: lightBlackNormal12,
         ),
         const Divider(),

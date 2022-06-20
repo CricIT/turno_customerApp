@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-
+import 'package:get/get.dart';
 
 import '../../app/config/app_colors.dart';
 import '../../app/config/constant.dart';
@@ -8,8 +7,7 @@ import 'custom_button.dart';
 import 'custom_label.dart';
 
 class ErrorWidgetView extends StatelessWidget {
-
-  final Function() buttonAction;
+  final Function()? buttonAction;
 
   const ErrorWidgetView({super.key, required this.buttonAction});
 
@@ -34,20 +32,20 @@ class ErrorWidgetView extends StatelessWidget {
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.all(16.0),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: CustomLabel(
-                  title: 'Oops! \n Something went wrong',
+                  title: "${'oops'.tr} ${'wrong'.tr}",
                   textAlign: TextAlign.center,
                   fontSize: 24,
                   fontWeight: FontWeight.w600,
                   color: AppColors.black,
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.all(16.0),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: CustomLabel(
-                  title: 'We are working to solve it',
+                  title: 'working'.tr,
                   textAlign: TextAlign.center,
                   fontSize: 22,
                   color: AppColors.black,
@@ -57,9 +55,9 @@ class ErrorWidgetView extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: CustomButton(
                   width: Constants.deviceWidth * 0.8,
-                  buttonAction: buttonAction,
-                  child: const CustomLabel(
-                    title: 'Retry',
+                  buttonAction: buttonAction!,
+                  child: CustomLabel(
+                    title: 'retry'.tr,
                     color: AppColors.whiteColor,
                   ),
                 ),

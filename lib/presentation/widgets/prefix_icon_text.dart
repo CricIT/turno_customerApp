@@ -14,36 +14,34 @@ class PrefixIconTextView extends StatelessWidget {
   final TextAlign textAlign;
   final double fontSize;
   final Color textcolor;
-  final double iconHeight,iconWidth;
+  final double iconHeight, iconWidth;
 
-
-
-  const PrefixIconTextView({
-    Key? key,
-    required this.text,
-    this.fontWeight = FontWeight.normal,
-    this.fontSize = Dimensions.FONT_SIZE_SMALL,
-    this.textcolor = AppColors.darkGray,
-    this.fontFamily = Constants.poppins,
-    this.textAlign = TextAlign.start,
-    this.iconHeight=14.0,
-    this.iconWidth=14.0,
-    required this.icon
-  }) : super(key: key);
-
+  const PrefixIconTextView(
+      {Key? key,
+      required this.text,
+      this.fontWeight = FontWeight.normal,
+      this.fontSize = Dimensions.FONT_SIZE_SMALL,
+      this.textcolor = AppColors.darkGray,
+      this.fontFamily = Constants.poppins,
+      this.textAlign = TextAlign.start,
+      this.iconHeight = 14.0,
+      this.iconWidth = 14.0,
+      required this.icon})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Row(
       children: [
-        SvgPicture.asset(icon,
-        height: iconHeight,
-        width: iconWidth,),
+        SvgPicture.asset(
+          icon,
+          height: iconHeight,
+          width: iconWidth,
+        ),
         const SizedBox(
           width: 8,
         ),
-         CustomLabel(
+        CustomLabel(
             title: text,
             fontSize: fontSize,
             fontWeight: fontWeight,

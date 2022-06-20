@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 import 'package:turno_customer_application/app/config/dimentions.dart';
@@ -12,7 +10,6 @@ import '../../app/config/constant.dart';
 import '../widgets/custom_text_button.dart';
 
 class MileageHistory extends GetView<MileageHistoryController> {
-
   List<_SalesData> data = [
     _SalesData('Jan', 35),
     _SalesData('Feb', 0),
@@ -47,7 +44,7 @@ class MileageHistory extends GetView<MileageHistoryController> {
             width: Constants.deviceWidth,
             child: Column(
               children: [
-             /* SfSparkBarChart.custom(
+                /* SfSparkBarChart.custom(
 
               xValueMapper: (int index) => data[index].year,
               yValueMapper: (int index) => data[index].sales,
@@ -89,6 +86,7 @@ class MileageHistory extends GetView<MileageHistoryController> {
         )));
   }
 }
+
 class _SalesData {
   _SalesData(this.year, this.sales);
 

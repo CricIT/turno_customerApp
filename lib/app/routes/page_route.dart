@@ -3,8 +3,11 @@ import 'package:turno_customer_application/presentation/controllers/auth/login_b
 import 'package:turno_customer_application/presentation/controllers/auth/otp_binding.dart';
 import 'package:turno_customer_application/presentation/controllers/mileage_history/mileage_binding.dart';
 import 'package:turno_customer_application/presentation/controllers/payment/payment_history_binding.dart';
-import 'package:turno_customer_application/presentation/pages/coming_soon.dart';
+import 'package:turno_customer_application/presentation/pages/apply_new_loan.dart';
 import 'package:turno_customer_application/presentation/pages/error.dart';
+import 'package:turno_customer_application/presentation/pages/refer_and_earn.dart';
+import 'package:turno_customer_application/presentation/pages/vehicle_catalouge.dart';
+import 'package:turno_customer_application/presentation/widgets/coming_soon.dart';
 import 'package:turno_customer_application/presentation/pages/best_charging_practice.dart';
 import 'package:turno_customer_application/presentation/pages/language.dart';
 import 'package:turno_customer_application/presentation/pages/login.dart';
@@ -49,12 +52,10 @@ class Routes {
         page: () => const Permissions(),
       ),
       GetPage(
-        name: AppRoutes.ERROR,
-        page: () => const ErrorView(),
-      ),
-      GetPage(
         name: AppRoutes.COMING_SOON,
-        page: () => const ComingSoon(),
+        page: () => ComingSoon(
+          showButton: true,
+        ),
       ),
       GetPage(
         name: AppRoutes.MILEAGE_HISTORY,
@@ -66,6 +67,22 @@ class Routes {
         page: () => BestChargingPractice(),
         binding: BestChargingPracticeBinding(),
       ),
+      GetPage(
+        name: AppRoutes.VEHICLE_CATALOUGE,
+        page: () => const VehicleCatalouge(),
+      ),
+      GetPage(
+        name: AppRoutes.NEW_LOAN,
+        page: () => const ApplyNewLoan(),
+      ),
+      GetPage(
+        name: AppRoutes.REFER_AND_EARN,
+        page: () => const ReferAndEarn(),
+      ),
+      GetPage(
+        name: AppRoutes.ERROR,
+        page: () => ErrorView(),
+      )
     ];
   }
 }

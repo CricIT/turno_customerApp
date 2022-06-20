@@ -1,10 +1,7 @@
 import 'package:intl/intl.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
-
 import '../config/app_text_styles.dart';
 import '../config/dimentions.dart';
 import '../constants/images.dart';
@@ -23,9 +20,9 @@ class Utils {
 
   static String mileageStatusText(int ideal, int actual) {
     double percent = ideal / actual;
-    if (percent <= 0.5) return 'Danger';
-    if (percent > 0.5 && percent < 0.8) return 'Not Good';
-    if (percent >= 0.8) return 'Good';
+    if (percent <= 0.5) return 'danger'.tr;
+    if (percent > 0.5 && percent < 0.8) return 'not_good'.tr;
+    if (percent >= 0.8) return 'good'.tr;
     return '';
   }
 
@@ -38,11 +35,11 @@ class Utils {
   }
 
   static String chargingStatusText(int charge) {
-    if (charge <= 10) return 'Danger';
-    if (charge > 10 && charge <= 20) return 'Not Good';
-    if (charge > 10 && charge <= 80) return 'Good';
-    if (charge > 80 && charge <= 90) return 'Not Good';
-    if (charge > 90) return 'Danger';
+    if (charge <= 10) return 'danger'.tr;
+    if (charge > 10 && charge <= 20) return 'not_good'.tr;
+    if (charge > 10 && charge <= 80) return 'good'.tr;
+    if (charge > 80 && charge <= 90) return 'not_good'.tr;
+    if (charge > 90) return 'danger'.tr;
     return '';
   }
 

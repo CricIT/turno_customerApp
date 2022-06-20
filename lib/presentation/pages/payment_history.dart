@@ -3,10 +3,7 @@ import 'package:get/get.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
 import 'package:turno_customer_application/app/config/app_text_styles.dart';
 import 'package:turno_customer_application/app/config/constant.dart';
-import 'package:turno_customer_application/app/config/dimentions.dart';
 import 'package:turno_customer_application/app/util/util.dart';
-import 'package:turno_customer_application/domain/entities/loan.dart';
-import 'package:turno_customer_application/presentation/controllers/loan_controller/loan_controller.dart';
 import 'package:turno_customer_application/presentation/controllers/payment/payment_history_controller.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
 import '../../domain/entities/emi_history.dart';
@@ -20,10 +17,10 @@ class PaymentHistory extends GetView<PaymentHistoryController> {
     return Scaffold(
         appBar: PreferredSize(
             preferredSize: const Size.fromHeight(45.0),
-            child: GenericAppBar(heading: "Payment History")),
+            child: GenericAppBar(heading: "payment_history".tr)),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: EdgeInsets.all(Constants.deviceHeight * 0.009),
             child: Column(
               children: [
                 const SizedBox(
@@ -42,7 +39,7 @@ class PaymentHistory extends GetView<PaymentHistoryController> {
 
   Widget _buildTopContainer({required String amount}) {
     return Container(
-      padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
+      padding: EdgeInsets.all(Constants.deviceHeight * 0.01),
       decoration: BoxDecoration(
           color: AppColors.borderGray,
           border: Border.all(
@@ -55,14 +52,14 @@ class PaymentHistory extends GetView<PaymentHistoryController> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CustomLabel(
-            title: 'Total amount paid',
+          CustomLabel(
+            title: 'total_amount_paid'.tr,
             fontSize: 16,
             fontWeight: FontWeight.w600,
             color: AppColors.black,
           ),
           CustomLabel(
-            title: amount,
+            title: "₹ $amount",
             fontSize: 18,
             fontWeight: FontWeight.w400,
             color: AppColors.black,
@@ -76,7 +73,7 @@ class PaymentHistory extends GetView<PaymentHistoryController> {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 20),
       height: Constants.deviceHeight * 0.7,
-      padding: const EdgeInsets.symmetric(horizontal: 14),
+      padding: EdgeInsets.symmetric(horizontal: Constants.deviceHeight * 0.011),
       child: ListView.builder(
         itemCount: emiHistory?.emiHistory.length,
         itemBuilder: (context, index) => _buildEmiPaymentCard(
@@ -95,7 +92,7 @@ class PaymentHistory extends GetView<PaymentHistoryController> {
   }) {
     return SizedBox(
       width: Constants.deviceWidth * 0.9,
-      height: Constants.deviceHeight * 0.08,
+      height: Constants.deviceHeight * 0.09,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -125,7 +122,7 @@ class PaymentHistory extends GetView<PaymentHistoryController> {
             ],
           ),
           Text(
-            'EMI-$index',
+            '${'emi'.tr}-$index',
             style: lightBlackNormal12,
           ),
           const Divider(),
