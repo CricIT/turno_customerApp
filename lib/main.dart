@@ -7,13 +7,13 @@ import 'package:turno_customer_application/app/services/firebase.dart';
 import 'package:turno_customer_application/presentation/controllers/lang/lang_controller.dart';
 import 'package:turno_customer_application/presentation/controllers/permissions/permission_controller.dart';
 import 'package:turno_customer_application/app/util/dependency.dart';
+import 'app/config/app_colors.dart';
 import 'app/config/constant.dart';
 import 'app/routes/app_route.dart';
 import 'app/routes/page_route.dart';
 import 'app/services/local_storage.dart';
 import 'app/util/messages.dart';
 import 'presentation/controllers/permissions/permission_controller.dart';
-import 'presentation/widgets/custom_label.dart';
 
 void main() async {
   DependencyCreator.init();
@@ -22,8 +22,8 @@ void main() async {
     DeviceOrientation.portraitUp,
   ]);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+    statusBarColor:  AppColors.lightPurple,
+    statusBarIconBrightness: Brightness.light, // For Android (dark icons)
     statusBarBrightness: Brightness.light, // For iOS (dark icons)
   ));
   await initServices();

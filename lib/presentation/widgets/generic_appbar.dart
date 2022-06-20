@@ -29,16 +29,16 @@ class GenericAppBar extends StatelessWidget {
             },
             child: Padding(
               padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
-              child: SvgPicture.asset(Images.icon_bck_btn),
+              child: SvgPicture.asset(Images.icon_bck_btn,color: AppColors.whiteColor,),
             ),
           ),
           const SizedBox(
-            width: 20,
+            width: 15,
           ),
-          Text(heading, style: lightBlackNormal16),
+          Text(heading, style: whiteNormal16),
         ],
       ),
-      backgroundColor: AppColors.whiteColor,
+      backgroundColor: AppColors.lightPurple,
     );
   }
 }

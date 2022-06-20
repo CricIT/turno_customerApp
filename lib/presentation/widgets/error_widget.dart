@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
+
 
 import '../../app/config/app_colors.dart';
 import '../../app/config/constant.dart';
@@ -8,7 +8,10 @@ import 'custom_button.dart';
 import 'custom_label.dart';
 
 class ErrorWidgetView extends StatelessWidget {
-  const ErrorWidgetView({Key? key}) : super(key: key);
+
+  final Function() buttonAction;
+
+  const ErrorWidgetView({super.key, required this.buttonAction});
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +57,7 @@ class ErrorWidgetView extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: CustomButton(
                   width: Constants.deviceWidth * 0.8,
-                  buttonAction: () {
-                    Get.back();
-                  },
+                  buttonAction: buttonAction,
                   child: const CustomLabel(
                     title: 'Retry',
                     color: AppColors.whiteColor,

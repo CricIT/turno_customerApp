@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get_connect/connect.dart';
 import 'api_request_representable.dart';
 
@@ -12,11 +13,11 @@ class APIProvider {
   static APIProvider get instance => _singleton;
 
   Future request(APIRequestRepresentable request) async {
-    print(request);
+    debugPrint(request.url);
     try {
       final response = await _client.request(request.url, request.method.string,
           headers: request.headers, query: request.query, body: request.body);
-
+      debugPrint(response.bodyString);
       return _returnResponse(response);
     } on TimeoutException catch (e) {
       throw TimeOutException(e.message);
@@ -26,7 +27,6 @@ class APIProvider {
   }
 
   dynamic _returnResponse(Response<dynamic> response) {
-    // print(response.body);
     switch (response.statusCode) {
       case 200:
         return response.body;

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/services/local_storage.dart';
 import 'package:turno_customer_application/domain/entities/loan.dart';
@@ -11,9 +10,8 @@ class LoanController extends GetxController {
   Future<Loan>? myLoanDetails;
 
   @override
-  void onReady() {
-    myLoanDetails = fetchLoanDetails();
-    super.onReady();
+  void onInit() {
+    super.onInit();
   }
 
   Future<Loan> fetchLoanDetails() async {

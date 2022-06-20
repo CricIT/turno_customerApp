@@ -1,4 +1,4 @@
-import 'dart:math';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -10,12 +10,11 @@ import 'package:turno_customer_application/app/config/constant.dart';
 import 'package:turno_customer_application/app/config/dimentions.dart';
 import 'package:turno_customer_application/app/util/util.dart';
 import 'package:turno_customer_application/domain/entities/loan.dart';
-import 'package:turno_customer_application/presentation/controllers/landing_page/loan_controller.dart';
+import 'package:turno_customer_application/presentation/controllers/loan_controller/loan_controller.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
-
 import '../../domain/entities/emi_history.dart';
-import '../controllers/payment/payment_history_controller.dart';
 import '../widgets/generic_appbar.dart';
+
 
 class PaymentHistory extends GetView<LoanController> {
   const PaymentHistory({Key? key}) : super(key: key);
@@ -24,7 +23,7 @@ class PaymentHistory extends GetView<LoanController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(40.0),
+            preferredSize: const Size.fromHeight(45.0),
             child: GenericAppBar(heading: "Payment History")),
         body: FutureBuilder<Loan>(
             future: controller.myLoanDetails,

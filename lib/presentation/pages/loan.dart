@@ -11,7 +11,7 @@ import 'package:turno_customer_application/domain/entities/emi_history.dart';
 import 'package:turno_customer_application/domain/entities/loan.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
 import 'package:turno_customer_application/presentation/widgets/error_widget.dart';
-import '../controllers/landing_page/loan_controller.dart';
+import '../controllers/loan_controller/loan_controller.dart';
 
 class LoanView extends GetView<LoanController> {
   const LoanView({Key? key}) : super(key: key);
@@ -66,7 +66,11 @@ class LoanView extends GetView<LoanController> {
                     ),
                   );
                 } else {
-                  return const ErrorWidgetView();
+                  return  ErrorWidgetView(
+                    buttonAction: () {
+                     controller.fetchLoanDetails();
+                    },
+                  );
                 }
             }
             return Container();

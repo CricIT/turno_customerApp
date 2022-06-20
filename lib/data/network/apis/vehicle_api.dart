@@ -29,7 +29,7 @@ class VehicleAPI implements APIRequestRepresentable {
 
   @override
   String get path {
-    return "$mobile/vehicle";
+    return "7093880128/vehicle";
   }
 
   @override

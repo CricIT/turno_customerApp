@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
+import 'package:turno_customer_application/presentation/controllers/vehicle_controller/vehicle_details_controller.dart';
 import 'package:turno_customer_application/presentation/pages/profile.dart';
 import 'package:turno_customer_application/presentation/pages/support.dart';
-import 'package:turno_customer_application/presentation/widgets/home_appbar.dart';
 import '../../app/config/constant.dart';
 import '../../app/config/dimentions.dart';
 import '../../app/constants/images.dart';
-import '../../domain/entities/vehicle.dart';
 import '../controllers/landing_page/landing_page_controller.dart';
+import '../controllers/loan_controller/loan_binding.dart';
+import '../controllers/loan_controller/loan_controller.dart';
+import '../controllers/vehicle_controller/vehicle_binding.dart';
 import 'my_vehicle.dart';
 import 'loan.dart';
 import 'more.dart';
@@ -22,45 +24,10 @@ class LandingPage extends GetView<LandingPageController> {
     Constants.deviceHeight = MediaQuery.of(context).size.height;
     Constants.deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(Constants.deviceHeight * 0.08),
-          child: Obx(() {
-            return Visibility(
-                visible: controller.selectedIndex.value == 0 ? true : false,
-                child: FutureBuilder<Vehicle>(
-                    future: controller.myVehicleDetails,
-                    builder: (context, snapshot) {
-                      switch (snapshot.connectionState) {
-                        case ConnectionState.done:
-                          return BaseAppBar(
-                            customerName: snapshot.data?.userName,
-                            vehicleName: snapshot.data?.vehicleName,
-                          );
-                        case ConnectionState.none:
-                          break;
-                        case ConnectionState.waiting:
-                          break;
-                        case ConnectionState.active:
-                          break;
-                      }
-                      return BaseAppBar(
-                        customerName: "",
-                        vehicleName: "",
-                      );
-                    }));
-          })),
+
       bottomNavigationBar: buildBottomNavigationMenu(context, controller),
       body: SafeArea(
-        child: Obx(() => IndexedStack(
-              index: controller.selectedIndex.value,
-              children: const [
-                MyVehicle(),
-                LoanView(),
-                Support(),
-                Profile(),
-                More(),
-              ],
-            )),
+        child: Obx(() => _getallclasse()),
       ),
     );
   }
@@ -122,5 +89,25 @@ class LandingPage extends GetView<LandingPageController> {
             ],
           ),
         )));
+  }
+
+  _getallclasse() {
+    switch (controller.selectedIndex.value) {
+      case 0:
+        VehicleBinding().dependencies();
+        Get.find<VehicleDetailsController>().fetchVehicleData();
+
+        return const  MyVehicle();
+      case 1:
+        LoanBinding().dependencies();
+        Get.find<LoanController>(). myLoanDetails=Get.find<LoanController>().fetchLoanDetails();
+        return const LoanView();
+      case 2:
+        return const Support();
+      case 3:
+        return const  Profile();
+      case 4:
+        return  const More();
+    }
   }
 }

@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:turno_customer_application/domain/entities/vehicle.dart';
-import 'package:turno_customer_application/presentation/controllers/landing_page/landing_page_controller.dart';
+import 'package:turno_customer_application/presentation/controllers/vehicle_controller/vehicle_details_controller.dart';
 
 import '../../app/config/app_colors.dart';
 import '../../app/config/app_text_styles.dart';
@@ -16,107 +15,113 @@ import '../widgets/custom_label.dart';
 import '../widgets/generic_appbar.dart';
 import '../widgets/prefix_icon_text.dart';
 
-class BestChargingPractice extends GetView<LandingPageController> {
+class BestChargingPractice extends GetView<VehicleDetailsController> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(40.0),
+            preferredSize: const Size.fromHeight(45.0),
             child: GenericAppBar(heading: "Best Practices".tr)),
         body: SafeArea(
-            child: FutureBuilder<Vehicle>(
-                future: controller.myVehicleDetails,
-                builder: (context, snapshot) {
-                  return SingleChildScrollView(
-                    child: Container(
-                        color: AppColors.whiteColor,
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              _previousChargePerformance(
-                                wasPreviousChargeMileageLow:
-                                    snapshot.data!.wasPreviousChargeMileageLow,
-                                previousChargeMileage:
-                                    snapshot.data!.previousChargeMileage,
-                                idealMileage: snapshot.data?.idealMileage,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              const Divider(
-                                height: 1,
-                                color: AppColors.darkGray,
-                              ),
-                              Container(
-                                padding: const EdgeInsets.all(
-                                    Dimensions.PADDING_SIZE_LARGE),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'charging_guidelines'.tr,
-                                      style: lightBlackBold16,
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      "guide_txt".tr,
-                                      style: darkGrayNormal12,
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    PrefixIconTextView(
-                                      icon: Images.icon_good,
-                                      text: "best".tr,
-                                      fontSize: Dimensions.FONT_SIZE_XXLARGE,
-                                      textcolor: AppColors.darkgreen,
-                                      fontWeight: FontWeight.w600,
-                                      iconHeight: 18,
-                                      iconWidth: 18,
-                                    ),
-                                    _bestPracticeGuideContainer(),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    PrefixIconTextView(
-                                      icon: Images.icon_not_good,
-                                      text: "warning".tr,
-                                      fontSize: Dimensions.FONT_SIZE_XXLARGE,
-                                      textcolor: AppColors.darkyello,
-                                      fontWeight: FontWeight.w600,
-                                      iconHeight: 18,
-                                      iconWidth: 18,
-                                    ),
-                                    _warningGuideContainer(),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    PrefixIconTextView(
-                                      icon: Images.icon_danger,
-                                      text: "danger".tr,
-                                      fontSize: Dimensions.FONT_SIZE_XXLARGE,
-                                      textcolor: AppColors.darkred,
-                                      fontWeight: FontWeight.w600,
-                                      iconHeight: 18,
-                                      iconWidth: 18,
-                                    ),
-                                    _dangerContainer(),
-                                  ],
-                                ),
-                              ),
-                            ])),
-                  );
-                })));
+            child: SingleChildScrollView(
+            child: Container(
+            color: AppColors.whiteColor,
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 5,
+              ),
+              _previousChargePerformance(
+                wasPreviousChargeMileageLow: controller
+                    .getVehicelDetails
+                    .value
+                    ?.payload!
+                    .wasPreviousChargeMileageLow,
+                previousChargeMileage: controller
+                    .getVehicelDetails
+                    .value
+                    ?.payload!
+                    .previousChargeMileage,
+                idealMileage: controller.getVehicelDetails
+                    .value?.payload!.idealMileage,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Divider(
+                height: 1,
+                color: AppColors.darkGray,
+              ),
+              Container(
+                padding: const EdgeInsets.all(
+                    Dimensions.PADDING_SIZE_LARGE),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'charging_guidelines'.tr,
+                      style: lightBlackBold16,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "guide_txt".tr,
+                      style: darkGrayNormal12,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    PrefixIconTextView(
+                      icon: Images.icon_good,
+                      text: "best".tr,
+                      fontSize: Dimensions.FONT_SIZE_XXLARGE,
+                      textcolor: AppColors.darkgreen,
+                      fontWeight: FontWeight.w600,
+                      iconHeight: 18,
+                      iconWidth: 18,
+                    ),
+                    _bestPracticeGuideContainer(),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    PrefixIconTextView(
+                      icon: Images.icon_not_good,
+                      text: "warning".tr,
+                      fontSize: Dimensions.FONT_SIZE_XXLARGE,
+                      textcolor: AppColors.darkyello,
+                      fontWeight: FontWeight.w600,
+                      iconHeight: 18,
+                      iconWidth: 18,
+                    ),
+                    _warningGuideContainer(),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    PrefixIconTextView(
+                      icon: Images.icon_danger,
+                      text: "danger".tr,
+                      fontSize: Dimensions.FONT_SIZE_XXLARGE,
+                      textcolor: AppColors.darkred,
+                      fontWeight: FontWeight.w600,
+                      iconHeight: 18,
+                      iconWidth: 18,
+                    ),
+                    _dangerContainer(),
+                  ],
+                ),
+              ),
+            ])),
+    )));
+
+
   }
 
   _previousChargePerformance(
-      {required bool wasPreviousChargeMileageLow,
-      required int previousChargeMileage,
+      {required  wasPreviousChargeMileageLow,
+      required  previousChargeMileage,
       required idealMileage}) {
     return Container(
       padding: const EdgeInsets.only(
