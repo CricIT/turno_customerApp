@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:turno_customer_application/app/constants/network_used_case.dart';
+import 'package:turno_customer_application/app/services/local_storage.dart';
 
 import '../../../data/network/api_provider.dart';
 import '../../../domain/entities/vehicle.dart';
@@ -15,9 +16,9 @@ class VehicleDetailsController extends GetxController {
       RefreshController(initialRefresh: false);
 
   var _myVehicleDetails = Rx<Vehicle?>(null);
-
+  final store = Get.find<LocalStorageService>();
   var usedCaseScenarios = NetworkUsedCase.loading.obs;
-   var isDataAvailable=false.obs;
+  var isDataAvailable = false.obs;
 
   @override
   onInit() {
@@ -31,7 +32,6 @@ class VehicleDetailsController extends GetxController {
   set setVehicleDeatils(
     Rx<Vehicle> vehicleDetails,
   ) {
-
     _myVehicleDetails = vehicleDetails;
   }
 
@@ -44,8 +44,7 @@ class VehicleDetailsController extends GetxController {
   fetchVehicleData() async {
     try {
       usedCaseScenarios.value = NetworkUsedCase.loading;
-      String mobile = '7093880128';
-      final response = await _vehicleUseCase.execute(mobile);
+      final response = await _vehicleUseCase.execute(store.mobileNumber);
       response.fold((error) => _handleVehicleDetailsErorCase(error: error),
           (success) => _handleVehicleDetailsSuccessCase(success.obs));
     } catch (exception) {
@@ -59,14 +58,14 @@ class VehicleDetailsController extends GetxController {
       // useNotFound.value = true;
     }
     usedCaseScenarios.value = NetworkUsedCase.error;
-    isDataAvailable.value=false;
+    isDataAvailable.value = false;
     refreshController.refreshCompleted();
   }
 
   _handleVehicleDetailsSuccessCase(Rx<Vehicle> success) {
     usedCaseScenarios.value = NetworkUsedCase.sucess;
     setVehicleDeatils = success;
-    isDataAvailable.value=true;
+    isDataAvailable.value = true;
     refreshController.refreshCompleted();
   }
 }
