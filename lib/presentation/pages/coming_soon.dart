@@ -22,7 +22,7 @@ class ComingSoon extends StatelessWidget {
             children: [
               SizedBox(
                 width: Constants.deviceWidth,
-                height: Constants.deviceHeight * 0.65,
+                height: Constants.deviceHeight * 0.6,
                 child: Image.asset(
                   'assets/images/coming_soon.png',
                   fit: BoxFit.cover,

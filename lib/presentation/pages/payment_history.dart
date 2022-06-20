@@ -1,8 +1,4 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
 import 'package:turno_customer_application/app/config/app_text_styles.dart';
@@ -11,12 +7,12 @@ import 'package:turno_customer_application/app/config/dimentions.dart';
 import 'package:turno_customer_application/app/util/util.dart';
 import 'package:turno_customer_application/domain/entities/loan.dart';
 import 'package:turno_customer_application/presentation/controllers/loan_controller/loan_controller.dart';
+import 'package:turno_customer_application/presentation/controllers/payment/payment_history_controller.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
 import '../../domain/entities/emi_history.dart';
 import '../widgets/generic_appbar.dart';
 
-
-class PaymentHistory extends GetView<LoanController> {
+class PaymentHistory extends GetView<PaymentHistoryController> {
   const PaymentHistory({Key? key}) : super(key: key);
 
   @override
@@ -25,26 +21,23 @@ class PaymentHistory extends GetView<LoanController> {
         appBar: PreferredSize(
             preferredSize: const Size.fromHeight(45.0),
             child: GenericAppBar(heading: "Payment History")),
-        body: FutureBuilder<Loan>(
-            future: controller.myLoanDetails,
-            builder: (context, snapshot) {
-              return SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      _buildTopContainer(
-                          amount:
-                              '${snapshot.data?.emiHistory?.totalAmountPaid}'),
-                      _buildPaymentList(snapshot.data?.emiHistory),
-                    ],
-                  ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 10,
                 ),
-              );
-            }));
+                _buildTopContainer(
+                    amount:
+                        '${controller.loanController.getLoanDetails.value?.payload!.emiHistory!.totalAmountPaid}'),
+                _buildPaymentList(controller
+                    .loanController.getLoanDetails.value?.payload!.emiHistory),
+              ],
+            ),
+          ),
+        ));
   }
 
   Widget _buildTopContainer({required String amount}) {

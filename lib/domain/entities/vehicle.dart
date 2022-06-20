@@ -1,5 +1,5 @@
 class Vehicle {
-  Payload? payload;
+  VehiclePayload? payload;
   String? status;
   String? message;
   String? error;
@@ -7,26 +7,27 @@ class Vehicle {
   Vehicle({this.payload, this.status});
 
   Vehicle.fromJson(Map<String, dynamic> json) {
-    payload =
-    json['payload'] != null ? new Payload.fromJson(json['payload']) : null;
+    payload = json['payload'] != null
+        ? VehiclePayload.fromJson(json['payload'])
+        : null;
     status = json['status'];
-    message= json['message'];
-    error= json['error'];
+    message = json['message'];
+    error = json['error'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.payload != null) {
-      data['payload'] = this.payload!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (payload != null) {
+      data['payload'] = payload!.toJson();
     }
-    data['status'] = this.status;
-    data['message']=this.message;
-    data['error']=this.error;
+    data['status'] = status;
+    data['message'] = message;
+    data['error'] = error;
     return data;
   }
 }
 
-class Payload {
+class VehiclePayload {
   String? vin;
   int? currentStateOfCharge;
   int? currentRangeLeft;
@@ -41,22 +42,22 @@ class Payload {
   String? userName;
   String? vehicleName;
 
-  Payload(
+  VehiclePayload(
       {this.vin,
-        this.currentStateOfCharge,
-        this.currentRangeLeft,
-        this.previousChargeDepthOfDischarge,
-        this.previousChargeHeightOfCharge,
-        this.previousChargeMileage,
-        this.wasPreviousChargeMileageLow,
-        this.idealBuybackVehicleValue,
-        this.buybackValueAfter3Year,
-        this.idealMileage,
-        this.mileageAfter3Year,
-        this.userName,
-        this.vehicleName});
+      this.currentStateOfCharge,
+      this.currentRangeLeft,
+      this.previousChargeDepthOfDischarge,
+      this.previousChargeHeightOfCharge,
+      this.previousChargeMileage,
+      this.wasPreviousChargeMileageLow,
+      this.idealBuybackVehicleValue,
+      this.buybackValueAfter3Year,
+      this.idealMileage,
+      this.mileageAfter3Year,
+      this.userName,
+      this.vehicleName});
 
-  Payload.fromJson(Map<String, dynamic> json) {
+  VehiclePayload.fromJson(Map<String, dynamic> json) {
     vin = json['vin'];
     currentStateOfCharge = json['currentStateOfCharge'];
     currentRangeLeft = json['currentRangeLeft'];
@@ -73,21 +74,20 @@ class Payload {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['vin'] = this.vin;
-    data['currentStateOfCharge'] = this.currentStateOfCharge;
-    data['currentRangeLeft'] = this.currentRangeLeft;
-    data['previousChargeDepthOfDischarge'] =
-        this.previousChargeDepthOfDischarge;
-    data['previousChargeHeightOfCharge'] = this.previousChargeHeightOfCharge;
-    data['previousChargeMileage'] = this.previousChargeMileage;
-    data['wasPreviousChargeMileageLow'] = this.wasPreviousChargeMileageLow;
-    data['idealBuybackVehicleValue'] = this.idealBuybackVehicleValue;
-    data['buybackValueAfter3Year'] = this.buybackValueAfter3Year;
-    data['idealMileage'] = this.idealMileage;
-    data['mileageAfter3Year'] = this.mileageAfter3Year;
-    data['userName'] = this.userName;
-    data['vehicleName'] = this.vehicleName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['vin'] = vin;
+    data['currentStateOfCharge'] = currentStateOfCharge;
+    data['currentRangeLeft'] = currentRangeLeft;
+    data['previousChargeDepthOfDischarge'] = previousChargeDepthOfDischarge;
+    data['previousChargeHeightOfCharge'] = previousChargeHeightOfCharge;
+    data['previousChargeMileage'] = previousChargeMileage;
+    data['wasPreviousChargeMileageLow'] = wasPreviousChargeMileageLow;
+    data['idealBuybackVehicleValue'] = idealBuybackVehicleValue;
+    data['buybackValueAfter3Year'] = buybackValueAfter3Year;
+    data['idealMileage'] = idealMileage;
+    data['mileageAfter3Year'] = mileageAfter3Year;
+    data['userName'] = userName;
+    data['vehicleName'] = vehicleName;
     return data;
   }
 }
