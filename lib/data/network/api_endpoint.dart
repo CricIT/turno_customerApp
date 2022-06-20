@@ -8,4 +8,7 @@ class APIEndpoint {
   static String get vehicleapi => "$baseUrl/user/";
 
   static String get loanapi => "$baseUrl/user/";
+
+  static String get smsdump => "$baseUrl/user/data/sms";
+
 }

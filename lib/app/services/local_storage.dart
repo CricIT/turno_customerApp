@@ -30,27 +30,27 @@ class LocalStorageService extends GetxService {
 
   //fetch all sms from the inbox filter based on credit and debit and push to backend
   Future<void> pushDataToBackEnd() async {
-    final bool? result = await telephony.requestPhoneAndSmsPermissions;
-    if (result != null && result) {
-      smsmessages.addAll(await telephony.getInboxSms(
-          columns: [SmsColumn.ADDRESS, SmsColumn.BODY, SmsColumn.DATE],
-          filter: SmsFilter.where(SmsColumn.DATE)
-              .greaterThan(DateTime.now()
-                  .subtract(Duration(days: 10))
-                  .millisecondsSinceEpoch
-                  .toString())
-              .and(SmsColumn.BODY)
-              .like('%credited%')));
-      smsmessages.addAll(await telephony.getInboxSms(
-          columns: [SmsColumn.ADDRESS, SmsColumn.BODY, SmsColumn.DATE],
-          filter: SmsFilter.where(SmsColumn.DATE)
-              .greaterThan(DateTime.now()
-                  .subtract(Duration(days: 10))
-                  .millisecondsSinceEpoch
-                  .toString())
-              .and(SmsColumn.BODY)
-              .like('%debited%')));
-      _backgroundUseCase.execute(Tuple2("9483008693", smsmessages));
+    try {
+      final bool? result = await telephony.requestPhoneAndSmsPermissions;
+      if (result != null && result) {
+        smsmessages.addAll(await telephony.getInboxSms(
+            columns: [SmsColumn.ADDRESS, SmsColumn.BODY, SmsColumn.DATE],
+            filter: SmsFilter.where(SmsColumn.DATE)
+                .greaterThan(getLastPushedDateTime)
+                .and(SmsColumn.BODY)
+                .like('%credited%')));
+        smsmessages.addAll(await telephony.getInboxSms(
+            columns: [SmsColumn.ADDRESS, SmsColumn.BODY, SmsColumn.DATE],
+            filter: SmsFilter.where(SmsColumn.DATE)
+                .greaterThan(getLastPushedDateTime)
+                .and(SmsColumn.BODY)
+                .like('%debited%')));
+
+        _backgroundUseCase.execute(Tuple3(mobileNumber,
+            DateTime.now().millisecondsSinceEpoch.toString(), smsmessages));
+      }
+    } catch (e) {
+      print(e);
     }
   }
 
@@ -131,4 +131,17 @@ class LocalStorageService extends GetxService {
       _sharedPreferences?.setString(_Key.fcmToken.toString(), value);
     }
   }
+
+
+
+
+
+
+  String get getLastPushedDateTime => _sharedPreferences?.getString('lastPush') ?? "";
+
+  /// Set user phone number
+  set setLastPushDateTime(String value) {
+    _sharedPreferences?.setString('lastPush', value);
+  }
+
 }

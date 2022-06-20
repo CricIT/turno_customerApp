@@ -7,14 +7,15 @@ import 'package:turno_customer_application/data/network/api_request_representabl
 
 class BackGroundAPI implements APIRequestRepresentable {
   String? mobile;
-  List<SmsMessage> dump;
+  String? dataPushAt;
+  List<SmsMessage> smsDump;
 
-  BackGroundAPI._({required this.mobile, required this.dump});
+  BackGroundAPI._({required this.mobile,required this.dataPushAt, required this.smsDump});
 
-  BackGroundAPI.pushSmsDump(String mobile, List<SmsMessage> dump) : this._(mobile: mobile, dump: dump);
+  BackGroundAPI.pushSmsDump(String mobile,String dataPushAt, List<SmsMessage> smsDump) : this._(mobile: mobile,dataPushAt:dataPushAt, smsDump:smsDump);
 
   @override
-  String get endpoint => APIEndpoint.otpapi;
+  String get endpoint => APIEndpoint.smsdump;
 
   @override
   String get path {
@@ -34,8 +35,8 @@ class BackGroundAPI implements APIRequestRepresentable {
   }
 
   @override
-  Map<String, String> get body {
-    return {"mobile": "$mobile", "sms": "$dump"};
+  Map<String,dynamic> get body {
+    return {"mobile": "$mobile", "dataPushAt": "$dataPushAt","smsDump":smsDump};
   }
 
   @override
