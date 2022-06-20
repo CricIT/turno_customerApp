@@ -26,6 +26,15 @@ TextStyle lightBlackNormal16 = const TextStyle(
   fontSize: 16,
   fontFamily: Constants.poppins,
 );
+TextStyle whiteNormal16 = const TextStyle(
+  color: AppColors.whiteColor,
+  fontWeight: FontWeight.w400,
+  fontStyle: FontStyle.normal,
+  fontSize: 16,
+  fontFamily: Constants.poppins,
+);
+
+
 TextStyle blackNormal14 = const TextStyle(
     color: AppColors.black,
     fontWeight: FontWeight.w400,

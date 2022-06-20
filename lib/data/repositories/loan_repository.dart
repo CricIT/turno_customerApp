@@ -7,7 +7,6 @@ class LoanRepositoryIml extends LoanRepository {
   Future<Loan> getLoanDetails(String mobile) async {
     final response = await LoanAPI.fetch(mobile).request();
     Map<String, dynamic> data = response["payload"];
-    print(data);
     return Loan.fromJson(data);
   }
 }
