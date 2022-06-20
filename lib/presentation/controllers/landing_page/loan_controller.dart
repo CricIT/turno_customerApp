@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:turno_customer_application/app/services/local_storage.dart';
 import 'package:turno_customer_application/domain/entities/loan.dart';
 import 'package:turno_customer_application/domain/usecases/loan/loan_usecase.dart';
 
 class LoanController extends GetxController {
   LoanController(this._loanUseCase);
   final LoanUseCase _loanUseCase;
+  final store = Get.find<LocalStorageService>();
   Future<Loan>? myLoanDetails;
-
-
 
   @override
   void onReady() {
@@ -16,11 +16,9 @@ class LoanController extends GetxController {
     super.onReady();
   }
 
-
   Future<Loan> fetchLoanDetails() async {
-    String mobile = '7093880128';
+    String mobile = store.mobileNumber;
     final response = await _loanUseCase.execute(mobile);
-    debugPrint(response.toString());
     return response;
   }
 }

@@ -12,19 +12,16 @@ class LandingPageController extends GetxController {
   var selectedIndex = 0.obs;
   Future<Vehicle>? myVehicleDetails;
 
-
   @override
-  onInit(){
+  onInit() {
     super.onInit();
     myVehicleDetails = fetchVehicleData();
   }
-
 
   void onReady() {
     //store.pushDataToBackEnd();
     super.onReady();
   }
-
 
   //change the index of bottom nav based on user interaction
   void setSelectedIndex(int index) {
@@ -32,7 +29,7 @@ class LandingPageController extends GetxController {
   }
 
   Future<Vehicle> fetchVehicleData() async {
-    String mobile = '7093880128';
+    String mobile = store.mobileNumber;
     final response = await _vehicleUseCase.execute(mobile);
     return response;
   }

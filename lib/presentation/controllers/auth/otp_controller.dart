@@ -38,6 +38,7 @@ class OtpController extends GetxController {
       if (response.status == 'success') {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           store.isLoggedIn = true;
+          store.mobileNumber = mobile;
           Get.offAllNamed(AppRoutes.LANDING_PAGE);
         });
       } else {

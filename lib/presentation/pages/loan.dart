@@ -29,7 +29,7 @@ class LoanView extends GetView<LoanController> {
                 );
               case ConnectionState.waiting:
                 return Container(
-                  height: Constants.deviceHeight*0.92,
+                  height: Constants.deviceHeight * 0.92,
                   child: const Center(
                     child: CircularProgressIndicator(),
                   ),
