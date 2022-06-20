@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
 import 'package:turno_customer_application/app/config/app_text_styles.dart';
 import 'package:turno_customer_application/app/config/constant.dart';
@@ -8,73 +9,29 @@ import 'package:turno_customer_application/app/routes/app_route.dart';
 import 'package:turno_customer_application/app/util/util.dart';
 import 'package:turno_customer_application/domain/entities/emi.dart';
 import 'package:turno_customer_application/domain/entities/emi_history.dart';
-import 'package:turno_customer_application/domain/entities/loan.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
 import 'package:turno_customer_application/presentation/widgets/error_widget.dart';
+import '../../app/constants/network_used_case.dart';
 import '../controllers/loan_controller/loan_controller.dart';
+import 'coming_soon.dart';
 
 class LoanView extends GetView<LoanController> {
   const LoanView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: FutureBuilder<Loan>(
-          future: controller.myLoanDetails,
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.none:
-                return const Center(
-                  child: Text('No connection'),
-                );
-              case ConnectionState.waiting:
-                return Container(
-                  height: Constants.deviceHeight*0.92,
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              case ConnectionState.active:
-                break;
-              case ConnectionState.done:
-                if (snapshot.hasData && snapshot.data != null) {
-                  return Padding(
-                    padding:
-                        const EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          _buildHeader(),
-                          const Divider(),
-                          _buildEmiReminder(snapshot.data?.upcomingEMI),
-                          _buildOutstandingBox(
-                            amount: snapshot.data?.loanAmount,
-                            tenure: snapshot.data?.loanTenure,
-                          ),
-                          _buildLoanDetails(
-                            outStandingAmount: snapshot.data?.outStandingAmount,
-                            emiAmount: snapshot.data?.emiAmount,
-                            startDate: snapshot.data?.loanStartDate,
-                            endDate: snapshot.data?.loanEndDate,
-                          ),
-                          _buildPaymentHistoryBox(
-                            emiHistory: snapshot.data?.emiHistory,
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                } else {
-                  return  ErrorWidgetView(
-                    buttonAction: () {
-                     controller.fetchLoanDetails();
-                    },
-                  );
-                }
-            }
-            return Container();
-          }),
+    return GetX(
+      init: controller,
+      builder: (builder) {
+        return SmartRefresher(
+          controller: controller.refreshController,
+          onRefresh: controller.fetchLoanDetails,
+          header: const WaterDropHeader(),
+          child: SingleChildScrollView(
+            child: renderUI(),
+          ),
+        );
+      },
     );
   }
 
@@ -94,6 +51,77 @@ class LoanView extends GetView<LoanController> {
         ),
       ),
     );
+  }
+
+  renderUI() {
+    switch (controller.usedCaseScenarios.value) {
+      case NetworkUsedCase.loading:
+        return SizedBox(
+          height: Constants.deviceHeight,
+          child: const Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      case NetworkUsedCase.error:
+        return SizedBox(
+          height: Constants.deviceHeight,
+          child: Center(
+            child: ErrorWidgetView(
+              buttonAction: () {
+                controller.fetchLoanDetails();
+              },
+            ),
+          ),
+        );
+      case NetworkUsedCase.usernotfound:
+        return SizedBox(
+          height: Constants.deviceHeight,
+          child: const Center(
+            child: ComingSoon(),
+          ),
+        );
+
+      case NetworkUsedCase.sucess:
+        return Padding(
+          padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildHeader(),
+                const Divider(),
+                _buildEmiReminder(
+                    controller.getLoanDetails.value?.payload!.upcomingEMI),
+                _buildOutstandingBox(
+                    amount:
+                        controller.getLoanDetails.value?.payload!.loanAmount,
+                    tenure:
+                        controller.getLoanDetails.value?.payload!.loanTenure),
+                _buildLoanDetails(
+                    outStandingAmount: controller
+                        .getLoanDetails.value?.payload!.outStandingAmount,
+                    emiAmount:
+                        controller.getLoanDetails.value?.payload!.emiAmount,
+                    startDate:
+                        controller.getLoanDetails.value?.payload!.loanStartDate,
+                    endDate:
+                        controller.getLoanDetails.value?.payload!.loanEndDate),
+                _buildPaymentHistoryBox(
+                  emiHistory:
+                      controller.getLoanDetails.value?.payload!.emiHistory,
+                ),
+              ],
+            ),
+          ),
+        );
+      default:
+        SizedBox(
+          height: Constants.deviceHeight,
+          child: const Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+    }
   }
 
   Widget _buildEmiReminder(EMI? emi) {

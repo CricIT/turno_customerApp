@@ -82,12 +82,20 @@ class LocalStorageService extends GetxService {
     }
   }
 
-  //isLoggedIn
+  /// isLoggedIn
   set isLoggedIn(bool value) {
     _sharedPreferences?.setBool('isLoggedIn', value);
   }
 
   bool get isLoggedIn => _sharedPreferences?.getBool('isLoggedIn') ?? false;
+
+  /// Set user phone number
+  set mobileNumber(String value) {
+    _sharedPreferences?.setString('mobile', value);
+  }
+
+  /// Get user phone number
+  String get mobileNumber => _sharedPreferences?.getString('mobile') ?? '';
 
   ///Get user previous preferred language.
   String? get getLanguage {

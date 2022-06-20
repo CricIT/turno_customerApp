@@ -36,10 +36,9 @@ class OtpController extends GetxController {
       final response = await otpUseCase.execute(Tuple2(mobile, otp));
       debugPrint(response.toString());
       if (response.status == 'success') {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          store.isLoggedIn = true;
-          Get.offAllNamed(AppRoutes.LANDING_PAGE);
-        });
+        store.isLoggedIn = true;
+        store.mobileNumber = mobile;
+        Get.offAllNamed(AppRoutes.LANDING_PAGE);
       } else {
         Get.defaultDialog(
           title: 'Oh no!',
