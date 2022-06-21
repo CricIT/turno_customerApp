@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
-import 'package:turno_customer_application/app/config/constant.dart';
 import 'package:turno_customer_application/app/routes/app_route.dart';
 import 'package:turno_customer_application/presentation/controllers/landing_page/more_controller.dart';
 import '../../app/config/dimentions.dart';
@@ -24,27 +23,33 @@ class More extends GetView<MoreController> {
             _moreItem(
                 itemName: "vehicle_catalogue".tr,
                 itemIcon: Images.icon_vehicle_catalog,
-                onClick: () {}),
+                onClick: () {
+                  Get.toNamed(AppRoutes.VEHICLE_CATALOUGE);
+                }),
             _moreItem(
                 itemName: "apply_loan".tr,
                 itemIcon: Images.icon_loan_application,
-                onClick: () {}),
-            _moreItem(
-                itemName: "vehicle_stats".tr,
-                itemIcon: Images.icon_stats,
-                onClick: () {}),
+                onClick: () {
+                  Get.toNamed(AppRoutes.NEW_LOAN);
+                }),
             _moreItem(
                 itemName: "choose_language".tr,
-                itemIcon:Images.icon_language,
+                itemIcon: Images.icon_language,
                 onClick: () {
                   Get.toNamed(AppRoutes.LANGUAGE);
                 }),
             _moreItem(
                 itemName: "refer_earn".tr,
                 itemIcon: Images.icon_refer,
-                onClick: () {}),
+                onClick: () {
+                  Get.toNamed(AppRoutes.REFER_AND_EARN);
+                }),
             _moreItem(
-                itemName: "rewards".tr, itemIcon: Images.icon_rewards, onClick: () {}),
+                itemName: "rewards".tr,
+                itemIcon: Images.icon_rewards,
+                onClick: () {
+                  Get.toNamed(AppRoutes.COMING_SOON);
+                }),
             _moreItem(
                 itemName: "logout".tr,
                 itemIcon: Images.icon_logout,

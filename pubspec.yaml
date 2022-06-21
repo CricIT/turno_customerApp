@@ -47,8 +47,13 @@ dependencies:
   flutter_local_notifications: ^9.5.3+1
   google_fonts: ^3.0.1
   syncfusion_flutter_gauges: ^20.1.59
+  syncfusion_flutter_charts: ^20.1.60+1
   dartz: ^0.10.1
-
+  location: ^4.4.0
+  intl: ^0.17.0
+  permission_handler: ^10.0.0
+  pull_to_refresh: ^2.0.0
+  app_settings: ^4.1.8
 
 dev_dependencies:
   flutter_test:

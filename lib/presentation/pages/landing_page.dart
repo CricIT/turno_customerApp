@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
+import 'package:turno_customer_application/presentation/controllers/vehicle_controller/vehicle_details_controller.dart';
 import 'package:turno_customer_application/presentation/pages/profile.dart';
 import 'package:turno_customer_application/presentation/pages/support.dart';
-import 'package:turno_customer_application/presentation/widgets/appbar.dart';
 import '../../app/config/constant.dart';
 import '../../app/config/dimentions.dart';
 import '../../app/constants/images.dart';
 import '../controllers/landing_page/landing_page_controller.dart';
+import '../controllers/loan_controller/loan_binding.dart';
+import '../controllers/loan_controller/loan_controller.dart';
+import '../controllers/vehicle_controller/vehicle_binding.dart';
 import 'my_vehicle.dart';
 import 'loan.dart';
 import 'more.dart';
@@ -21,30 +24,9 @@ class LandingPage extends GetView<LandingPageController> {
     Constants.deviceHeight = MediaQuery.of(context).size.height;
     Constants.deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(80.0),
-        // here the desired height
-        child: Obx((){
-          return Visibility(
-              visible: controller.selectedIndex.value == 0 ? true : false,
-              child: BaseAppBar(
-                customerName: "Ramesh",
-                vehicleName: "Piaggio Ape Electrik",
-              ));
-        }),
-      ),
       bottomNavigationBar: buildBottomNavigationMenu(context, controller),
       body: SafeArea(
-        child: Obx(() => IndexedStack(
-              index: controller.selectedIndex.value,
-              children: const [
-                MyVehicle(),
-                Loan(),
-                Support(),
-                Profile(),
-                More(),
-              ],
-            )),
+        child: Obx(() => _getallclasse()),
       ),
     );
   }
@@ -73,7 +55,6 @@ class LandingPage extends GetView<LandingPageController> {
                 label: 'my_vehicle'.tr,
                 activeIcon: SvgPicture.asset(
                   Images.icon_active_vehicle_icon,
-
                 ),
               ),
               BottomNavigationBarItem(
@@ -81,14 +62,13 @@ class LandingPage extends GetView<LandingPageController> {
                 label: 'loan_details'.tr,
                 activeIcon: SvgPicture.asset(
                   Images.icon_active_my_loan,
-
                 ),
               ),
               BottomNavigationBarItem(
                 icon: SvgPicture.asset(Images.icon_inactive_support),
                 label: 'help'.tr,
                 activeIcon: SvgPicture.asset(
-                    Images.icon_active_support,
+                  Images.icon_active_support,
                 ),
               ),
               BottomNavigationBarItem(
@@ -108,5 +88,25 @@ class LandingPage extends GetView<LandingPageController> {
             ],
           ),
         )));
+  }
+
+  _getallclasse() {
+    switch (controller.selectedIndex.value) {
+      case 0:
+        VehicleBinding().dependencies();
+        Get.find<VehicleDetailsController>().fetchVehicleData();
+
+        return const MyVehicle();
+      case 1:
+        LoanBinding().dependencies();
+        Get.find<LoanController>().fetchLoanDetails();
+        return const LoanView();
+      case 2:
+        return const Support();
+      case 3:
+        return const Profile();
+      case 4:
+        return const More();
+    }
   }
 }

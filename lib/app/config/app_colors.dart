@@ -21,6 +21,22 @@ class AppColors {
   static const Color placeholderColor = Color(0xFF999999);
   static const Color subTextColor = Color(0xFF666666);
   static const Color paleYello =    Color(0xFFFFF3CA);
+  static const Color yellowbg =    Color(0xFFFFFBEF);
+  static const Color redbg =    Color(0xFFFFF1EF);
+  static const Color greenBg =    Color(0xFFF7FFF5);
+
+  static const Color darkgreen =    Color(0xFF26A759);
+
+  static const Color darkyello =    Color(0xFFD99B06);
+
+  static const Color darkred =    Color(0xFFF93C00);
+
+
+
+
+
+
+
 
 
 }

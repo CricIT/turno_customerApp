@@ -10,7 +10,6 @@ class LoginUseCase extends ParamUseCase<void, String> {
 
   @override
   Future<Either<String, Auth>> execute(String params) async {
-    final response = await _repo.generateOTP(params);
-    return response;
+    return await _repo.generateOTP(params);
   }
 }

@@ -23,27 +23,30 @@ class LoginController extends GetxController {
     _phoneNumber = number;
   }
 
+  _showErrorMessage(String message) {
+    print(message);
+    Get.defaultDialog(
+      contentPadding: const EdgeInsets.all(10),
+      title: 'Oh no!',
+      middleText: message,
+      actions: [
+        TextButton(
+          onPressed: () {
+            Get.back();
+          },
+          child: const Text('OK'),
+        ),
+      ],
+    );
+  }
+
   signUpWith(String mobile) async {
     try {
       final response = await _loginUseCase.execute(mobile);
-      if (response.isRight()) {
-        Get.toNamed(AppRoutes.OTP);
-      } else if(response.isLeft()) {
-        Get.defaultDialog(
-          title: 'Oh no!',
-          middleText: "test",
-          actions: [
-            TextButton(
-              onPressed: () {
-                Get.back();
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      }
+      response.fold(
+          (l) => _showErrorMessage(l), (r) => Get.toNamed(AppRoutes.OTP));
     } catch (error) {
-      print(error);
+      Get.to(AppRoutes.ERROR);
     }
   }
 

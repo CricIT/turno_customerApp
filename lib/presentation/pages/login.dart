@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
 import 'package:get/get.dart';
+import 'package:turno_customer_application/app/config/app_text_styles.dart';
 import 'package:turno_customer_application/app/config/constant.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:turno_customer_application/app/config/dimentions.dart';
 import 'package:turno_customer_application/presentation/controllers/auth/login_controller.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_button.dart';
@@ -25,12 +25,12 @@ class LoginPage extends GetView<LoginController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                _buildHeaderImage(),
                 _buildLoginText(),
-                _buildCarouselSlider(),
                 _otpText(),
                 _buildPhoneInputField(),
-                const SizedBox(
-                  height: 48,
+                SizedBox(
+                  height: Constants.deviceHeight * 0.15,
                 ),
                 _nextButton(),
               ],
@@ -43,82 +43,39 @@ class LoginPage extends GetView<LoginController> {
 
   Widget _buildLoginText() {
     return Container(
-      margin: const EdgeInsets.all(16),
+      margin: const EdgeInsets.only(top: 20, bottom: 10),
       child: Center(
         child: CustomLabel(
-          title: 'login'.tr,
+          title: 'login'.tr.toUpperCase(),
           color: AppColors.blackColor,
-          fontSize: 32,
-          fontWeight: FontWeight.w900,
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
         ),
       ),
     );
   }
 
-  Widget _buildCarouselSlider() {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 16),
-      child: CarouselSlider(
-        options: CarouselOptions(
-          viewportFraction: 1,
-          autoPlay: true,
-          autoPlayInterval: const Duration(milliseconds: 2500),
-          aspectRatio: 1.5,
-          padEnds: true,
-          enlargeCenterPage: true,
-          enlargeStrategy: CenterPageEnlargeStrategy.scale,
-        ),
-        items: imageSliders,
-      ),
-    );
+  Widget _buildHeaderImage() {
+    return Image.asset(Constants.loginPageImage);
   }
 
   Widget _otpText() {
     return Container(
-      constraints: const BoxConstraints(maxWidth: 500),
-      margin: const EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 16,
-      ),
-      child: RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(
-          children: <TextSpan>[
-            TextSpan(
-              text: 'login_1'.tr,
-              style: const TextStyle(
-                color: AppColors.blackColor,
-                fontSize: 17,
-                fontFamily: Constants.poppins,
-              ),
-            ),
-            TextSpan(
-              text: 'login_2'.tr,
-              style: const TextStyle(
-                color: AppColors.blackColor,
-                fontWeight: FontWeight.bold,
-                fontSize: 17,
-                fontFamily: Constants.poppins,
-              ),
-            ),
-            TextSpan(
-              text: 'login_3'.tr,
-              style: const TextStyle(
-                color: AppColors.blackColor,
-                fontSize: 17,
-                fontFamily: Constants.poppins,
-              ),
-            ),
-          ],
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        margin: const EdgeInsets.symmetric(
+          horizontal: 10,
+          vertical: 16,
         ),
-      ),
-    );
+        child: Text(
+          'login_text'.tr,
+          textAlign: TextAlign.center,
+          style: blackNormal14,
+        ));
   }
 
   Widget _buildPhoneInputField() {
-    return Container(
+    return SizedBox(
       height: 50,
-      margin: const EdgeInsets.all(10),
       child: CustomTextField(
         textController: controller.phoneController,
         keyboardInputType: TextInputType.phone,
@@ -132,7 +89,7 @@ class LoginPage extends GetView<LoginController> {
     return CustomButton(
       buttonAction: () {
         if (controller.phoneController.text.length == 10) {
-          controller.setPhoneNumber=controller.phoneController.text;
+          controller.setPhoneNumber = controller.phoneController.text;
           controller.signUpWith(controller.phoneController.text);
         } else {
           Get.defaultDialog(
@@ -160,17 +117,4 @@ class LoginPage extends GetView<LoginController> {
       ),
     );
   }
-
-  final List<Widget> imageSliders = Constants.loginPageImages
-      .map(
-        (item) => ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(15.0)),
-          child: Stack(
-            children: [
-              Image.asset(item, fit: BoxFit.cover, width: 1000.0),
-            ],
-          ),
-        ),
-      )
-      .toList();
 }
