@@ -41,6 +41,8 @@ class VehiclePayload {
   int? mileageAfter3Year;
   String? userName;
   String? vehicleName;
+  AppVersionResponse? appVersionResponse;
+
 
   VehiclePayload(
       {this.vin,
@@ -55,7 +57,8 @@ class VehiclePayload {
       this.idealMileage,
       this.mileageAfter3Year,
       this.userName,
-      this.vehicleName});
+      this.vehicleName,
+      this.appVersionResponse});
 
   VehiclePayload.fromJson(Map<String, dynamic> json) {
     vin = json['vin'];
@@ -71,6 +74,9 @@ class VehiclePayload {
     mileageAfter3Year = json['mileageAfter3Year'];
     userName = json['userName'];
     vehicleName = json['vehicleName'];
+    appVersionResponse = json['appVersionResponse'] != null
+        ? new AppVersionResponse.fromJson(json['appVersionResponse'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -88,6 +94,32 @@ class VehiclePayload {
     data['mileageAfter3Year'] = mileageAfter3Year;
     data['userName'] = userName;
     data['vehicleName'] = vehicleName;
+    if (this.appVersionResponse != null) {
+      data['appVersionResponse'] = this.appVersionResponse!.toJson();
+    }
     return data;
   }
+}
+
+class AppVersionResponse {
+  double? appVersion=4.0;
+  String? appLink="https://github.com/CricIT/myproject/raw/Deepak/anydesk.apk";
+  bool? forceUpdate=true;
+
+  AppVersionResponse({this.appVersion, this.appLink, this.forceUpdate});
+
+  AppVersionResponse.fromJson(Map<String, dynamic> json) {
+    appVersion = json['appVersion'];
+    appLink = json['appLink'];
+    forceUpdate = json['forceUpdate'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['appVersion'] = this.appVersion;
+    data['appLink'] = this.appLink;
+    data['forceUpdate'] = this.forceUpdate;
+    return data;
+  }
+
 }

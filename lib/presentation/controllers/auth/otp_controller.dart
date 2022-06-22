@@ -46,18 +46,18 @@ class OtpController extends GetxController {
           userId: mobile,
           mobile: mobile,
         );
+        store.isFirstTimeSetUp = true;
         Get.offAllNamed(AppRoutes.LANDING_PAGE);
       } else {
-       Utils.showAlertDialog(
+        Utils.showAlertDialog(
           title: 'alert'.tr,
-          message:
-              response.message.toString(),
+          message: response.message.toString(),
           actions: [
             TextButton(
               onPressed: () async {
                 Get.back();
               },
-              child:  CustomLabel(
+              child: CustomLabel(
                 title: 'ok'.tr,
               ),
             ),

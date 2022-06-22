@@ -1,7 +1,11 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
+import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
 import '../config/app_text_styles.dart';
 import '../config/dimentions.dart';
 import '../constants/images.dart';
@@ -121,6 +125,74 @@ class Utils {
             ],
           )),
       isDismissible: true,
+    );
+  }
+
+/* SHOW ALERT DIALOG FOR FORCE UPDATE */
+  static  showForceUpdateDialoug(
+      BuildContext context, String msg, String okTitle,
+      {required String title,
+        Color backgroundColor = Colors.white,
+        required Function() okHandler}) {
+    return Platform.isIOS
+        ? showCupertinoDialog(
+        context: context,
+        useRootNavigator: false,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Visibility(
+              visible: (title != null) ? false : true,
+              child: Text(title, textAlign: TextAlign.center),
+            ),
+            content: Text(msg),
+            actions: [ TextButton(
+                onPressed:okHandler,
+                child: Text(okTitle))],
+          );
+        })
+        : showDialog(
+      context: context,
+      useRootNavigator: false,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return _alertDialogHelp(context, msg, okTitle,
+            title: title,
+            backgroundColor: backgroundColor,
+            okHandler: okHandler);
+      },
+    );
+  }
+
+  static Widget _alertDialogHelp(BuildContext context, String msg, String okTitle,
+      {required String title,
+        Color backgroundColor = Colors.white,
+        required Function() okHandler}) {
+    return AlertDialog(
+      backgroundColor: backgroundColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(8.0),
+        ),
+      ),
+      title: CustomLabel(
+         title: title,
+        fontSize: Dimensions.FONT_SIZE_LARGE,
+        textAlign: TextAlign.left,
+        color: Colors.black,
+      ),
+      content: SizedBox(
+        width: MediaQuery.of(context).size.width - 20,
+        child: CustomLabel(
+          title: msg,
+          fontSize: Dimensions.FONT_SIZE_DEFAULT,
+          textAlign: TextAlign.left,
+          color: Colors.black,
+        ),
+      ),
+      actions: [ TextButton(
+          onPressed:okHandler,
+          child: Text(okTitle))],
     );
   }
 }
