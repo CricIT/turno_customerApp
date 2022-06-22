@@ -15,6 +15,7 @@ class APIProvider {
   Future request(APIRequestRepresentable request) async {
     debugPrint(request.url);
     try {
+
       final response = await _client.request(request.url, request.method.string,
           headers: request.headers, query: request.query, body: request.body);
       debugPrint(response.bodyString);

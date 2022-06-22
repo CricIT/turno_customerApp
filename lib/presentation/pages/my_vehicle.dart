@@ -389,7 +389,9 @@ class MyVehicle extends GetView<VehicleDetailsController> {
             ),
             const Spacer(),
             InkWell(
-              onTap: () {},
+              onTap: () {
+
+              },
               child: Container(
                   padding: const EdgeInsets.all(
                     Dimensions.PADDING_SIZE_SMALL,

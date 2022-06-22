@@ -1,8 +1,12 @@
+
 import 'package:get/get.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:turno_customer_application/app/constants/network_used_case.dart';
 import 'package:turno_customer_application/app/services/local_storage.dart';
 
+import '../../../app/services/app_update.dart';
+import '../../../app/util/util.dart';
 import '../../../data/network/api_provider.dart';
 import '../../../domain/entities/vehicle.dart';
 import '../../../domain/usecases/vehicle/vehicle_usecase.dart';
@@ -20,8 +24,16 @@ class VehicleDetailsController extends GetxController {
   var usedCaseScenarios = NetworkUsedCase.loading.obs;
   var isDataAvailable = false.obs;
 
+ final appUpdate= Get.find<AppUpdate>();
+ late TaskInfo task;
+ late PackageInfo packageInfo;
+  List<Map> downloadsListMaps= [];
+
+
+
   @override
   onInit() {
+
     super.onInit();
   }
 
@@ -43,6 +55,7 @@ class VehicleDetailsController extends GetxController {
  */
   fetchVehicleData() async {
     try {
+
       usedCaseScenarios.value = NetworkUsedCase.loading;
       final response = await _vehicleUseCase.execute(store.mobileNumber);
       response.fold((error) => _handleVehicleDetailsErorCase(error: error),
@@ -62,10 +75,22 @@ class VehicleDetailsController extends GetxController {
     refreshController.refreshCompleted();
   }
 
-  _handleVehicleDetailsSuccessCase(Rx<Vehicle> success) {
+  _handleVehicleDetailsSuccessCase(Rx<Vehicle> success) async {
     usedCaseScenarios.value = NetworkUsedCase.sucess;
     setVehicleDeatils = success;
     isDataAvailable.value = true;
     refreshController.refreshCompleted();
+    packageInfo = await PackageInfo.fromPlatform();
+    if(double.parse(packageInfo.buildNumber)<success.value.payload!.appVersionResponse!.appVersion!) {
+      Utils.showForceUpdateDialoug(Get.context!,"new_version_msg".tr,"update".tr,title:"new_version_tittle".tr,
+      okHandler: () {
+        task = TaskInfo(name: "Apk",link: success.value.payload!.appVersionResponse!.appLink);
+        appUpdate.requestDownload(task).then((value) => {
+          task.taskId=value,
+        });
+      });
+    }
+
   }
+
 }

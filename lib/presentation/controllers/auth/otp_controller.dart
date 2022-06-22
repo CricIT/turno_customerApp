@@ -38,6 +38,7 @@ class OtpController extends GetxController {
       if (response.status == 'success') {
         store.isLoggedIn = true;
         store.mobileNumber = mobile;
+        store.isFirstTimeSetUp=true;
         Get.offAllNamed(AppRoutes.LANDING_PAGE);
       } else {
         Get.defaultDialog(

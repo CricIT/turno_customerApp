@@ -9,6 +9,7 @@ import 'package:turno_customer_application/presentation/controllers/more/refer_c
 import 'package:turno_customer_application/presentation/controllers/more/vehicle_catalouge_controller.dart';
 import 'package:turno_customer_application/presentation/controllers/permissions/permission_controller.dart';
 import '../../data/repositories/background_repository.dart';
+import '../services/app_update.dart';
 
 class DependencyCreator {
   static init() {
@@ -22,5 +23,6 @@ class DependencyCreator {
     Get.lazyPut(() => VehicleCatalougeController(), fenix: true);
     Get.lazyPut(() => ReferController(), fenix: true);
     Get.lazyPut(() => NewLoanController(), fenix: true);
+    Get.lazyPut(() => AppUpdate());
   }
 }

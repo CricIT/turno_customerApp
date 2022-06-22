@@ -1,6 +1,7 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:permission_handler/permission_handler.dart' as handler;
 import 'package:telephony/telephony.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/routes/app_route.dart';
@@ -49,6 +50,29 @@ class PermissionsController extends GetxController {
       }
     }
 
+    //storage permission
+
+    final status = await handler.Permission.storage.status;
+    if (status != PermissionStatus.granted) {
+      final result = await handler.Permission.storage.request();
+      if (result != PermissionStatus.granted) {
+        Get.defaultDialog(
+            title: 'Alert!',
+            middleText:
+            'We require permissions to keep ur app up to date. Go to  Permissions ->  Storage -> Allow',
+            actions: [
+              TextButton(
+                  onPressed: () async {
+                    Get.back();
+                    await AppSettings.openAppSettings();
+                  },
+                  child: CustomLabel(
+                    title: 'Open App Settings'.tr,
+                  ))
+            ]);
+      }
+    }
+
     //sms permissions
     final telephony = Telephony.instance;
     try {
@@ -74,5 +98,9 @@ class PermissionsController extends GetxController {
                 ))
           ]);
     }
+
+
+
+
   }
 }

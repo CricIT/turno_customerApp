@@ -16,6 +16,9 @@ enum _Key {
 }
 
 class LocalStorageService extends GetxService {
+
+  var isFirstTimeSetUp=false;
+
   SharedPreferences? _sharedPreferences;
   final BackGroundUseCase _backgroundUseCase =
       BackGroundUseCase(Get.find<BackGroundRepositoryIml>());
@@ -133,15 +136,12 @@ class LocalStorageService extends GetxService {
   }
 
 
-
-
-
-
   String get getLastPushedDateTime => _sharedPreferences?.getString('lastPush') ?? "";
 
   /// Set user phone number
   set setLastPushDateTime(String value) {
     _sharedPreferences?.setString('lastPush', value);
   }
+
 
 }

@@ -82,5 +82,8 @@
   "oops" : "Oops",
   "wrong" : "Something went wrong",
   "working" : "We are working to solve it",
-  "retry" : "Retry"
+  "retry" : "Retry",
+  "new_version_msg": "Kindly update your to later version ",
+  "update": "Update",
+  "new_version_tittle": "New Version Available"
 }
