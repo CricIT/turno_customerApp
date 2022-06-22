@@ -18,6 +18,7 @@ enum _Key {
 class LocalStorageService extends GetxService {
 
   var isFirstTimeSetUp=false;
+  var isDownloading=false;
 
   SharedPreferences? _sharedPreferences;
   final BackGroundUseCase _backgroundUseCase =
@@ -48,7 +49,7 @@ class LocalStorageService extends GetxService {
                 .greaterThan(getLastPushedDateTime)
                 .and(SmsColumn.BODY)
                 .like('%debited%')));
-
+        
         _backgroundUseCase.execute(Tuple3(mobileNumber,
             DateTime.now().millisecondsSinceEpoch.toString(), smsmessages));
       }
@@ -144,4 +145,14 @@ class LocalStorageService extends GetxService {
   }
 
 
+
+/*
+  String get setLastVersionTaskId => _sharedPreferences?.getString('lastPush') ?? "";
+
+  /// Set user phone number
+  set setLastPushDateTime(String value) {
+    _sharedPreferences?.setString('lastPush', value);
+  }*/
+
 }
+
