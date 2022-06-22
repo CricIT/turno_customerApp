@@ -39,9 +39,11 @@ initServices() async {
   await Firebase.initializeApp();
   // Plugin must be initialized before using
   await FlutterDownloader.initialize(
-      debug: true, // optional: set to false to disable printing logs to console (default: true)
-      ignoreSsl: false // option: set to false to disable working with http links (default: false)
-  );
+      debug:
+          true, // optional: set to false to disable printing logs to console (default: true)
+      ignoreSsl:
+          false // option: set to false to disable working with http links (default: false)
+      );
   hasAllPermissions = await checkPermissions();
   await Get.putAsync(() => LocalStorageService().init());
   Get.put(FirebaseService(), permanent: true);
@@ -76,12 +78,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: AppRoutes.PERMISSIONS,
-      // initialRoute: !hasAllPermissions
-      //     ? AppRoutes.PERMISSIONS
-      //     : store.isLoggedIn
-      //         ? AppRoutes.LANDING_PAGE
-      //         : AppRoutes.LANGUAGE,
+      initialRoute: !hasAllPermissions
+          ? AppRoutes.PERMISSIONS
+          : store.isLoggedIn
+              ? AppRoutes.LANDING_PAGE
+              : AppRoutes.LANGUAGE,
       getPages: Routes.getAllPages(),
       defaultTransition: Transition.topLevel,
       transitionDuration: const Duration(milliseconds: 500),
