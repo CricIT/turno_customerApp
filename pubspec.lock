@@ -464,6 +464,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.7"
+  percent_indicator:
+    dependency: "direct main"
+    description:
+      name: percent_indicator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.2.2"
   permission_handler:
     dependency: "direct main"
     description:
@@ -661,9 +668,11 @@ packages:
   telephony:
     dependency: "direct main"
     description:
-      name: telephony
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "9412673cd8b1617b130c115b70826bd98f466c1e"
+      url: "git@github.com:turnoclub/Telephony.git"
+    source: git
     version: "0.2.0"
   term_glyph:
     dependency: transitive

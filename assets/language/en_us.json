@@ -85,5 +85,7 @@
   "retry" : "Retry",
   "new_version_msg": "Kindly update your to later version ",
   "update": "Update",
-  "new_version_tittle": "New Version Available"
+  "new_version_tittle": "New Version Available",
+  "progress": "Progress",
+  "install_apl": "Install"
 }

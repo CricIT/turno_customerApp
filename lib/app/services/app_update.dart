@@ -6,15 +6,14 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:android_path_provider/android_path_provider.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:turno_customer_application/presentation/controllers/vehicle_controller/vehicle_details_controller.dart';
 
 class AppUpdate extends GetxController {
   late String _localPath;
   final ReceivePort _port = ReceivePort();
+  var progress = 0.0.obs;
 
   @override
   void onInit() {
-
     _bindBackgroundIsolate();
 
     FlutterDownloader.registerCallback(downloadCallback);
@@ -47,6 +46,8 @@ class AppUpdate extends GetxController {
     task.taskId = newTaskId;
   }
 
+
+
   static void downloadCallback(
     String id,
     DownloadTaskStatus status,
@@ -59,11 +60,9 @@ class AppUpdate extends GetxController {
 
     IsolateNameServer.lookupPortByName('downloader_send_port')
         ?.send([id, status, progress]);
-
-
   }
 
-   Future<bool> openDownloadedFile(String? task) {
+  Future<bool> openDownloadedFile(String? task) {
     if (task != null) {
       return FlutterDownloader.open(taskId: task);
     } else {
@@ -125,23 +124,17 @@ class AppUpdate extends GetxController {
     _port.listen((dynamic data) {
       final taskId = (data as List<dynamic>)[0] as String;
       final status = data[1] as DownloadTaskStatus;
-      final progress = data[2] as int;
+      final progress = data[2];
+      this.progress.value = progress.toDouble();
+    /*  if (status.value == 3 && progress as int == 100) {
 
-   if(status.value==3 && progress==100) {
-     openDownloadedFile(Get
-         .find<VehicleDetailsController>()
-         .task
-         .taskId);
-   }
+        openDownloadedFile(Get.find<VehicleDetailsController>().task.taskId);
+      }*/
       print(
         'Callback on UI isolate: '
-            'task ($taskId) is in status ($status) and process ($progress)',
+        'task ($taskId) is in status ($status) and process ($progress)',
       );
-    }).onDone(() {
-      print("completed done ");
-      openDownloadedFile(Get.find<VehicleDetailsController>().task.taskId);
     });
-
   }
 
   void _unbindBackgroundIsolate() {

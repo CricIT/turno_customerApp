@@ -4,8 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
+import 'package:turno_customer_application/app/services/app_update.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
+import '../../presentation/controllers/vehicle_controller/vehicle_details_controller.dart';
 import '../config/app_text_styles.dart';
 import '../config/dimentions.dart';
 import '../constants/images.dart';
@@ -117,45 +120,49 @@ class Utils {
   }
 
 /* SHOW ALERT DIALOG FOR FORCE UPDATE */
-  static  showForceUpdateDialoug(
+  static showForceUpdateDialoug(
       BuildContext context, String msg, String okTitle,
       {required String title,
-        Color backgroundColor = Colors.white,
-        required Function() okHandler}) {
+      Color backgroundColor = Colors.white,
+      required Function() okHandler}) {
     return Platform.isIOS
         ? showCupertinoDialog(
-        context: context,
-        useRootNavigator: false,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return CupertinoAlertDialog(
-            title: Visibility(
-              visible: (title != null) ? false : true,
-              child: Text(title, textAlign: TextAlign.center),
-            ),
-            content: Text(msg),
-            actions: [ TextButton(
-                onPressed:okHandler,
-                child: Text(okTitle))],
-          );
-        })
+            context: context,
+            useRootNavigator: false,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return CupertinoAlertDialog(
+                title: Visibility(
+                  visible: (title != null) ? false : true,
+                  child: Text(title, textAlign: TextAlign.center),
+                ),
+                content: Text(msg),
+                actions: [
+                  TextButton(onPressed: okHandler, child: Text(okTitle))
+                ],
+              );
+            })
         : showDialog(
-      context: context,
-      useRootNavigator: false,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return _alertDialogHelp(context, msg, okTitle,
-            title: title,
-            backgroundColor: backgroundColor,
-            okHandler: okHandler);
-      },
-    );
+            context: context,
+            useRootNavigator: false,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return WillPopScope(
+                onWillPop: () async => false,
+                child: _alertDialogHelp(context, msg, okTitle,
+                    title: title,
+                    backgroundColor: backgroundColor,
+                    okHandler: okHandler),
+              );
+            },
+          );
   }
 
-  static Widget _alertDialogHelp(BuildContext context, String msg, String okTitle,
+  static Widget _alertDialogHelp(
+      BuildContext context, String msg, String okTitle,
       {required String title,
-        Color backgroundColor = Colors.white,
-        required Function() okHandler}) {
+      Color backgroundColor = Colors.white,
+      required Function() okHandler}) {
     return AlertDialog(
       backgroundColor: backgroundColor,
       shape: const RoundedRectangleBorder(
@@ -164,7 +171,7 @@ class Utils {
         ),
       ),
       title: CustomLabel(
-         title: title,
+        title: title,
         fontSize: Dimensions.FONT_SIZE_LARGE,
         textAlign: TextAlign.left,
         color: Colors.black,
@@ -178,9 +185,62 @@ class Utils {
           color: Colors.black,
         ),
       ),
-      actions: [ TextButton(
-          onPressed:okHandler,
-          child: Text(okTitle))],
+      actions: [TextButton(onPressed: okHandler, child: Text(okTitle))],
     );
   }
+
+  static showProgressDialog(BuildContext context, String title) {
+    var controller = Get.find<AppUpdate>();
+    try {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) {
+            return WillPopScope(
+              onWillPop: () async => false,
+              child: AlertDialog(
+                content: SizedBox(
+                  height: 220,
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        title,
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(15),
+                      ),
+                      Obx(() => CircularPercentIndicator(
+                            radius: 60.0,
+                            lineWidth: 10.0,
+                            percent: controller.progress.value / 100,
+                            center: Text(controller.progress.value.toString()),
+                            progressColor: Colors.green,
+                          )),
+
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Obx(() {
+                          return Visibility(
+                              visible: controller.progress.value == 100,
+                              child: TextButton(
+                                  onPressed: () {
+                                    Get.back();
+                                    controller.openDownloadedFile(Get.find<VehicleDetailsController>().task.taskId);
+                                  }, child: Text("Install".tr,style: TextStyle(fontSize: Dimensions.FONT_SIZE_LARGE),)));
+                        }),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            );
+          });
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Utils();
 }
