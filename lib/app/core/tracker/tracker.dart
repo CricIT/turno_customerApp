@@ -3,10 +3,10 @@
 import 'package:flutter/foundation.dart' show kDebugMode;
 import '../firebase/firebase_handler.dart';
 
-class TrackHandler{
+class TrackHandler {
   static bool isTestingBuild = kDebugMode;
 
-  static Future<void> prepare() async{
+  static Future<void> prepare() async {
     if (isTestingBuild) return;
 
     try {
@@ -16,7 +16,29 @@ class TrackHandler{
     try {
       FirebaseHandler.analytics.logAppOpen();
     } catch (_) {}
+  }
 
+  static Future<void> setUser({
+    required String userId,
+    required String mobile,
+  }) async {
+    if (isTestingBuild) return null;
+
+    trackEvent(
+      eventName: 'SetLoginUser',
+      params: {
+        'userId': userId,
+        'mobile': mobile,
+      },
+    );
+
+    try {
+      FirebaseHandler.analytics.setUserId(id: userId);
+    } catch (_) {}
+
+    try {
+      FirebaseHandler.analytics.setUserProperty(name: 'mobile', value: mobile);
+    } catch (_) {}
   }
 
   static Future<void> trackScreen({
@@ -43,6 +65,8 @@ class TrackHandler{
     if (isTestingBuild) return null;
     try {
       FirebaseHandler.analytics.logEvent(name: eventName, parameters: params);
-    } catch (_) {}
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }

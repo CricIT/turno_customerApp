@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:turno_customer_application/app/constants/network_used_case.dart';
+import 'package:turno_customer_application/app/core/tracker/tracker.dart';
 import 'package:turno_customer_application/app/services/local_storage.dart';
 import 'package:turno_customer_application/data/network/api_provider.dart';
 import 'package:turno_customer_application/domain/entities/loan.dart';
@@ -22,6 +23,7 @@ class LoanController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    TrackHandler.trackScreen(screenName: '/LoanScreen');
   }
 
   Rx<Loan?> get getLoanDetails {

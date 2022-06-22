@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:turno_customer_application/app/constants/network_used_case.dart';
 import 'package:turno_customer_application/app/services/local_storage.dart';
+import 'package:turno_customer_application/presentation/controllers/landing_page/landing_page_controller.dart';
 
 import '../../../data/network/api_provider.dart';
 import '../../../domain/entities/vehicle.dart';
@@ -67,5 +68,10 @@ class VehicleDetailsController extends GetxController {
     setVehicleDeatils = success;
     isDataAvailable.value = true;
     refreshController.refreshCompleted();
+  }
+
+  navigateToSupport() {
+    final landingPageController = Get.find<LandingPageController>();
+    landingPageController.setSelectedIndex(2);
   }
 }

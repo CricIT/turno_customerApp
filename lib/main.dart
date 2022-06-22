@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:turno_customer_application/app/core/firebase/firebase_handler.dart';
 import 'package:turno_customer_application/app/services/firebase.dart';
 import 'package:turno_customer_application/presentation/controllers/lang/lang_controller.dart';
 import 'package:turno_customer_application/presentation/controllers/permissions/permission_controller.dart';
@@ -22,7 +23,7 @@ void main() async {
     DeviceOrientation.portraitUp,
   ]);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor:  AppColors.lightPurple,
+    statusBarColor: AppColors.lightPurple,
     statusBarIconBrightness: Brightness.light, // For Android (dark icons)
     statusBarBrightness: Brightness.light, // For iOS (dark icons)
   ));
@@ -47,7 +48,8 @@ bool hasAllPermissions = false;
 Future<bool> checkPermissions() async {
   bool smsPermission = await Permission.sms.isGranted;
   bool locationPermission = await Permission.location.isGranted;
-  if (smsPermission && locationPermission) return true;
+  bool storagePermission = await Permission.storage.isGranted;
+  if (smsPermission && locationPermission && storagePermission) return true;
   return false;
 }
 
@@ -59,6 +61,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      navigatorObservers: [FirebaseHandler.observer],
       title: Constants.appName,
       debugShowCheckedModeBanner: false,
       locale: const Locale('en', 'US'),
@@ -67,11 +70,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: !hasAllPermissions
-          ? AppRoutes.PERMISSIONS
-          : store.isLoggedIn
-              ? AppRoutes.LANDING_PAGE
-              : AppRoutes.LANGUAGE,
+      initialRoute: AppRoutes.PERMISSIONS,
+      // initialRoute: !hasAllPermissions
+      //     ? AppRoutes.PERMISSIONS
+      //     : store.isLoggedIn
+      //         ? AppRoutes.LANDING_PAGE
+      //         : AppRoutes.LANGUAGE,
       getPages: Routes.getAllPages(),
       defaultTransition: Transition.topLevel,
       transitionDuration: const Duration(milliseconds: 500),

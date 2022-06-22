@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:turno_customer_application/app/core/tracker/tracker.dart';
 import '../../../app/services/local_storage.dart';
 
 class LandingPageController extends GetxController {
@@ -9,8 +10,8 @@ class LandingPageController extends GetxController {
   void onInit() {
     super.onInit();
     store.pushDataToBackEnd();
+    TrackHandler.trackScreen(screenName: '/LandingPage');
   }
-
 
   //change the index of bottom nav based on user interaction
   void setSelectedIndex(int index) {
