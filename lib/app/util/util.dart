@@ -215,7 +215,7 @@ class Utils {
                             radius: 60.0,
                             lineWidth: 10.0,
                             percent: controller.progress.value / 100,
-                            center: Text(controller.progress.value.toString()),
+                            center: Text("${int.parse(controller.progress.value.toString())}%"),
                             progressColor: Colors.green,
                           )),
 
@@ -242,5 +242,7 @@ class Utils {
     }
   }
 
-  Utils();
+
+
+
 }

@@ -60,7 +60,7 @@ dependencies:
   percent_indicator: ^4.0.1
   telephony:
    git:
-    git@github.com:turnoclub/Telephony.git
+     url: https://github.com/turnoclub/Telephony.git
 
 dev_dependencies:
   flutter_test:

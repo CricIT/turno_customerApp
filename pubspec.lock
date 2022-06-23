@@ -670,8 +670,8 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "9412673cd8b1617b130c115b70826bd98f466c1e"
-      url: "git@github.com:turnoclub/Telephony.git"
+      resolved-ref: d8467f3a736f342c903a6fc05d4badad0abc0399
+      url: "https://github.com/turnoclub/Telephony.git"
     source: git
     version: "0.2.0"
   term_glyph:

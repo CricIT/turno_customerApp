@@ -79,21 +79,24 @@ class VehicleDetailsController extends GetxController {
     isDataAvailable.value = true;
     refreshController.refreshCompleted();
     packageInfo = await PackageInfo.fromPlatform();
+   // appUpdate.deleteFile("${success.value.payload!.appVersionResponse!.appLink!.split('/').last}");
     if(store.isDownloading==false){
     if(double.parse(packageInfo.buildNumber)<success.value.payload!.appVersionResponse!.appVersion!) {
       Utils.showForceUpdateDialoug(
           Get.context!, "new_version_msg".tr, "update".tr,
           title: "new_version_tittle".tr,
           okHandler: () {
-            store.isDownloading=true;
-            task = TaskInfo(name: "Apk",
-                link: success.value.payload!.appVersionResponse!.appLink);
-            appUpdate.requestDownload(task).then((value) =>
-            {
-              task.taskId = value,
-            });
-           // Get.back();
-            Utils.showProgressDialog(Get.context!, "progress".tr);
+            appUpdate.deleteFile("${success.value.payload!.appVersionResponse!.appLink!.split('/').last}");
+            store.isDownloading = true;
+              task = TaskInfo(name: "Apk",
+                  link: success.value.payload!.appVersionResponse!.appLink);
+              appUpdate.requestDownload(task).then((value) =>
+              {
+                task.taskId = value,
+              });
+              // Get.back();
+              Utils.showProgressDialog(Get.context!, "progress".tr);
+
           });
     }
 
