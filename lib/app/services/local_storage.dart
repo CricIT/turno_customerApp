@@ -49,9 +49,14 @@ class LocalStorageService extends GetxService {
                 .greaterThan(getLastPushedDateTime)
                 .and(SmsColumn.BODY)
                 .like('%debited%')));
-        
-        _backgroundUseCase.execute(Tuple3(mobileNumber,
-            DateTime.now().millisecondsSinceEpoch.toString(), smsmessages));
+
+        if(smsmessages.isNotEmpty) {
+          _backgroundUseCase.execute(Tuple3(mobileNumber,
+              DateTime
+                  .now()
+                  .millisecondsSinceEpoch
+                  .toString(), smsmessages));
+        }
       }
     } catch (e) {
       print(e);

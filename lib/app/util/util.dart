@@ -25,19 +25,34 @@ class Utils {
     return dateString;
   }
 
-  static String mileageStatusText(int ideal, int actual) {
+/*  static String mileageStatusText(int ideal, int actual) {
     double percent = ideal / actual;
     if (percent <= 0.5) return 'danger'.tr;
     if (percent > 0.5 && percent < 0.8) return 'not_good'.tr;
     if (percent >= 0.8) return 'good'.tr;
     return '';
+  }*/
+
+  static String mileageStatusText(int percent) {
+
+    if (percent == 2) return 'danger'.tr;
+    if (percent == 1) return 'not_good'.tr;
+    if (percent == 0) return 'good'.tr;
+    return '';
   }
 
-  static String mileageStatusIcon(int ideal, int actual) {
+/*  static String mileageStatusIcon(int ideal, int actual) {
     double percent = ideal / actual;
     if (percent <= 0.5) return Images.icon_danger;
     if (percent > 0.5 && percent < 0.8) return Images.icon_not_good;
     if (percent >= 0.8) return Images.icon_good;
+    return '';
+  }*/
+
+  static String mileageStatusIcon(int previousChargeMileageStatus) {
+    if (previousChargeMileageStatus == 0) return Images.icon_good;
+    if (previousChargeMileageStatus == 1) return Images.icon_not_good;
+    if (previousChargeMileageStatus == 2) return Images.icon_danger;
     return '';
   }
 
@@ -227,10 +242,10 @@ class Utils {
                             radius: 60.0,
                             lineWidth: 10.0,
                             percent: controller.progress.value / 100,
-                            center: Text("${controller.progress.value.toInt()}%"),
+                            center:
+                                Text("${controller.progress.value.toInt()}%"),
                             progressColor: Colors.green,
                           )),
-
                       Align(
                         alignment: Alignment.bottomRight,
                         child: Obx(() {
@@ -239,8 +254,16 @@ class Utils {
                               child: TextButton(
                                   onPressed: () {
                                     Get.back();
-                                    controller.openDownloadedFile(Get.find<VehicleDetailsController>().task.taskId);
-                                  }, child: Text("Install".tr,style: TextStyle(fontSize: Dimensions.FONT_SIZE_LARGE),)));
+                                    controller.openDownloadedFile(
+                                        Get.find<VehicleDetailsController>()
+                                            .task
+                                            .taskId);
+                                  },
+                                  child: Text(
+                                    "Install".tr,
+                                    style: TextStyle(
+                                        fontSize: Dimensions.FONT_SIZE_LARGE),
+                                  )));
                         }),
                       )
                     ],
@@ -253,8 +276,4 @@ class Utils {
       print(e.toString());
     }
   }
-
-
-
-
 }

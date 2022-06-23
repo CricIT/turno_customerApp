@@ -62,10 +62,13 @@ class VehicleDetailsController extends GetxController {
   }
 
   _handleVehicleDetailsErorCase({String? error, Object? exception}) {
+
+
     if (exception is BadRequestException && exception.details == "Not found") {
       return usedCaseScenarios.value = NetworkUsedCase.usernotfound;
       // useNotFound.value = true;
     }
+
     usedCaseScenarios.value = NetworkUsedCase.error;
     isDataAvailable.value = false;
     refreshController.refreshCompleted();
@@ -94,7 +97,6 @@ class VehicleDetailsController extends GetxController {
             appUpdate.requestDownload(task).then((value) => {
                   task.taskId = value,
                 });
-            // Get.back();
             Utils.showProgressDialog(Get.context!, "progress".tr);
           });
         }

@@ -17,7 +17,7 @@ import '../widgets/custom_rich_text.dart';
 import '../widgets/error_widget.dart';
 import '../widgets/guage_card.dart';
 import '../widgets/home_appbar.dart';
-import '../widgets/prefix_icon_text.dart';
+
 import '../widgets/coming_soon.dart';
 
 class MyVehicle extends GetView<VehicleDetailsController> {
@@ -34,11 +34,11 @@ class MyVehicle extends GetView<VehicleDetailsController> {
                 child: BaseAppBar(
                   customerName: controller.getVehicelDetails.value == null
                       ? ""
-                      : controller.getVehicelDetails.value?.payload!.userName,
+                      : controller.getVehicelDetails.value?.payload!.customerDetails!.userName,
                   vehicleName: controller.getVehicelDetails.value == null
                       ? ""
                       : controller
-                          .getVehicelDetails.value?.payload!.vehicleName,
+                          .getVehicelDetails.value?.payload!.customerDetails!.vehicleName,
                 ));
           })),
       body: GetX(
@@ -267,27 +267,26 @@ class MyVehicle extends GetView<VehicleDetailsController> {
                         const SizedBox(
                           height: 8,
                         ),
-                        PrefixIconTextView(
+                       /* PrefixIconTextView(
                           icon: Utils.mileageStatusIcon(
-                              previousChargeMileage, idealMileage),
-                          text: Utils.mileageStatusText(
-                              previousChargeMileage, idealMileage),
-                        ),
+                              idealMileage),
+                          text: "",
+                        ),*/
                       ],
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         CustomLabel(
-                            title: "others_are_getting".tr,
+                            title: "${controller.getVehicelDetails.value?.payload!.mileageStatisticsComparisonResponse!.comparisonPercentOfUsers}%${"others_are_getting".tr}",
                             fontSize: Dimensions.FONT_SIZE_SMALL,
                             fontWeight: FontWeight.w400,
                             color: AppColors.black),
                         const SizedBox(
                           height: 8,
                         ),
-                        const CustomLabel(
-                            title: "97",
+                         CustomLabel(
+                            title: controller.getVehicelDetails.value?.payload!.mileageStatisticsComparisonResponse!.comparisonUsersChargeMileage.toString(),
                             fontSize: Dimensions.FONT_SIZE_XXLARGE,
                             fontWeight: FontWeight.bold,
                             color: AppColors.black),
@@ -302,10 +301,10 @@ class MyVehicle extends GetView<VehicleDetailsController> {
                         const SizedBox(
                           height: 8,
                         ),
-                        PrefixIconTextView(
+                       /* PrefixIconTextView(
                           icon: Images.icon_good,
                           text: "good".tr,
-                        ),
+                        ),*/
                       ],
                     )
                   ],
@@ -508,15 +507,15 @@ class MyVehicle extends GetView<VehicleDetailsController> {
                   currentRangeLeft: controller
                       .getVehicelDetails.value?.payload!.currentRangeLeft,
                   buybackValueAfter3Year: controller
-                      .getVehicelDetails.value?.payload!.buybackValueAfter3Year,
+                      .getVehicelDetails.value?.payload!.after3YearStatistics!.buybackValueAfter3Year,
                 ),
                 _mileage(
                   wasPreviousChargeMileageLow: controller.getVehicelDetails
-                      .value?.payload!.wasPreviousChargeMileageLow,
+                      .value?.payload!.mileageStatisticsComparisonResponse!.wasPreviousChargeMileageLow,
                   previousChargeMileage: controller
-                      .getVehicelDetails.value?.payload!.previousChargeMileage,
+                      .getVehicelDetails.value?.payload!.mileageStatisticsComparisonResponse!.previousChargeMileage,
                   idealMileage:
-                      controller.getVehicelDetails.value?.payload!.idealMileage,
+                      controller.getVehicelDetails.value?.payload!.mileageStatisticsComparisonResponse!.previousChargeMileageStatus,
                 ),
                 CustomLabel(
                   title: "3_years_return_value".tr,
@@ -538,13 +537,13 @@ class MyVehicle extends GetView<VehicleDetailsController> {
                 ),
                 _threeYearBuyBackValueCard(
                   idealBuybackVehicleValue: controller.getVehicelDetails.value
-                      ?.payload!.idealBuybackVehicleValue,
+                      ?.payload!.after3YearStatistics!.idealBuybackVehicleValue,
                   buybackValueAfter3Year: controller
-                      .getVehicelDetails.value?.payload!.buybackValueAfter3Year,
+                      .getVehicelDetails.value?.payload!.after3YearStatistics!.buybackValueAfter3Year,
                   idealMileage:
-                      controller.getVehicelDetails.value?.payload!.idealMileage,
+                      controller.getVehicelDetails.value?.payload!.after3YearStatistics!.idealMileage,
                   mileageAfter3Year: controller
-                      .getVehicelDetails.value?.payload!.mileageAfter3Year,
+                      .getVehicelDetails.value?.payload!.after3YearStatistics!.mileageAfter3Year,
                 ),
                 const SizedBox(
                   height: 15,
