@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:turno_customer_application/app/core/tracker/tracker.dart';
 import 'package:turno_customer_application/app/routes/app_route.dart';
 import 'package:turno_customer_application/domain/usecases/auth/login_usecase.dart';
+
+import '../../../app/util/util.dart';
+import '../../widgets/custom_label.dart';
 
 class LoginController extends GetxController {
   LoginController(this._loginUseCase);
   final LoginUseCase _loginUseCase;
   TextEditingController phoneController = TextEditingController();
   String _phoneNumber = '';
+
+  @override
+  void onInit() {
+    super.onInit();
+    TrackHandler.trackScreen(screenName: '/LoginScreen');
+  }
 
   @override
   void onReady() {
@@ -25,16 +35,17 @@ class LoginController extends GetxController {
 
   _showErrorMessage(String message) {
     print(message);
-    Get.defaultDialog(
-      contentPadding: const EdgeInsets.all(10),
-      title: 'Oh no!',
-      middleText: message,
+    Utils.showAlertDialog(
+      title: 'alert'.tr,
+      message: message,
       actions: [
         TextButton(
-          onPressed: () {
+          onPressed: () async {
             Get.back();
           },
-          child: const Text('OK'),
+          child: CustomLabel(
+            title: 'ok'.tr,
+          ),
         ),
       ],
     );

@@ -48,7 +48,7 @@ class Permissions extends GetView<PermissionsController> {
                     height: 20,
                   ),
                   _buildPermissionDesc(const Icon(Icons.sms), 'SMS',
-                      'Your SMSs are analyzed to understand your income and spend patterns to decide your credit limit. Your personal SMSes are never uploaded.'),
+                      'Your SMSes are analyzed to have clear visibility on repayment ability and also to take underwriting decisions for further loans. Your SMSes are never uploaded.'),
                   const Divider(
                     thickness: 1.5,
                   ),
@@ -56,6 +56,11 @@ class Permissions extends GetView<PermissionsController> {
                       const Icon(Icons.location_on),
                       'Location',
                       'To prevent any fraudulent activities and provide location specific offers.'),
+                  const Divider(
+                    thickness: 1.5,
+                  ),
+                  _buildPermissionDesc(const Icon(Icons.storage), 'Storage',
+                      'We need storage permissions to push app updates on your mobile'),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.1,
                   ),

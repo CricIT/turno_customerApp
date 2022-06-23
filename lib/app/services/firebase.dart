@@ -29,7 +29,7 @@ class FirebaseService extends GetxService {
   }
 
   /// initialize [TrackHandler]
-  /// prepare 3rd party trakers (Mixpanel, Amplitude, etc)
+  /// prepare 3rd party trakers
   void _initEventTracking() {
     /// initialize app tracker for syncing with backend
     TrackHandler.prepare();
@@ -48,7 +48,8 @@ class FirebaseService extends GetxService {
       playSound: true,
     );
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-    await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
       alert: true,
       badge: true,
       sound: true,

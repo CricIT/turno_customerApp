@@ -10,6 +10,7 @@ class LangController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
     Get.updateLocale(Constants.locale
         .where((element) => element['name'] == store.getLanguage)
         .first['locale']);
@@ -17,8 +18,6 @@ class LangController extends GetxController {
 
   void setUserPreferredLanguage(locale) {
     store.setLanguage = locale;
-    store.isLoggedIn
-        ? Get.back()
-        : Get.toNamed(AppRoutes.LOGIN);
+    store.isLoggedIn ? Get.back() : Get.toNamed(AppRoutes.LOGIN);
   }
 }

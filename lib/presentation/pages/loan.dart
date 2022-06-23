@@ -5,6 +5,7 @@ import 'package:turno_customer_application/app/config/app_colors.dart';
 import 'package:turno_customer_application/app/config/app_text_styles.dart';
 import 'package:turno_customer_application/app/config/constant.dart';
 import 'package:turno_customer_application/app/config/dimentions.dart';
+import 'package:turno_customer_application/app/core/tracker/tracker.dart';
 import 'package:turno_customer_application/app/routes/app_route.dart';
 import 'package:turno_customer_application/app/util/util.dart';
 import 'package:turno_customer_application/domain/entities/emi.dart';
@@ -307,6 +308,7 @@ Widget _buildPaymentHistoryBox({EmiHistory? emiHistory}) {
         InkWell(
           onTap: () {
             Get.toNamed(AppRoutes.PAYMENT_HISTORY);
+            TrackHandler.trackEvent(eventName: 'ViewHistoryClicked');
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
