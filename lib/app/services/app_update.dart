@@ -145,7 +145,12 @@ class AppUpdate extends GetxController {
       final taskId = (data as List<dynamic>)[0] as String;
       final status = data[1] as DownloadTaskStatus;
       final progress = data[2];
+      if(progress>=0) {
         this.progress.value = progress.toDouble();
+      }
+      if(status.value==4){
+        Get.back();
+      }
     /*  if (status.value == 3 && progress as int == 100) {
 
         openDownloadedFile(Get.find<VehicleDetailsController>().task.taskId);
