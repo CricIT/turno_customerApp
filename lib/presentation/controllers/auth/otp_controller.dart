@@ -7,7 +7,10 @@ import 'package:tuple/tuple.dart';
 import 'package:turno_customer_application/app/routes/app_route.dart';
 import 'package:turno_customer_application/domain/usecases/auth/otp_usecase.dart';
 import 'package:turno_customer_application/presentation/controllers/auth/login_controller.dart';
+import '../../../app/core/tracker/tracker.dart';
 import '../../../app/services/local_storage.dart';
+import '../../../app/util/util.dart';
+import '../../widgets/custom_label.dart';
 
 class OtpController extends GetxController {
   OtpController(this.otpUseCase);
@@ -29,6 +32,7 @@ class OtpController extends GetxController {
     super.onInit();
     startTimer();
     initOtpListening();
+    TrackHandler.trackScreen(screenName: '/OtpScreen');
   }
 
   verifyOtp(String mobile, String otp) async {
@@ -38,18 +42,24 @@ class OtpController extends GetxController {
       if (response.status == 'success') {
         store.isLoggedIn = true;
         store.mobileNumber = mobile;
-        store.isFirstTimeSetUp=true;
+        TrackHandler.setUser(
+          userId: mobile,
+          mobile: mobile,
+        );
+        store.isFirstTimeSetUp = true;
         Get.offAllNamed(AppRoutes.LANDING_PAGE);
       } else {
-        Get.defaultDialog(
-          title: 'Oh no!',
-          middleText: response.message.toString(),
+        Utils.showAlertDialog(
+          title: 'alert'.tr,
+          message: response.message.toString(),
           actions: [
             TextButton(
-              onPressed: () {
+              onPressed: () async {
                 Get.back();
               },
-              child: const Text('OK'),
+              child: CustomLabel(
+                title: 'ok'.tr,
+              ),
             ),
           ],
         );

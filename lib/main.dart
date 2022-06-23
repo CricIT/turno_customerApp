@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:turno_customer_application/app/core/firebase/firebase_handler.dart';
 import 'package:turno_customer_application/app/services/firebase.dart';
 import 'package:turno_customer_application/presentation/controllers/lang/lang_controller.dart';
 import 'package:turno_customer_application/presentation/controllers/permissions/permission_controller.dart';
@@ -23,7 +24,7 @@ void main() async {
     DeviceOrientation.portraitUp,
   ]);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor:  AppColors.lightPurple,
+    statusBarColor: AppColors.lightPurple,
     statusBarIconBrightness: Brightness.light, // For Android (dark icons)
     statusBarBrightness: Brightness.light, // For iOS (dark icons)
   ));
@@ -38,9 +39,11 @@ initServices() async {
   await Firebase.initializeApp();
   // Plugin must be initialized before using
   await FlutterDownloader.initialize(
-      debug: true, // optional: set to false to disable printing logs to console (default: true)
-      ignoreSsl: false // option: set to false to disable working with http links (default: false)
-  );
+      debug:
+          true, // optional: set to false to disable printing logs to console (default: true)
+      ignoreSsl:
+          false // option: set to false to disable working with http links (default: false)
+      );
   hasAllPermissions = await checkPermissions();
   await Get.putAsync(() => LocalStorageService().init());
   Get.put(FirebaseService(), permanent: true);
@@ -53,7 +56,8 @@ bool hasAllPermissions = false;
 Future<bool> checkPermissions() async {
   bool smsPermission = await Permission.sms.isGranted;
   bool locationPermission = await Permission.location.isGranted;
-  if (smsPermission && locationPermission) return true;
+  bool storagePermission = await Permission.storage.isGranted;
+  if (smsPermission && locationPermission && storagePermission) return true;
   return false;
 }
 
@@ -65,6 +69,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      navigatorObservers: [FirebaseHandler.observer],
       title: Constants.appName,
       debugShowCheckedModeBanner: false,
       locale: const Locale('en', 'US'),

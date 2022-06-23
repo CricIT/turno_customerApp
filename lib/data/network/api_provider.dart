@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get_connect/connect.dart';
+import 'package:turno_customer_application/app/core/tracker/tracker.dart';
 import 'api_request_representable.dart';
 
 class APIProvider {
@@ -14,16 +15,26 @@ class APIProvider {
 
   Future request(APIRequestRepresentable request) async {
     debugPrint(request.url);
+    final response = await _client.request(request.url, request.method.string,
+        headers: request.headers, query: request.query, body: request.body);
     try {
-
-      final response = await _client.request(request.url, request.method.string,
-          headers: request.headers, query: request.query, body: request.body);
       debugPrint(response.bodyString);
       return _returnResponse(response);
     } on TimeoutException catch (e) {
       throw TimeOutException(e.message);
     } on SocketException catch (e) {
+      TrackHandler.trackEvent(eventName: 'socket_exception', params: {
+        'url': response.request?.url.toString(),
+        'method': response.request?.method,
+      });
       throw SocketException(e.message);
+    } on BadRequestException catch (e) {
+      print('happpppeeennninnngggg bad request');
+      TrackHandler.trackEvent(eventName: 'bad_request', params: {
+        'url': response.request?.url.toString(),
+        'method': response.request?.method,
+      });
+      throw BadRequestException(e.message);
     }
   }
 

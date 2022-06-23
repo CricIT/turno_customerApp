@@ -24,6 +24,7 @@ class LandingPage extends GetView<LandingPageController> {
     Constants.deviceHeight = MediaQuery.of(context).size.height;
     Constants.deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: AppColors.whiteColor,
       bottomNavigationBar: buildBottomNavigationMenu(context, controller),
       body: SafeArea(
         child: Obx(() => _getallclasse()),

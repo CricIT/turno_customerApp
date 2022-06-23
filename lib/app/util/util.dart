@@ -59,6 +59,18 @@ class Utils {
     return '';
   }
 
+  static void showAlertDialog({
+    required String title,
+    required String message,
+    List<Widget>? actions,
+  }) {
+    Get.defaultDialog(
+      title: title,
+      middleText: message,
+      actions: actions,
+    );
+  }
+
   static void showBottomSheetWithMsg(String message) {
     Get.bottomSheet(
       Container(

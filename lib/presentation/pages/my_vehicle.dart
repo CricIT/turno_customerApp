@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:turno_customer_application/app/config/constant.dart';
 import 'package:turno_customer_application/app/config/dimentions.dart';
 import 'package:turno_customer_application/app/constants/network_used_case.dart';
+import 'package:turno_customer_application/app/core/tracker/tracker.dart';
 import 'package:turno_customer_application/app/routes/app_route.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:turno_customer_application/presentation/controllers/vehicle_controller/vehicle_details_controller.dart';
@@ -166,6 +167,7 @@ class MyVehicle extends GetView<VehicleDetailsController> {
           actualMileage: mileageAfter3Year!,
           buttonAction: () {
             Utils.showBottomSheetWithMsg("buy_back_msg".tr);
+            TrackHandler.trackEvent(eventName: 'buyback_value_checked');
           },
           header: "buy_back_value".tr,
           startRange: "0",
@@ -182,6 +184,7 @@ class MyVehicle extends GetView<VehicleDetailsController> {
           actualMileage: mileageAfter3Year,
           buttonAction: () {
             Utils.showBottomSheetWithMsg("buy_back_msg".tr);
+            TrackHandler.trackEvent(eventName: 'mileage_checked');
           },
           header: "mileage".tr,
           startRange: "0",
@@ -331,6 +334,7 @@ class MyVehicle extends GetView<VehicleDetailsController> {
             textAlign: TextAlign.center,
             onTap: () {
               Get.toNamed(AppRoutes.BEST_PRACTICE);
+              TrackHandler.trackEvent(eventName: 'best_practices_screen_top');
             },
             showTrailingIcon: true,
             color: AppColors.darkBlue,
@@ -343,77 +347,124 @@ class MyVehicle extends GetView<VehicleDetailsController> {
   }
 
   _mileageAlertView() {
-    return Container(
-      margin: const EdgeInsets.only(
-        bottom: Dimensions.PADDING_SIZE_DEFAULT,
-      ),
-      decoration: BoxDecoration(
-          color: AppColors.paleYello,
+    return InkWell(
+      onTap: () {
+        controller.navigateToSupport();
+        TrackHandler.trackEvent(eventName: 'GetHelpClicked');
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        height: Constants.deviceHeight * 0.12,
+        margin: EdgeInsets.all(Constants.deviceHeight * 0.015),
+        decoration: BoxDecoration(
           border: Border.all(
-            color: AppColors.borderGray,
-            width: 1,
-          )),
-      child: Padding(
-        padding: const EdgeInsets.only(
-            left: Dimensions.PADDING_SIZE_DEFAULT,
-            right: Dimensions.PADDING_SIZE_DEFAULT,
-            top: Dimensions.PADDING_SIZE_LARGE,
-            bottom: Dimensions.PADDING_SIZE_LARGE),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SvgPicture.asset(Images.iconAlert),
-            const SizedBox(
-              width: 20,
+            color: const Color(
+              0xffFFBEB5,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          ),
+          color: const Color(0xffFFf8f8),
+          borderRadius: BorderRadius.circular(9),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CustomLabel(
+              title: 'low_mileage'.tr,
+              color: const Color(0xFFB81212),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CustomLabel(
-                    title: "last_charge_msg".tr,
-                    fontSize: Dimensions.FONT_SIZE_SMALL,
-                    maxLines: 3,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.lightBlack),
-                Row(
-                  children: [
-                    CustomLabel(
-                        title: "23 ${'km/charge'.tr} ",
-                        fontSize: Dimensions.FONT_SIZE_DEFAULT,
-                        maxLines: 3,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.black),
-                  ],
+                  title: 'get_help'.tr,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+                const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 14,
+                  color: AppColors.primaryColor,
                 )
               ],
             ),
-            const Spacer(),
-            InkWell(
-              onTap: () {
-
-              },
-              child: Container(
-                  padding: const EdgeInsets.all(
-                    Dimensions.PADDING_SIZE_SMALL,
-                  ),
-                  decoration: BoxDecoration(
-                      color: AppColors.whiteColor,
-                      border: Border.all(
-                        color: AppColors.borderGray,
-                        width: 1,
-                      )),
-                  child: CustomLabel(
-                      title: "get_help".tr,
-                      fontSize: Dimensions.FONT_SIZE_SMALL,
-                      maxLines: 3,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.black)),
-            )
           ],
         ),
       ),
     );
   }
+
+  // _mileageAlertView() {
+  //   return Container(
+  //     margin: const EdgeInsets.only(
+  //       bottom: Dimensions.PADDING_SIZE_DEFAULT,
+  //     ),
+  //     decoration: BoxDecoration(
+  //         color: AppColors.paleYello,
+  //         border: Border.all(
+  //           color: AppColors.borderGray,
+  //           width: 1,
+  //         )),
+  //     child: Padding(
+  //       padding: const EdgeInsets.only(
+  //           left: Dimensions.PADDING_SIZE_DEFAULT,
+  //           right: Dimensions.PADDING_SIZE_DEFAULT,
+  //           top: Dimensions.PADDING_SIZE_LARGE,
+  //           bottom: Dimensions.PADDING_SIZE_LARGE),
+  //       child: Row(
+  //         mainAxisAlignment: MainAxisAlignment.start,
+  //         children: [
+  //           SvgPicture.asset(Images.iconAlert),
+  //           const SizedBox(
+  //             width: 20,
+  //           ),
+  //           Column(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             children: [
+  //               CustomLabel(
+  //                   title: "last_charge_msg".tr,
+  //                   fontSize: Dimensions.FONT_SIZE_SMALL,
+  //                   maxLines: 3,
+  //                   fontWeight: FontWeight.w400,
+  //                   color: AppColors.lightBlack),
+  //               Row(
+  //                 children: [
+  //                   CustomLabel(
+  //                       title: "23 ${'km/charge'.tr} ",
+  //                       fontSize: Dimensions.FONT_SIZE_DEFAULT,
+  //                       maxLines: 3,
+  //                       fontWeight: FontWeight.w600,
+  //                       color: AppColors.black),
+  //                 ],
+  //               )
+  //             ],
+  //           ),
+  //           const Spacer(),
+  //           InkWell(
+  //             onTap: () {
+  //               TrackHandler.trackEvent(eventName: 'GetHelpClicked');
+  //             },
+  //             child: Container(
+  //                 padding: const EdgeInsets.all(
+  //                   Dimensions.PADDING_SIZE_SMALL,
+  //                 ),
+  //                 decoration: BoxDecoration(
+  //                     color: AppColors.whiteColor,
+  //                     border: Border.all(
+  //                       color: AppColors.borderGray,
+  //                       width: 1,
+  //                     )),
+  //                 child: CustomLabel(
+  //                     title: "get_help".tr,
+  //                     fontSize: Dimensions.FONT_SIZE_SMALL,
+  //                     maxLines: 3,
+  //                     fontWeight: FontWeight.w600,
+  //                     color: AppColors.black)),
+  //           )
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   renderUI() {
     switch (controller.usedCaseScenarios.value) {
@@ -512,6 +563,8 @@ class MyVehicle extends GetView<VehicleDetailsController> {
                   textAlign: TextAlign.center,
                   onTap: () {
                     Get.toNamed(AppRoutes.BEST_PRACTICE);
+                    TrackHandler.trackEvent(
+                        eventName: 'best_practices_screen_bottom');
                   },
                   showTrailingIcon: true,
                   borderColor: AppColors.darkBlue,
