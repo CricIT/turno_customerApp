@@ -10,7 +10,7 @@ class LoanRepositoryIml extends LoanRepository {
     if (response.status == "success") {
       return Right(response);
     } else {
-      return Left(response.message!);
+      return Left("Something went wrong");
     }
   }
 }

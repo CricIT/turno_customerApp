@@ -4,9 +4,10 @@ import 'package:turno_customer_application/app/config/app_colors.dart';
 import 'package:turno_customer_application/app/config/app_text_styles.dart';
 import 'package:turno_customer_application/app/config/constant.dart';
 import 'package:turno_customer_application/app/util/util.dart';
+import 'package:turno_customer_application/domain/entities/loan.dart';
 import 'package:turno_customer_application/presentation/controllers/payment/payment_history_controller.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
-import '../../domain/entities/emi_history.dart';
+
 import '../widgets/generic_appbar.dart';
 
 class PaymentHistory extends GetView<PaymentHistoryController> {
@@ -28,9 +29,9 @@ class PaymentHistory extends GetView<PaymentHistoryController> {
                 ),
                 _buildTopContainer(
                     amount:
-                        '${controller.loanController.getLoanDetails.value?.payload!.emiHistory!.totalAmountPaid}'),
-                _buildPaymentList(controller
-                    .loanController.getLoanDetails.value?.payload!.emiHistory),
+                        '${controller.loanController.getLoanDetails.value?.payload?.emiHistory?.totalAmountPaid==null?"":
+                        controller.loanController.getLoanDetails.value?.payload?.emiHistory?.totalAmountPaid}'),
+                _buildPaymentList(controller.loanController.getLoanDetails.value?.payload?.emiHistory),
               ],
             ),
           ),
@@ -75,10 +76,10 @@ class PaymentHistory extends GetView<PaymentHistoryController> {
       height: Constants.deviceHeight * 0.7,
       padding: EdgeInsets.symmetric(horizontal: Constants.deviceHeight * 0.011),
       child: ListView.builder(
-        itemCount: emiHistory?.emiHistory.length,
+        itemCount:emiHistory?.emiHistory==null?0:emiHistory?.emiHistory?.length,
         itemBuilder: (context, index) => _buildEmiPaymentCard(
-          date: Utils.convertDate(emiHistory?.emiHistory[index].dueDate),
-          amount: '${emiHistory?.emiHistory[index].amount}',
+          date:emiHistory?.emiHistory?[index].dateInMs==null?"": Utils.convertDate(emiHistory?.emiHistory?[index].dateInMs),
+          amount:emiHistory?.emiHistory?[index].amount==null?"": '${emiHistory?.emiHistory?[index].amount}',
           index: index + 1,
         ),
       ),

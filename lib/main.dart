@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
@@ -16,8 +17,10 @@ import 'app/routes/page_route.dart';
 import 'app/services/local_storage.dart';
 import 'app/util/messages.dart';
 import 'presentation/controllers/permissions/permission_controller.dart';
-
+import 'dart:ui' as ui;
 void main() async {
+  RenderErrorBox.backgroundColor = Colors.transparent;
+  RenderErrorBox.textStyle = ui.TextStyle(color: Colors.transparent);
   DependencyCreator.init();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([

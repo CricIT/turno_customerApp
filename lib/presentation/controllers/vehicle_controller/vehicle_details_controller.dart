@@ -82,6 +82,22 @@ class VehicleDetailsController extends GetxController {
     refreshController.refreshCompleted();
     packageInfo = await PackageInfo.fromPlatform();
     // appUpdate.deleteFile("${success.value.payload!.appVersionResponse!.appLink!.split('/').last}");
+   _chechIfForceUpdateAvialable(success);
+  }
+
+
+
+  navigateToSupport() {
+    final landingPageController = Get.find<LandingPageController>();
+    landingPageController.setSelectedIndex(2);
+  }
+
+
+  //check if there is an force update flag true
+  // then check if the apk version in remote is higher than the existing app
+  // if yes
+  // then download apk from server and prompt user to install the latest apk
+  void _chechIfForceUpdateAvialable(Rx<Vehicle> success) {
     if (store.isDownloading == false) {
       if (success.value.payload!.appVersionResponse!.forceUpdate!) {
         if (double.parse(packageInfo.buildNumber) <
@@ -96,17 +112,12 @@ class VehicleDetailsController extends GetxController {
                 name: "Apk",
                 link: success.value.payload!.appVersionResponse!.appLink);
             appUpdate.requestDownload(task).then((value) => {
-                  task.taskId = value,
-                });
+              task.taskId = value,
+            });
             Utils.showProgressDialog(Get.context!, "progress".tr);
           });
         }
       }
     }
-  }
-
-  navigateToSupport() {
-    final landingPageController = Get.find<LandingPageController>();
-    landingPageController.setSelectedIndex(2);
   }
 }

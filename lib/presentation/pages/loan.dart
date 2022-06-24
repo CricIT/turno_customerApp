@@ -8,11 +8,10 @@ import 'package:turno_customer_application/app/config/dimentions.dart';
 import 'package:turno_customer_application/app/core/tracker/tracker.dart';
 import 'package:turno_customer_application/app/routes/app_route.dart';
 import 'package:turno_customer_application/app/util/util.dart';
-import 'package:turno_customer_application/domain/entities/emi.dart';
-import 'package:turno_customer_application/domain/entities/emi_history.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
 import 'package:turno_customer_application/presentation/widgets/error_widget.dart';
 import '../../app/constants/network_used_case.dart';
+import '../../domain/entities/loan.dart';
 import '../controllers/loan_controller/loan_controller.dart';
 import '../widgets/coming_soon.dart';
 
@@ -94,24 +93,24 @@ class LoanView extends GetView<LoanController> {
                 _buildHeader(),
                 const Divider(),
                 _buildEmiReminder(
-                    controller.getLoanDetails.value?.payload!.upcomingEMI),
+                    controller.getLoanDetails.value?.payload?.upcomingEmi),
                 _buildOutstandingBox(
                     amount:
-                        controller.getLoanDetails.value?.payload!.loanAmount,
-                    tenure:
-                        controller.getLoanDetails.value?.payload!.loanTenure),
+                        controller.getLoanDetails.value?.payload?.loanAmount,
+                    tenure: controller
+                        .getLoanDetails.value?.payload?.loanTenureInYears),
                 _buildLoanDetails(
                     outStandingAmount: controller
-                        .getLoanDetails.value?.payload!.outStandingAmount,
+                        .getLoanDetails.value?.payload?.outstandingAmount,
                     emiAmount:
-                        controller.getLoanDetails.value?.payload!.emiAmount,
-                    startDate:
-                        controller.getLoanDetails.value?.payload!.loanStartDate,
-                    endDate:
-                        controller.getLoanDetails.value?.payload!.loanEndDate),
+                        controller.getLoanDetails.value?.payload?.emiAmount,
+                    startDate: controller
+                        .getLoanDetails.value?.payload?.loanStartDateInMs,
+                    endDate: controller
+                        .getLoanDetails.value?.payload?.loanEndDateInMs),
                 _buildPaymentHistoryBox(
                   emiHistory:
-                      controller.getLoanDetails.value?.payload!.emiHistory,
+                      controller.getLoanDetails.value?.payload?.emiHistory,
                 ),
               ],
             ),
@@ -127,7 +126,7 @@ class LoanView extends GetView<LoanController> {
     }
   }
 
-  Widget _buildEmiReminder(EMI? emi) {
+  Widget _buildEmiReminder(UpcomingEmi? emi) {
     return Container(
       padding: EdgeInsets.all(Constants.deviceHeight * 0.01),
       margin: const EdgeInsets.only(top: 10),
@@ -147,11 +146,13 @@ class LoanView extends GetView<LoanController> {
           ),
           Row(
             children: [
-              CustomLabel(title: '₹ ${emi?.amount}', color: AppColors.black),
+              CustomLabel(
+                  title: '₹ ${emi?.amount == null ? "" : emi?.amount}',
+                  color: AppColors.black),
               const Spacer(),
               CustomLabel(
                   title:
-                      "${'due_date'.tr} : ${Utils.convertDate(emi?.dueDate)}",
+                      "${'due_date'.tr} : ${emi?.dateInMs == null ? "" : Utils.convertDate(emi?.dateInMs)}",
                   color: AppColors.black),
             ],
           ),
@@ -179,14 +180,14 @@ class LoanView extends GetView<LoanController> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CustomLabel(
-            title: '₹ $amount',
+            title: amount == null ? "" : '₹ $amount',
             fontSize: 18,
             fontWeight: FontWeight.w400,
             color: AppColors.whiteColor,
           ),
           CustomLabel(
             title:
-                "${'loan_taken_for'.tr} ${tenure.toString().substring(0, 1)} ${'years'.tr}",
+                "${'loan_taken_for'.tr} ${tenure == null ? "" : Utils.checkIfTheDecimalIsGreaterThanZero(tenure.toString()) ? tenure : tenure.toString().substring(0, 1)} ${'years'.tr}",
             fontSize: 16,
             fontWeight: FontWeight.w600,
             color: AppColors.whiteColor,
@@ -217,25 +218,23 @@ Widget _buildLoanDetails({
     height: Constants.deviceHeight * 0.16,
     child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Row(
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          _loanDetailsItemWidget('outstanding_amount'.tr,
+              outStandingAmount == null ? "" : '₹ $outStandingAmount'),
+          const Spacer(),
           _loanDetailsItemWidget(
-              'outstanding_amount'.tr, '₹ $outStandingAmount'),
-          SizedBox(
-            width: Constants.deviceWidth * 0.25,
-          ),
-          _loanDetailsItemWidget('emi_amount'.tr, '₹ $emiAmount'),
+              'emi_amount'.tr, emiAmount == null ? "" : '₹ $emiAmount'),
         ],
       ),
+      const Spacer(),
       Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          _loanDetailsItemWidget(
-              'started_from'.tr, Utils.convertDate(startDate)),
-          SizedBox(
-            width: Constants.deviceWidth * 0.27,
-          ),
-          _loanDetailsItemWidget('ending_at'.tr, Utils.convertDate(endDate)),
+          _loanDetailsItemWidget('started_from'.tr,
+              startDate == null ? "" : Utils.convertDate(startDate)),
+          const Spacer(),
+          _loanDetailsItemWidget('ending_at'.tr,
+              endDate == null ? "" : Utils.convertDate(endDate)),
         ],
       ),
     ]),
@@ -243,23 +242,23 @@ Widget _buildLoanDetails({
 }
 
 Widget _loanDetailsItemWidget(String title, String subtitle) {
-  return SizedBox(
-    height: Constants.deviceHeight * 0.06,
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CustomLabel(
-          title: title,
-          color: AppColors.placeholderColor,
-          fontSize: 12,
-        ),
-        Text(
-          subtitle,
-          style: lightBlackBold16,
-        ),
-      ],
-    ),
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      CustomLabel(
+        title: title,
+        color: AppColors.placeholderColor,
+        fontSize: 12,
+      ),
+      SizedBox(
+        width: Constants.deviceWidth * 0.25,
+      ),
+      Text(
+        subtitle,
+        style: lightBlackBold16,
+      ),
+    ],
   );
 }
 
@@ -287,17 +286,22 @@ Widget _buildPaymentHistoryBox({EmiHistory? emiHistory}) {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 15.0),
           child: CustomLabel(
-            title: '₹ ${emiHistory?.totalAmountPaid}',
+            title:
+                '₹ ${emiHistory?.totalAmountPaid == null ? "" : emiHistory?.totalAmountPaid}',
             color: AppColors.black,
             fontSize: 18,
           ),
         ),
         Expanded(
           child: ListView.builder(
-            itemCount: emiHistory?.emiHistory.length,
+            itemCount: emiHistory == null ? 0 : emiHistory.emiHistory?.length,
             itemBuilder: (context, index) => _buildEmiPaymentCard(
-              date: Utils.convertDate(emiHistory?.emiHistory[index].dueDate),
-              amount: '${emiHistory?.emiHistory[index].amount}',
+              date: emiHistory?.emiHistory?[index].dateInMs == null
+                  ? ""
+                  : Utils.convertDate(emiHistory?.emiHistory?[index].dateInMs),
+              amount: emiHistory?.emiHistory?[index].amount == null
+                  ? ""
+                  : '${emiHistory?.emiHistory?[index].amount}',
               index: index + 1,
             ),
           ),

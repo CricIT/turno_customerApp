@@ -35,10 +35,10 @@ class MyVehicle extends GetView<VehicleDetailsController> {
                 child: BaseAppBar(
                   customerName: controller.getVehicelDetails.value == null
                       ? ""
-                      : controller.getVehicelDetails.value?.payload?.customerDetails?.userName,
+                      : controller.getVehicelDetails.value?.payload?.customerDetails!.userName,
                   vehicleName: controller.getVehicelDetails.value == null
                       ? ""
-                      : controller.getVehicelDetails.value?.payload?.customerDetails?.vehicleName,
+                      : controller.getVehicelDetails.value?.payload?.customerDetails!.vehicleName,
                 ));
           })),
       body: GetX(
@@ -239,87 +239,92 @@ class MyVehicle extends GetView<VehicleDetailsController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CustomLabel(
-                          title: "on_previous_charge".tr,
-                          fontSize: Dimensions.FONT_SIZE_SMALL,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.black,
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        CustomLabel(
-                            title: "$previousChargeMileage",
-                            fontSize: Dimensions.FONT_SIZE_XXLARGE,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.black),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        CustomLabel(
-                            title: "km_charge".tr,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CustomLabel(
+                            title: "on_previous_charge".tr,
                             fontSize: Dimensions.FONT_SIZE_SMALL,
                             fontWeight: FontWeight.w400,
-                            color: AppColors.darkGray),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        /* PrefixIconTextView(
-                          icon: Utils.mileageStatusIcon(
-                              idealMileage),
-                          text: "",
-                        ),*/
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        //make it custom class later
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "${controller.getVehicelDetails.value?.payload?.mileageStatisticsComparisonResponse?.comparisonPercentOfUsers}%",
-                                style: lightBlackBold14,
-                              ),
-                              TextSpan(
-                                text: "others_are_getting".tr,
-                                style: lightBlackNormal12,
-                              )
-                            ],
+                            color: AppColors.black,
                           ),
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        CustomLabel(
-                            title: controller
-                                .getVehicelDetails
-                                .value
-                                ?.payload?.mileageStatisticsComparisonResponse?.comparisonUsersChargeMileage
-                                .toString(),
-                            fontSize: Dimensions.FONT_SIZE_XXLARGE,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.black),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        CustomLabel(
-                            title: "km_charge".tr,
-                            fontSize: Dimensions.FONT_SIZE_SMALL,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.darkGray),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        /* PrefixIconTextView(
-                          icon: Images.icon_good,
-                          text: "good".tr,
-                        ),*/
-                      ],
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          CustomLabel(
+                              title: "$previousChargeMileage",
+                              fontSize: Dimensions.FONT_SIZE_XXLARGE,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.black),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          CustomLabel(
+                              title: "km_charge".tr,
+                              fontSize: Dimensions.FONT_SIZE_SMALL,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.darkGray),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          /* PrefixIconTextView(
+                            icon: Utils.mileageStatusIcon(
+                                idealMileage),
+                            text: "",
+                          ),*/
+                        ],
+                      ),
+                    ),
+                    const Spacer(),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          //make it custom class later
+                          Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: "${controller.getVehicelDetails.value?.payload?.mileageStatisticsComparisonResponse?.comparisonPercentOfUsers}%",
+                                  style: lightBlackBold14,
+                                ),
+                                TextSpan(
+                                  text: "others_are_getting".tr,
+                                  style: lightBlackNormal12,
+                                )
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          CustomLabel(
+                              title: controller
+                                  .getVehicelDetails
+                                  .value
+                                  ?.payload?.mileageStatisticsComparisonResponse?.comparisonUsersChargeMileage
+                                  .toString(),
+                              fontSize: Dimensions.FONT_SIZE_XXLARGE,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.black),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          CustomLabel(
+                              title: "km_charge".tr,
+                              fontSize: Dimensions.FONT_SIZE_SMALL,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.darkGray),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          /* PrefixIconTextView(
+                            icon: Images.icon_good,
+                            text: "good".tr,
+                          ),*/
+                        ],
+                      ),
                     )
                   ],
                 ),

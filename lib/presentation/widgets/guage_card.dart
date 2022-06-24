@@ -39,6 +39,7 @@ class GuageCardView extends StatelessWidget {
     return InkWell(
       onTap: buttonAction,
       child: Container(
+        height: MediaQuery.of(context).size.height/2.2,
         width: MediaQuery.of(context).size.width / 2.22,
         padding: const EdgeInsets.only(
             top: Dimensions.PADDING_SIZE_LARGE,

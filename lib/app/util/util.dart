@@ -276,4 +276,13 @@ class Utils {
       print(e.toString());
     }
   }
+
+static  bool checkIfTheDecimalIsGreaterThanZero(String string){
+    RegExp reg1 =  RegExp(r'(^[1-9](?:\.[1-9])?$)');
+    if(reg1.stringMatch(string)!=null){
+      return true;
+    }
+    return false;
+  }
+
 }
