@@ -238,14 +238,11 @@ class BestChargingPractice extends GetView<VehicleDetailsController> {
           const SizedBox(
             height: 10,
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: PrefixIconTextView(
-              icon: Images.icon_plug_out,
-              iconWidth: 18,
-              iconHeight: 18,
-              text: "msg_unplug".tr,
-            ),
+          PrefixIconTextView(
+            icon: Images.icon_plug_out,
+            iconWidth: 18,
+            iconHeight: 18,
+            text: "msg_unplug".tr,
           ),
         ],
       ),
