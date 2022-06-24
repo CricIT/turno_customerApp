@@ -5,9 +5,13 @@ import 'package:turno_customer_application/app/config/app_text_styles.dart';
 import 'package:turno_customer_application/app/config/constant.dart';
 import 'package:turno_customer_application/presentation/controllers/support/support_controller.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../app/config/app_colors.dart';
+import '../../app/constants/network_used_case.dart';
+import '../widgets/coming_soon.dart';
 import '../widgets/custom_label.dart';
+import '../widgets/error_widget.dart';
 
 class SupportView extends GetView<SupportController> {
   const SupportView({Key? key}) : super(key: key);
@@ -29,26 +33,56 @@ class SupportView extends GetView<SupportController> {
   }
 
   _renderUI() {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      width: Constants.deviceWidth,
-      color: Colors.white,
-      child: Column(
-        children: [
-          _buildHeader(),
-          const Divider(),
-          Padding(
-            padding: EdgeInsets.all(Constants.deviceHeight * 0.04),
-            child: Image.asset('assets/images/support.png'),
+    switch (controller.usedCaseScenarios.value) {
+      case NetworkUsedCase.loading:
+        return SizedBox(
+          height: Constants.deviceHeight,
+          child: const Center(
+            child: CircularProgressIndicator(),
           ),
-          _buildDescription(),
-          SizedBox(
-            height: Constants.deviceHeight * 0.1,
+        );
+      case NetworkUsedCase.error:
+        return SizedBox(
+          height: Constants.deviceHeight,
+          child: Center(
+            child: ErrorWidgetView(
+              buttonAction: () {
+                controller.fetchSupportDetails();
+              },
+            ),
           ),
-          _buildCallButton(),
-        ],
-      ),
-    );
+        );
+      case NetworkUsedCase.usernotfound:
+        return SizedBox(
+          height: Constants.deviceHeight,
+          child: Center(
+            child: ComingSoon(
+              showButton: false,
+            ),
+          ),
+        );
+      case NetworkUsedCase.sucess:
+        return Container(
+          padding: const EdgeInsets.all(14),
+          width: Constants.deviceWidth,
+          color: Colors.white,
+          child: Column(
+            children: [
+              _buildHeader(),
+              const Divider(),
+              Padding(
+                padding: EdgeInsets.all(Constants.deviceHeight * 0.04),
+                child: Image.asset('assets/images/support.png'),
+              ),
+              _buildDescription(),
+              SizedBox(
+                height: Constants.deviceHeight * 0.1,
+              ),
+              _buildCallButton(),
+            ],
+          ),
+        );
+    }
   }
 
   Widget _buildHeader() {
@@ -98,7 +132,7 @@ class SupportView extends GetView<SupportController> {
       child: CustomButton(
         width: Constants.deviceWidth,
         buttonAction: () {
-          controller.getSupportDetails;
+          controller.makePhoneCall();
         },
         child: CustomLabel(
           title: 'call_for_free'.tr,

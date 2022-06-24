@@ -3,6 +3,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:turno_customer_application/app/core/tracker/tracker.dart';
 import 'package:turno_customer_application/domain/entities/support.dart';
 import 'package:turno_customer_application/domain/usecases/support/support_usecase.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../app/constants/network_used_case.dart';
 import '../../../data/network/api_provider.dart';
@@ -24,7 +25,6 @@ class SupportController extends GetxController {
   void onInit() {
     super.onInit();
     TrackHandler.trackScreen(screenName: '/SupportScreen');
-    fetchSupportDetails();
   }
 
   Rx<Support?> get getSupportDetails {
@@ -39,6 +39,7 @@ class SupportController extends GetxController {
     try {
       usedCaseScenarios.value = NetworkUsedCase.loading;
       final response = await _supportUseCase.execute();
+
       response.fold((error) => _handleSupportErrorCase(error: error),
           (success) => _handleSupportSuccessCase(success.obs));
     } catch (exception) {
@@ -58,9 +59,15 @@ class SupportController extends GetxController {
   _handleSupportSuccessCase(Rx<Support> support) {
     usedCaseScenarios.value = NetworkUsedCase.sucess;
     setSupportDetails = support;
-    print(support.toString());
     isDataAvailable.value = true;
     refreshController.refreshCompleted();
-    print(getSupportDetails);
+  }
+
+  Future<void> makePhoneCall() async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: getSupportDetails.value?.payload!.customerCareContactNumber,
+    );
+    await launchUrl(launchUri);
   }
 }

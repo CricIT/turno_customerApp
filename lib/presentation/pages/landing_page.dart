@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
+import 'package:turno_customer_application/presentation/controllers/support/support_binding.dart';
+import 'package:turno_customer_application/presentation/controllers/support/support_controller.dart';
 import 'package:turno_customer_application/presentation/controllers/vehicle_controller/vehicle_details_controller.dart';
 import 'package:turno_customer_application/presentation/pages/profile.dart';
 import 'package:turno_customer_application/presentation/pages/support.dart';
@@ -103,6 +105,8 @@ class LandingPage extends GetView<LandingPageController> {
         Get.find<LoanController>().fetchLoanDetails();
         return const LoanView();
       case 2:
+        SupportBinding().dependencies();
+        Get.find<SupportController>().fetchSupportDetails();
         return const SupportView();
       case 3:
         return const Profile();
