@@ -64,7 +64,6 @@ class VehicleDetailsController extends GetxController {
   _handleVehicleDetailsErorCase({String? error, Object? exception}) {
     if (exception is BadRequestException && exception.details == "Not found") {
       return usedCaseScenarios.value = NetworkUsedCase.usernotfound;
-      // useNotFound.value = true;
     }
     usedCaseScenarios.value = NetworkUsedCase.error;
     isDataAvailable.value = false;

@@ -103,7 +103,7 @@ class LandingPage extends GetView<LandingPageController> {
         Get.find<LoanController>().fetchLoanDetails();
         return const LoanView();
       case 2:
-        return const Support();
+        return const SupportView();
       case 3:
         return const Profile();
       case 4:

@@ -1,38 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:turno_customer_application/app/config/app_text_styles.dart';
 import 'package:turno_customer_application/app/config/constant.dart';
-import 'package:turno_customer_application/presentation/controllers/landing_page/support_controller.dart';
+import 'package:turno_customer_application/presentation/controllers/support/support_controller.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_button.dart';
 
 import '../../app/config/app_colors.dart';
 import '../widgets/custom_label.dart';
 
-class Support extends GetView<SupportController> {
-  const Support({Key? key}) : super(key: key);
+class SupportView extends GetView<SupportController> {
+  const SupportView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        padding: const EdgeInsets.all(14),
-        width: Constants.deviceWidth,
-        color: Colors.white,
-        child: Column(
-          children: [
-            _buildHeader(),
-            const Divider(),
-            Padding(
-              padding: EdgeInsets.all(Constants.deviceHeight * 0.04),
-              child: Image.asset('assets/images/support.png'),
+    return GetX(
+        init: controller,
+        builder: (builder) {
+          return SmartRefresher(
+            controller: controller.refreshController,
+            onRefresh: controller.fetchSupportDetails,
+            header: const WaterDropHeader(),
+            child: SingleChildScrollView(
+              child: _renderUI(),
             ),
-            _buildDescription(),
-            SizedBox(
-              height: Constants.deviceHeight * 0.1,
-            ),
-            _buildCallButton(),
-          ],
-        ),
+          );
+        });
+  }
+
+  _renderUI() {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      width: Constants.deviceWidth,
+      color: Colors.white,
+      child: Column(
+        children: [
+          _buildHeader(),
+          const Divider(),
+          Padding(
+            padding: EdgeInsets.all(Constants.deviceHeight * 0.04),
+            child: Image.asset('assets/images/support.png'),
+          ),
+          _buildDescription(),
+          SizedBox(
+            height: Constants.deviceHeight * 0.1,
+          ),
+          _buildCallButton(),
+        ],
       ),
     );
   }
@@ -84,7 +98,7 @@ class Support extends GetView<SupportController> {
       child: CustomButton(
         width: Constants.deviceWidth,
         buttonAction: () {
-          controller.makePhoneCall('8209203870');
+          controller.getSupportDetails;
         },
         child: CustomLabel(
           title: 'call_for_free'.tr,

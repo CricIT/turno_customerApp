@@ -17,6 +17,7 @@ class APIProvider {
     debugPrint(request.url);
     final response = await _client.request(request.url, request.method.string,
         headers: request.headers, query: request.query, body: request.body);
+
     try {
       debugPrint(response.bodyString);
       return _returnResponse(response);
@@ -29,12 +30,11 @@ class APIProvider {
       });
       throw SocketException(e.message);
     } on BadRequestException catch (e) {
-      print('happpppeeennninnngggg bad request');
       TrackHandler.trackEvent(eventName: 'bad_request', params: {
         'url': response.request?.url.toString(),
         'method': response.request?.method,
       });
-      throw BadRequestException(e.message);
+      throw BadRequestException(e.details);
     }
   }
 
