@@ -11,4 +11,5 @@ class APIEndpoint {
 
   static String get smsdump => "$baseUrl/user/data/sms";
 
+  static String get supportapi => "$baseUrl/user";
 }

@@ -57,20 +57,20 @@ class Utils {
   }
 
   static String chargingStatusText(int charge) {
-    if (charge <= 10) return 'danger'.tr;
-    if (charge > 10 && charge <= 20) return 'not_good'.tr;
-    if (charge > 10 && charge <= 80) return 'good'.tr;
-    if (charge > 80 && charge <= 90) return 'not_good'.tr;
-    if (charge > 90) return 'danger'.tr;
+    if (charge < 5) return 'danger'.tr;
+    if (charge >= 5 && charge < 15) return 'not_good'.tr;
+    if (charge >= 15 && charge <= 85) return 'good'.tr;
+    if (charge > 85 && charge <= 95) return 'not_good'.tr;
+    if (charge > 95) return 'danger'.tr;
     return '';
   }
 
   static String chargingStatusIcon(int charge) {
-    if (charge <= 10) return Images.icon_danger;
-    if (charge > 10 && charge <= 20) return Images.icon_not_good;
-    if (charge > 10 && charge <= 80) Images.icon_good;
-    if (charge > 80 && charge <= 90) return Images.icon_not_good;
-    if (charge > 90) return Images.icon_danger;
+    if (charge < 5) return Images.icon_danger;
+    if (charge >= 5 && charge < 15) return Images.icon_not_good;
+    if (charge >= 15 && charge <= 85) Images.icon_good;
+    if (charge > 85 && charge <= 95) return Images.icon_not_good;
+    if (charge > 95) return Images.icon_danger;
     return '';
   }
 

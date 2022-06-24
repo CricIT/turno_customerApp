@@ -1,40 +1,88 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:turno_customer_application/app/config/app_text_styles.dart';
 import 'package:turno_customer_application/app/config/constant.dart';
-import 'package:turno_customer_application/presentation/controllers/landing_page/support_controller.dart';
+import 'package:turno_customer_application/presentation/controllers/support/support_controller.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../app/config/app_colors.dart';
+import '../../app/constants/network_used_case.dart';
+import '../widgets/coming_soon.dart';
 import '../widgets/custom_label.dart';
+import '../widgets/error_widget.dart';
 
-class Support extends GetView<SupportController> {
-  const Support({Key? key}) : super(key: key);
+class SupportView extends GetView<SupportController> {
+  const SupportView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        padding: const EdgeInsets.all(14),
-        width: Constants.deviceWidth,
-        color: Colors.white,
-        child: Column(
-          children: [
-            _buildHeader(),
-            const Divider(),
-            Padding(
-              padding: EdgeInsets.all(Constants.deviceHeight * 0.04),
-              child: Image.asset('assets/images/support.png'),
+    return GetX(
+        init: controller,
+        builder: (builder) {
+          return SmartRefresher(
+            controller: controller.refreshController,
+            onRefresh: controller.fetchSupportDetails,
+            header: const WaterDropHeader(),
+            child: SingleChildScrollView(
+              child: _renderUI(),
             ),
-            _buildDescription(),
-            SizedBox(
-              height: Constants.deviceHeight * 0.1,
+          );
+        });
+  }
+
+  _renderUI() {
+    switch (controller.usedCaseScenarios.value) {
+      case NetworkUsedCase.loading:
+        return SizedBox(
+          height: Constants.deviceHeight,
+          child: const Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      case NetworkUsedCase.error:
+        return SizedBox(
+          height: Constants.deviceHeight,
+          child: Center(
+            child: ErrorWidgetView(
+              buttonAction: () {
+                controller.fetchSupportDetails();
+              },
             ),
-            _buildCallButton(),
-          ],
-        ),
-      ),
-    );
+          ),
+        );
+      case NetworkUsedCase.usernotfound:
+        return SizedBox(
+          height: Constants.deviceHeight,
+          child: Center(
+            child: ComingSoon(
+              showButton: false,
+            ),
+          ),
+        );
+      case NetworkUsedCase.sucess:
+        return Container(
+          padding: const EdgeInsets.all(14),
+          width: Constants.deviceWidth,
+          color: Colors.white,
+          child: Column(
+            children: [
+              _buildHeader(),
+              const Divider(),
+              Padding(
+                padding: EdgeInsets.all(Constants.deviceHeight * 0.04),
+                child: Image.asset('assets/images/support.png'),
+              ),
+              _buildDescription(),
+              SizedBox(
+                height: Constants.deviceHeight * 0.1,
+              ),
+              _buildCallButton(),
+            ],
+          ),
+        );
+    }
   }
 
   Widget _buildHeader() {
@@ -84,7 +132,7 @@ class Support extends GetView<SupportController> {
       child: CustomButton(
         width: Constants.deviceWidth,
         buttonAction: () {
-          controller.makePhoneCall('8209203870');
+          controller.makePhoneCall();
         },
         child: CustomLabel(
           title: 'call_for_free'.tr,
