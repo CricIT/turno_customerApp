@@ -17,6 +17,7 @@ class APIProvider {
     debugPrint(request.url);
     final response = await _client.request(request.url, request.method.string,
         headers: request.headers, query: request.query, body: request.body);
+
     try {
       debugPrint(response.bodyString);
       return _returnResponse(response);

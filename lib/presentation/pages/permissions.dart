@@ -60,7 +60,7 @@ class Permissions extends GetView<PermissionsController> {
                     thickness: 1.5,
                   ),
                   _buildPermissionDesc(const Icon(Icons.storage), 'Storage',
-                      'We need storage permissions to push app updates on your mobile'),
+                      'We need storage permissions to push app updates on your mobile.'),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.1,
                   ),

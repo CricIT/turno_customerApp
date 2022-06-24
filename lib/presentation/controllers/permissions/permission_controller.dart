@@ -19,7 +19,6 @@ class PermissionsController extends GetxController {
   void getPermission() async {
     Location location = Location();
     bool serviceEnabled;
-    // PermissionStatus permissionGranted;
 
     serviceEnabled = await location.serviceEnabled();
     if (!serviceEnabled) {
