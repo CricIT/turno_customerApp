@@ -34,14 +34,14 @@ class BestChargingPractice extends GetView<VehicleDetailsController> {
                     ),
                     _previousChargePerformance(
                        previousChargeDepthOfDischarge:controller.getVehicelDetails.value
-                           ?.payload!.chargeStatisticsResponse!.previousChargeDepthOfDischarge,
+                           ?.payload?.chargeStatisticsResponse?.previousChargeDepthOfDischarge,
                        previousChargeHeightOfCharge :controller.getVehicelDetails.value
-                        ?.payload!.chargeStatisticsResponse!.previousChargeHeightOfCharge,
+                        ?.payload?.chargeStatisticsResponse?.previousChargeHeightOfCharge,
                        depthOfDischargeStatus:controller.getVehicelDetails.value
-                        ?.payload!.chargeStatisticsResponse!.depthOfDischargeStatus,
+                        ?.payload?.chargeStatisticsResponse?.depthOfDischargeStatus,
                        heightOfChargeStatus
                            :controller.getVehicelDetails.value
-                           ?.payload!.chargeStatisticsResponse!.heightOfChargeStatus
+                           ?.payload?.chargeStatisticsResponse?.heightOfChargeStatus
                     ),
                     const SizedBox(
                       height: 10,

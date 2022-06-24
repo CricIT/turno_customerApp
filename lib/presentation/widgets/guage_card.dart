@@ -11,10 +11,10 @@ import 'custom_label.dart';
 
 class GuageCardView extends StatelessWidget {
   String header, startRange, endRange, description, centreValue, centreText;
-  int actualBuyback;
-  int idealBuyback;
-  int idealMileage;
-  int actualMileage;
+  int? actualBuyback=0;
+  int? idealBuyback=0;
+  int? idealMileage=0;
+  int? actualMileage=0;
   bool isSingleColour;
   final Function() buttonAction;
 
@@ -110,7 +110,7 @@ class GuageCardView extends StatelessWidget {
                         pointers: <GaugePointer>[
                           isSingleColour
                               ? RangePointer(
-                                  value: (actualBuyback / idealBuyback) * 100,
+                                  value: (actualBuyback! / idealBuyback!) * 100,
                                   cornerStyle: CornerStyle.bothCurve,
                                   enableAnimation: true,
                                   animationDuration: 1200,
@@ -123,7 +123,7 @@ class GuageCardView extends StatelessWidget {
                                   color: Color(0xFF00A8B5),
                                   width: 0.1)
                               : RangePointer(
-                                  value: (actualMileage / idealMileage) * 100,
+                                  value: (actualMileage! / idealMileage!) * 100,
                                   cornerStyle: CornerStyle.bothCurve,
                                   enableAnimation: true,
                                   animationDuration: 1200,
@@ -143,8 +143,8 @@ class GuageCardView extends StatelessWidget {
                                   width: 0.1),
                           WidgetPointer(
                               value: isSingleColour
-                                  ? (actualBuyback / idealBuyback) * 100
-                                  : (actualMileage / idealMileage) * 100,
+                                  ? (actualBuyback! / idealBuyback!) * 100
+                                  : (actualMileage! / idealMileage!) * 100,
                               child: Container(
                                   margin: const EdgeInsets.only(top: 20.0),
                                   child: const Icon(Icons.arrow_drop_down,

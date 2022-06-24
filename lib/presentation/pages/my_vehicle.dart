@@ -35,12 +35,10 @@ class MyVehicle extends GetView<VehicleDetailsController> {
                 child: BaseAppBar(
                   customerName: controller.getVehicelDetails.value == null
                       ? ""
-                      : controller.getVehicelDetails.value?.payload!
-                          .customerDetails!.userName,
+                      : controller.getVehicelDetails.value?.payload?.customerDetails?.userName,
                   vehicleName: controller.getVehicelDetails.value == null
                       ? ""
-                      : controller.getVehicelDetails.value?.payload!
-                          .customerDetails!.vehicleName,
+                      : controller.getVehicelDetails.value?.payload?.customerDetails?.vehicleName,
                 ));
           })),
       body: GetX(
@@ -163,10 +161,10 @@ class MyVehicle extends GetView<VehicleDetailsController> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GuageCardView(
-          idealBuyback: idealBuybackVehicleValue!,
-          actualBuyback: buybackValueAfter3Year!,
-          idealMileage: idealMileage!,
-          actualMileage: mileageAfter3Year!,
+          idealBuyback: idealBuybackVehicleValue,
+          actualBuyback: buybackValueAfter3Year,
+          idealMileage: idealMileage,
+          actualMileage: mileageAfter3Year,
           buttonAction: () {
             Utils.showBottomSheetWithMsg("buy_back_msg".tr);
             TrackHandler.trackEvent(eventName: 'buyback_value_checked');
@@ -284,7 +282,7 @@ class MyVehicle extends GetView<VehicleDetailsController> {
                           TextSpan(
                             children: [
                               TextSpan(
-                                text: "${controller.getVehicelDetails.value?.payload!.mileageStatisticsComparisonResponse!.comparisonPercentOfUsers}%",
+                                text: "${controller.getVehicelDetails.value?.payload?.mileageStatisticsComparisonResponse?.comparisonPercentOfUsers}%",
                                 style: lightBlackBold14,
                               ),
                               TextSpan(
@@ -301,9 +299,7 @@ class MyVehicle extends GetView<VehicleDetailsController> {
                             title: controller
                                 .getVehicelDetails
                                 .value
-                                ?.payload!
-                                .mileageStatisticsComparisonResponse!
-                                .comparisonUsersChargeMileage
+                                ?.payload?.mileageStatisticsComparisonResponse?.comparisonUsersChargeMileage
                                 .toString(),
                             fontSize: Dimensions.FONT_SIZE_XXLARGE,
                             fontWeight: FontWeight.bold,
@@ -521,31 +517,25 @@ class MyVehicle extends GetView<VehicleDetailsController> {
               children: [
                 _vehicleSocAndCurrentBuyBackValue(
                   currentSoc: controller
-                      .getVehicelDetails.value?.payload!.currentStateOfCharge,
+                      .getVehicelDetails.value?.payload?.currentStateOfCharge,
                   currentRangeLeft: controller
-                      .getVehicelDetails.value?.payload!.currentRangeLeft,
+                      .getVehicelDetails.value?.payload?.currentRangeLeft,
                   buybackValueAfter3Year: controller.getVehicelDetails.value
-                      ?.payload!.after3YearStatistics!.buybackValueAfter3Year,
+                      ?.payload?.after3YearStatistics?.buybackValueAfter3Year,
                 ),
                 _mileage(
                   wasPreviousChargeMileageLow: controller
                       .getVehicelDetails
                       .value
-                      ?.payload!
-                      .mileageStatisticsComparisonResponse!
-                      .wasPreviousChargeMileageLow,
+                      ?.payload?.mileageStatisticsComparisonResponse?.wasPreviousChargeMileageLow,
                   previousChargeMileage: controller
                       .getVehicelDetails
                       .value
-                      ?.payload!
-                      .mileageStatisticsComparisonResponse!
-                      .previousChargeMileage,
+                      ?.payload?.mileageStatisticsComparisonResponse?.previousChargeMileage,
                   idealMileage: controller
                       .getVehicelDetails
                       .value
-                      ?.payload!
-                      .mileageStatisticsComparisonResponse!
-                      .previousChargeMileageStatus,
+                      ?.payload?.mileageStatisticsComparisonResponse?.previousChargeMileageStatus,
                 ),
                 CustomLabel(
                   title: "3_years_return_value".tr,
@@ -567,13 +557,11 @@ class MyVehicle extends GetView<VehicleDetailsController> {
                 ),
                 _threeYearBuyBackValueCard(
                   idealBuybackVehicleValue: controller.getVehicelDetails.value
-                      ?.payload!.after3YearStatistics!.idealBuybackVehicleValue,
+                      ?.payload?.after3YearStatistics?.idealBuybackVehicleValue,
                   buybackValueAfter3Year: controller.getVehicelDetails.value
-                      ?.payload!.after3YearStatistics!.buybackValueAfter3Year,
-                  idealMileage: controller.getVehicelDetails.value?.payload!
-                      .after3YearStatistics!.idealMileage,
-                  mileageAfter3Year: controller.getVehicelDetails.value
-                      ?.payload!.after3YearStatistics!.mileageAfter3Year,
+                      ?.payload?.after3YearStatistics?.buybackValueAfter3Year,
+                  idealMileage: controller.getVehicelDetails.value?.payload?.after3YearStatistics?.idealMileage,
+                  mileageAfter3Year: controller.getVehicelDetails.value?.payload?.after3YearStatistics?.mileageAfter3Year,
                 ),
                 const SizedBox(
                   height: 15,

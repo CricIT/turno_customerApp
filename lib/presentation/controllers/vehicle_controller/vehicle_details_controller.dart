@@ -75,6 +75,8 @@ class VehicleDetailsController extends GetxController {
   }
 
   _handleVehicleDetailsSuccessCase(Rx<Vehicle> success) async {
+
+
     usedCaseScenarios.value = NetworkUsedCase.sucess;
     setVehicleDeatils = success;
     isDataAvailable.value = true;
