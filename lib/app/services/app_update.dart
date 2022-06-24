@@ -10,7 +10,7 @@ import 'package:path_provider/path_provider.dart';
 class AppUpdate extends GetxController {
   late String _localPath;
   final ReceivePort _port = ReceivePort();
-  var progress = 0.0.obs;
+  RxDouble progress = 0.0.obs;
 
   @override
   void onInit() {
@@ -26,8 +26,8 @@ class AppUpdate extends GetxController {
       url: task.link!,
       headers: {'auth': 'test_for_sql_encoding'},
       savedDir: _localPath,
-      saveInPublicStorage: true,
       showNotification: true,
+      saveInPublicStorage: true,
       openFileFromNotification: true,
     );
   }
@@ -40,6 +40,7 @@ class AppUpdate extends GetxController {
     final newTaskId = await FlutterDownloader.resume(taskId: task.taskId!);
     task.taskId = newTaskId;
   }
+
 
   Future<void> _retryDownload(TaskInfo task) async {
     final newTaskId = await FlutterDownloader.retry(taskId: task.taskId!);
@@ -89,10 +90,27 @@ class AppUpdate extends GetxController {
   Future<void> prepareSaveDir() async {
     _localPath = (await _findLocalPath())!;
     final savedDir = Directory(_localPath);
+    print(savedDir);
     final hasExisted = savedDir.existsSync();
     if (!hasExisted) {
       await savedDir.create();
     }
+  }
+
+
+   Future<bool> deleteFile(String fileName) async {
+  File file= File('$_localPath/$fileName');
+    try {
+      if (await file.exists()) {
+        await file.delete();
+        return true;
+      }else{
+        return true;
+      }
+    } catch (e) {
+      print(e);
+    }
+    return false;
   }
 
   Future<String?> _findLocalPath() async {
@@ -104,6 +122,8 @@ class AppUpdate extends GetxController {
         final directory = await getExternalStorageDirectory();
         externalStorageDirPath = directory?.path;
       }
+
+
     } else if (Platform.isIOS) {
       externalStorageDirPath =
           (await getApplicationDocumentsDirectory()).absolute.path;
@@ -125,7 +145,12 @@ class AppUpdate extends GetxController {
       final taskId = (data as List<dynamic>)[0] as String;
       final status = data[1] as DownloadTaskStatus;
       final progress = data[2];
-      this.progress.value = progress.toDouble();
+      if(progress>=0) {
+        this.progress.value = progress.toDouble();
+      }
+      if(status.value==4){
+        Get.back();
+      }
     /*  if (status.value == 3 && progress as int == 100) {
 
         openDownloadedFile(Get.find<VehicleDetailsController>().task.taskId);

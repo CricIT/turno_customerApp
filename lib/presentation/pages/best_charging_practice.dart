@@ -33,12 +33,15 @@ class BestChargingPractice extends GetView<VehicleDetailsController> {
                       height: 5,
                     ),
                     _previousChargePerformance(
-                      wasPreviousChargeMileageLow: controller.getVehicelDetails
-                          .value?.payload!.wasPreviousChargeMileageLow,
-                      previousChargeMileage: controller.getVehicelDetails.value
-                          ?.payload!.previousChargeMileage,
-                      idealMileage: controller
-                          .getVehicelDetails.value?.payload!.idealMileage,
+                       previousChargeDepthOfDischarge:controller.getVehicelDetails.value
+                           ?.payload!.chargeStatisticsResponse!.previousChargeDepthOfDischarge,
+                       previousChargeHeightOfCharge :controller.getVehicelDetails.value
+                        ?.payload!.chargeStatisticsResponse!.previousChargeHeightOfCharge,
+                       depthOfDischargeStatus:controller.getVehicelDetails.value
+                        ?.payload!.chargeStatisticsResponse!.depthOfDischargeStatus,
+                       heightOfChargeStatus
+                           :controller.getVehicelDetails.value
+                           ?.payload!.chargeStatisticsResponse!.heightOfChargeStatus
                     ),
                     const SizedBox(
                       height: 10,
@@ -110,10 +113,12 @@ class BestChargingPractice extends GetView<VehicleDetailsController> {
         )));
   }
 
-  _previousChargePerformance(
-      {required wasPreviousChargeMileageLow,
-      required previousChargeMileage,
-      required idealMileage}) {
+  _previousChargePerformance({
+    required previousChargeDepthOfDischarge,
+    required previousChargeHeightOfCharge,
+    required depthOfDischargeStatus,
+    required heightOfChargeStatus,
+  }) {
     return Container(
       padding: const EdgeInsets.only(
           top: Dimensions.PADDING_SIZE_LARGE,
@@ -142,18 +147,17 @@ class BestChargingPractice extends GetView<VehicleDetailsController> {
                         height: 8,
                       ),
                       CustomLabel(
-                          title: "$previousChargeMileage",
+                          title: "$previousChargeDepthOfDischarge",
                           fontSize: Dimensions.FONT_SIZE_XXLARGE,
                           fontWeight: FontWeight.w600,
                           color: AppColors.black),
                       const SizedBox(
                         height: 8,
                       ),
-                      PrefixIconTextView(
-                        icon: Utils.mileageStatusIcon(
-                            previousChargeMileage, idealMileage),
+                        PrefixIconTextView(
+                        icon: Utils.mileageStatusIcon(depthOfDischargeStatus),
                         text: Utils.mileageStatusText(
-                            previousChargeMileage, idealMileage),
+                            depthOfDischargeStatus),
                       ),
                     ],
                   ),
@@ -168,8 +172,8 @@ class BestChargingPractice extends GetView<VehicleDetailsController> {
                       const SizedBox(
                         height: 8,
                       ),
-                      const CustomLabel(
-                          title: "97%",
+                       CustomLabel(
+                          title: previousChargeHeightOfCharge.toString(),
                           fontSize: Dimensions.FONT_SIZE_XXLARGE,
                           fontWeight: FontWeight.bold,
                           color: AppColors.black),
@@ -177,8 +181,9 @@ class BestChargingPractice extends GetView<VehicleDetailsController> {
                         height: 8,
                       ),
                       PrefixIconTextView(
-                        icon: Images.icon_good,
-                        text: "good".tr,
+                        icon: Utils.mileageStatusIcon(heightOfChargeStatus),
+                        text: Utils.mileageStatusText(
+                            heightOfChargeStatus),
                       ),
                     ],
                   )

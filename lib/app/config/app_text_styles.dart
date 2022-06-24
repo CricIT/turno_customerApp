@@ -10,6 +10,14 @@ TextStyle lightBlackNormal12 = const TextStyle(
   fontFamily: Constants.poppins,
 );
 
+TextStyle lightBlackBold14 = const TextStyle(
+  color: AppColors.lightBlack,
+  fontWeight: FontWeight.w600,
+  fontStyle: FontStyle.normal,
+  fontSize: 14,
+  fontFamily: Constants.poppins,
+);
+
 TextStyle lightBlackNormal14 = const TextStyle(
   color: AppColors.lightBlack,
   fontWeight: FontWeight.w400,
