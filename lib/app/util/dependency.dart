@@ -25,6 +25,6 @@ class DependencyCreator {
     Get.lazyPut(() => ReferController(), fenix: true);
     Get.lazyPut(() => NewLoanController(), fenix: true);
     Get.lazyPut(() => SupportRepositoryIml(), fenix: true);
-    Get.lazyPut(() => AppUpdate());
+    Get.lazyPut(() => AppUpdate(),fenix: true);
   }
 }

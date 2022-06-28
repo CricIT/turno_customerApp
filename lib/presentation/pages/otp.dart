@@ -155,7 +155,7 @@ class OtpScreen extends GetView<OtpController> {
   }
 
   Widget _buildResendOtp() {
-    return Row(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
@@ -164,6 +164,9 @@ class OtpScreen extends GetView<OtpController> {
             color: AppColors.subTextColor,
             fontSize: 15,
           ),
+        ),
+        const SizedBox(
+          height: 2,
         ),
         GetBuilder<OtpController>(
           builder: (_) {
