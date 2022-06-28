@@ -1,4 +1,4 @@
-
+// ignore_for_file: constant_identifier_names
 
 class Dimensions {
   static const double FONT_SIZE_EXTRA_SMALL = 10.0;
@@ -21,8 +21,4 @@ class Dimensions {
   static const double RADIUS_LARGE = 15.0;
   static const double RADIUS_XLARGE = 20.0;
   static const double RADIUS_XXLARGE = 25.0;
-
-
-
-
 }

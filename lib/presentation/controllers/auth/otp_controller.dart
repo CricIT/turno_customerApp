@@ -47,6 +47,9 @@ class OtpController extends GetxController {
           mobile: mobile,
         );
         store.isFirstTimeSetUp = true;
+        debugPrint(store.getLanguage);
+        TrackHandler.setUserLanguage(lang: store.getLanguage!);
+
         Get.offAllNamed(AppRoutes.LANDING_PAGE);
       } else {
         Utils.showAlertDialog(

@@ -64,7 +64,6 @@ class FirebaseService extends GetxService {
       provisional: false,
     );
     FirebaseMessaging.instance.getToken().then((value) {
-      print(value);
       store.setToken = value;
     });
     final tokenStream = FirebaseMessaging.instance.onTokenRefresh;
@@ -108,9 +107,12 @@ class FirebaseService extends GetxService {
           notification.title,
           notification.body,
           NotificationDetails(
-            android: AndroidNotificationDetails(channel.id, channel.name,
-                channelDescription: channel.description,
-                icon: '@mipmap/ic_launcher'),
+            android: AndroidNotificationDetails(
+              channel.id,
+              channel.name,
+              channelDescription: channel.description,
+              icon: '@mipmap/ic_launcher',
+            ),
           ),
         );
       }

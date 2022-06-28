@@ -6,12 +6,8 @@ import 'package:turno_customer_application/app/config/dimentions.dart';
 import 'package:turno_customer_application/presentation/controllers/lang/lang_controller.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
 
-import '../../app/services/local_storage.dart';
-
 class ChooseLanguage extends GetView<LangController> {
-  ChooseLanguage({Key? key}) : super(key: key);
-
-  final store = Get.find<LocalStorageService>();
+  const ChooseLanguage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

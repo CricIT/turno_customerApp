@@ -62,8 +62,6 @@ class VehicleDetailsController extends GetxController {
   }
 
   _handleVehicleDetailsErorCase({String? error, Object? exception}) {
-
-
     if (exception is BadRequestException && exception.details == "Not found") {
       return usedCaseScenarios.value = NetworkUsedCase.usernotfound;
     }
@@ -74,24 +72,19 @@ class VehicleDetailsController extends GetxController {
   }
 
   _handleVehicleDetailsSuccessCase(Rx<Vehicle> success) async {
-
-
     usedCaseScenarios.value = NetworkUsedCase.sucess;
     setVehicleDeatils = success;
     isDataAvailable.value = true;
     refreshController.refreshCompleted();
     packageInfo = await PackageInfo.fromPlatform();
     // appUpdate.deleteFile("${success.value.payload!.appVersionResponse!.appLink!.split('/').last}");
-   _chechIfForceUpdateAvialable(success);
+    _chechIfForceUpdateAvialable(success);
   }
-
-
 
   navigateToSupport() {
     final landingPageController = Get.find<LandingPageController>();
     landingPageController.setSelectedIndex(2);
   }
-
 
   //check if there is an force update flag true
   // then check if the apk version in remote is higher than the existing app
@@ -112,8 +105,8 @@ class VehicleDetailsController extends GetxController {
                 name: "Apk",
                 link: success.value.payload!.appVersionResponse!.appLink);
             appUpdate.requestDownload(task).then((value) => {
-              task.taskId = value,
-            });
+                  task.taskId = value,
+                });
             Utils.showProgressDialog(Get.context!, "progress".tr);
           });
         }
