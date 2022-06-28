@@ -81,7 +81,7 @@ class Routes {
       ),
       GetPage(
         name: AppRoutes.ERROR,
-        page: () => ErrorView(),
+        page: () => const ErrorView(),
       )
     ];
   }

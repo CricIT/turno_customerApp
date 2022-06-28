@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:turno_customer_application/app/core/tracker/tracker.dart';
 import 'package:turno_customer_application/app/routes/app_route.dart';
 import 'package:turno_customer_application/domain/usecases/auth/login_usecase.dart';
+import 'package:turno_customer_application/presentation/pages/error.dart';
 
 import '../../../app/util/util.dart';
 import '../../widgets/custom_label.dart';
@@ -17,11 +18,6 @@ class LoginController extends GetxController {
   void onInit() {
     super.onInit();
     TrackHandler.trackScreen(screenName: '/LoginScreen');
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
   }
 
   String get getPhoneNumber {
@@ -57,7 +53,11 @@ class LoginController extends GetxController {
       response.fold(
           (l) => _showErrorMessage(l), (r) => Get.toNamed(AppRoutes.OTP));
     } catch (error) {
-      Get.to(AppRoutes.ERROR);
+      Get.to(ErrorView(
+        buttonAction: () {
+          Get.back();
+        },
+      ));
     }
   }
 

@@ -9,7 +9,7 @@ import 'custom_label.dart';
 class ErrorWidgetView extends StatelessWidget {
   final Function()? buttonAction;
 
-  const ErrorWidgetView({super.key, required this.buttonAction});
+  const ErrorWidgetView({super.key, this.buttonAction});
 
   @override
   Widget build(BuildContext context) {
