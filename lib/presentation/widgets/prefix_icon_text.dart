@@ -46,6 +46,7 @@ class PrefixIconTextView extends StatelessWidget {
             fontSize: fontSize,
             fontWeight: fontWeight,
             fontFamily: fontFamily,
+            textAlign: TextAlign.center,
             color: textcolor),
       ],
     );

@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:turno_customer_application/app/config/constant.dart';
 import 'package:turno_customer_application/presentation/controllers/vehicle_controller/vehicle_details_controller.dart';
-
 import '../../app/config/app_colors.dart';
 import '../../app/config/app_text_styles.dart';
-
 import '../../app/config/dimentions.dart';
 import '../../app/constants/images.dart';
 import '../../app/util/util.dart';
@@ -120,40 +119,35 @@ class BestChargingPractice extends GetView<VehicleDetailsController> {
     required heightOfChargeStatus,
   }) {
     return Container(
-      padding: const EdgeInsets.only(
-          top: Dimensions.PADDING_SIZE_LARGE,
-          bottom: Dimensions.PADDING_SIZE_LARGE,
-          right: Dimensions.PADDING_SIZE_LARGE),
+      padding: const EdgeInsets.all(
+          Dimensions.PADDING_SIZE_LARGE,),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
+              Expanded(
+                child: SizedBox(
+                  height: Constants.deviceHeight*0.12,
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const Spacer(),
                       CustomLabel(
                         title: "last_charger_plugged_at".tr,
                         fontSize: Dimensions.FONT_SIZE_SMALL,
                         fontWeight: FontWeight.w400,
                         color: AppColors.black,
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
+                      const Spacer(),
                       CustomLabel(
                           title: "$previousChargeDepthOfDischarge",
                           fontSize: Dimensions.FONT_SIZE_XXLARGE,
                           fontWeight: FontWeight.w600,
                           color: AppColors.black),
-                      const SizedBox(
-                        height: 8,
-                      ),
+                      const Spacer(),
                         PrefixIconTextView(
                         icon: Utils.mileageStatusIcon(depthOfDischargeStatus),
                         text: Utils.mileageStatusText(
@@ -161,34 +155,37 @@ class BestChargingPractice extends GetView<VehicleDetailsController> {
                       ),
                     ],
                   ),
-                  Column(
+                ),
+              ),
+              Expanded(
+                child: SizedBox(
+                  height: Constants.deviceHeight*0.12,
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      const Spacer(),
                       CustomLabel(
                           title: "charged_till".tr,
                           fontSize: Dimensions.FONT_SIZE_SMALL,
                           fontWeight: FontWeight.w400,
                           color: AppColors.black),
-                      const SizedBox(
-                        height: 8,
-                      ),
+                      const Spacer(),
                        CustomLabel(
                           title: previousChargeHeightOfCharge.toString(),
                           fontSize: Dimensions.FONT_SIZE_XXLARGE,
                           fontWeight: FontWeight.bold,
                           color: AppColors.black),
-                      const SizedBox(
-                        height: 8,
-                      ),
+                      const Spacer(),
                       PrefixIconTextView(
                         icon: Utils.mileageStatusIcon(heightOfChargeStatus),
                         text: Utils.mileageStatusText(
                             heightOfChargeStatus),
                       ),
                     ],
-                  )
-                ],
-              ),
+                  ),
+                ),
+              )
             ],
           ),
         ],

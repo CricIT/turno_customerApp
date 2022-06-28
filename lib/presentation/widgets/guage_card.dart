@@ -11,10 +11,10 @@ import 'custom_label.dart';
 
 class GuageCardView extends StatelessWidget {
   String header, startRange, endRange, description, centreValue, centreText;
-  int? actualBuyback=0;
-  int? idealBuyback=0;
-  int? idealMileage=0;
-  int? actualMileage=0;
+  int? actualBuyback = 0;
+  int? idealBuyback = 0;
+  int? idealMileage = 0;
+  int? actualMileage = 0;
   bool isSingleColour;
   final Function() buttonAction;
 
@@ -39,7 +39,7 @@ class GuageCardView extends StatelessWidget {
     return InkWell(
       onTap: buttonAction,
       child: Container(
-        height: MediaQuery.of(context).size.height/2.2,
+        height: MediaQuery.of(context).size.height / 2.2,
         width: MediaQuery.of(context).size.width / 2.22,
         padding: const EdgeInsets.only(
             top: Dimensions.PADDING_SIZE_LARGE,
@@ -63,6 +63,7 @@ class GuageCardView extends StatelessWidget {
                 color: AppColors.black,
               ),
             ),
+            const Spacer(),
             LayoutBuilder(
               builder: (context, constraints) => Container(
                 padding: const EdgeInsets.all(0),
@@ -155,6 +156,7 @@ class GuageCardView extends StatelessWidget {
                 ),
               ),
             ),
+            const Spacer(),
             CustomLabel(
                 title: description,
                 textAlign: TextAlign.center,
@@ -162,9 +164,7 @@ class GuageCardView extends StatelessWidget {
                 maxLines: 5,
                 fontWeight: FontWeight.w400,
                 color: AppColors.black),
-            SizedBox(
-              height: Constants.deviceHeight * 0.02,
-            ),
+            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
