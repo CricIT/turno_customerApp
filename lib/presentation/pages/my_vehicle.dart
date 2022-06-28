@@ -35,10 +35,12 @@ class MyVehicle extends GetView<VehicleDetailsController> {
                 child: BaseAppBar(
                   customerName: controller.getVehicelDetails.value == null
                       ? ""
-                      : controller.getVehicelDetails.value?.payload?.customerDetails!.userName,
+                      : controller.getVehicelDetails.value?.payload
+                          ?.customerDetails!.userName,
                   vehicleName: controller.getVehicelDetails.value == null
                       ? ""
-                      : controller.getVehicelDetails.value?.payload?.customerDetails!.vehicleName,
+                      : controller.getVehicelDetails.value?.payload
+                          ?.customerDetails!.vehicleName,
                 ));
           })),
       body: GetX(
@@ -244,6 +246,7 @@ class MyVehicle extends GetView<VehicleDetailsController> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           CustomLabel(
+                            textAlign: TextAlign.center,
                             title: "on_previous_charge".tr,
                             fontSize: Dimensions.FONT_SIZE_SMALL,
                             fontWeight: FontWeight.w400,
@@ -282,18 +285,22 @@ class MyVehicle extends GetView<VehicleDetailsController> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           //make it custom class later
-                          Text.rich(
-                            TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: "${controller.getVehicelDetails.value?.payload?.mileageStatisticsComparisonResponse?.comparisonPercentOfUsers}%",
-                                  style: lightBlackBold14,
-                                ),
-                                TextSpan(
-                                  text: "others_are_getting".tr,
-                                  style: lightBlackNormal12,
-                                )
-                              ],
+                          Center(
+                            child: Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text:
+                                        "${controller.getVehicelDetails.value?.payload?.mileageStatisticsComparisonResponse?.comparisonPercentOfUsers}%",
+                                    style: lightBlackBold14,
+                                  ),
+                                  TextSpan(
+                                    text: "others_are_getting".tr,
+                                    style: lightBlackNormal12,
+                                  )
+                                ],
+                              ),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                           const SizedBox(
@@ -303,7 +310,9 @@ class MyVehicle extends GetView<VehicleDetailsController> {
                               title: controller
                                   .getVehicelDetails
                                   .value
-                                  ?.payload?.mileageStatisticsComparisonResponse?.comparisonUsersChargeMileage
+                                  ?.payload
+                                  ?.mileageStatisticsComparisonResponse
+                                  ?.comparisonUsersChargeMileage
                                   .toString(),
                               fontSize: Dimensions.FONT_SIZE_XXLARGE,
                               fontWeight: FontWeight.bold,
@@ -459,15 +468,21 @@ class MyVehicle extends GetView<VehicleDetailsController> {
                   wasPreviousChargeMileageLow: controller
                       .getVehicelDetails
                       .value
-                      ?.payload?.mileageStatisticsComparisonResponse?.wasPreviousChargeMileageLow,
+                      ?.payload
+                      ?.mileageStatisticsComparisonResponse
+                      ?.wasPreviousChargeMileageLow,
                   previousChargeMileage: controller
                       .getVehicelDetails
                       .value
-                      ?.payload?.mileageStatisticsComparisonResponse?.previousChargeMileage,
+                      ?.payload
+                      ?.mileageStatisticsComparisonResponse
+                      ?.previousChargeMileage,
                   idealMileage: controller
                       .getVehicelDetails
                       .value
-                      ?.payload?.mileageStatisticsComparisonResponse?.previousChargeMileageStatus,
+                      ?.payload
+                      ?.mileageStatisticsComparisonResponse
+                      ?.previousChargeMileageStatus,
                 ),
                 CustomLabel(
                   title: "3_years_return_value".tr,
@@ -492,8 +507,10 @@ class MyVehicle extends GetView<VehicleDetailsController> {
                       ?.payload?.after3YearStatistics?.idealBuybackVehicleValue,
                   buybackValueAfter3Year: controller.getVehicelDetails.value
                       ?.payload?.after3YearStatistics?.buybackValueAfter3Year,
-                  idealMileage: controller.getVehicelDetails.value?.payload?.after3YearStatistics?.idealMileage,
-                  mileageAfter3Year: controller.getVehicelDetails.value?.payload?.after3YearStatistics?.mileageAfter3Year,
+                  idealMileage: controller.getVehicelDetails.value?.payload
+                      ?.after3YearStatistics?.idealMileage,
+                  mileageAfter3Year: controller.getVehicelDetails.value?.payload
+                      ?.after3YearStatistics?.mileageAfter3Year,
                 ),
                 const SizedBox(
                   height: 15,

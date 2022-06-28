@@ -1,6 +1,9 @@
+// ignore_for_file: unused_element
+
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -41,20 +44,17 @@ class AppUpdate extends GetxController {
     task.taskId = newTaskId;
   }
 
-
   Future<void> _retryDownload(TaskInfo task) async {
     final newTaskId = await FlutterDownloader.retry(taskId: task.taskId!);
     task.taskId = newTaskId;
   }
-
-
 
   static void downloadCallback(
     String id,
     DownloadTaskStatus status,
     int progress,
   ) {
-    print(
+    debugPrint(
       'Callback on background isolate: '
       'task ($id) is in status ($status) and process ($progress)',
     );
@@ -90,25 +90,24 @@ class AppUpdate extends GetxController {
   Future<void> prepareSaveDir() async {
     _localPath = (await _findLocalPath())!;
     final savedDir = Directory(_localPath);
-    print(savedDir);
+    debugPrint(savedDir.toString());
     final hasExisted = savedDir.existsSync();
     if (!hasExisted) {
       await savedDir.create();
     }
   }
 
-
-   Future<bool> deleteFile(String fileName) async {
-  File file= File('$_localPath/$fileName');
+  Future<bool> deleteFile(String fileName) async {
+    File file = File('$_localPath/$fileName');
     try {
       if (await file.exists()) {
         await file.delete();
         return true;
-      }else{
+      } else {
         return true;
       }
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
     return false;
   }
@@ -122,8 +121,6 @@ class AppUpdate extends GetxController {
         final directory = await getExternalStorageDirectory();
         externalStorageDirPath = directory?.path;
       }
-
-
     } else if (Platform.isIOS) {
       externalStorageDirPath =
           (await getApplicationDocumentsDirectory()).absolute.path;
@@ -145,17 +142,17 @@ class AppUpdate extends GetxController {
       final taskId = (data as List<dynamic>)[0] as String;
       final status = data[1] as DownloadTaskStatus;
       final progress = data[2];
-      if(progress>=0) {
+      if (progress >= 0) {
         this.progress.value = progress.toDouble();
       }
-      if(status.value==4){
+      if (status.value == 4) {
         Get.back();
       }
-    /*  if (status.value == 3 && progress as int == 100) {
+      /*  if (status.value == 3 && progress as int == 100) {
 
         openDownloadedFile(Get.find<VehicleDetailsController>().task.taskId);
       }*/
-      print(
+      debugPrint(
         'Callback on UI isolate: '
         'task ($taskId) is in status ($status) and process ($progress)',
       );

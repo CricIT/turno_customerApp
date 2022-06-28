@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
+import 'package:turno_customer_application/presentation/controllers/more/more_binding.dart';
+import 'package:turno_customer_application/presentation/controllers/profile/profile_binding.dart';
 import 'package:turno_customer_application/presentation/controllers/support/support_binding.dart';
 import 'package:turno_customer_application/presentation/controllers/support/support_controller.dart';
 import 'package:turno_customer_application/presentation/controllers/vehicle_controller/vehicle_details_controller.dart';
@@ -11,8 +13,8 @@ import '../../app/config/constant.dart';
 import '../../app/config/dimentions.dart';
 import '../../app/constants/images.dart';
 import '../controllers/landing_page/landing_page_controller.dart';
-import '../controllers/loan_controller/loan_binding.dart';
-import '../controllers/loan_controller/loan_controller.dart';
+import '../controllers/loan/loan_binding.dart';
+import '../controllers/loan/loan_controller.dart';
 import '../controllers/vehicle_controller/vehicle_binding.dart';
 import 'my_vehicle.dart';
 import 'loan.dart';
@@ -109,8 +111,10 @@ class LandingPage extends GetView<LandingPageController> {
         Get.find<SupportController>().fetchSupportDetails();
         return const SupportView();
       case 3:
+        ProfileBinding().dependencies();
         return const Profile();
       case 4:
+        MoreBinding().dependencies();
         return const More();
     }
   }

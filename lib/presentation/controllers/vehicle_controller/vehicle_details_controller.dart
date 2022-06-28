@@ -73,8 +73,9 @@ class VehicleDetailsController extends GetxController {
     refreshController.refreshCompleted();
   }
 
-
   _handleVehicleDetailsSuccessCase(Rx<Vehicle> success) async {
+
+
     usedCaseScenarios.value = NetworkUsedCase.sucess;
     setVehicleDeatils = success;
     isDataAvailable.value = true;
@@ -83,6 +84,7 @@ class VehicleDetailsController extends GetxController {
     // appUpdate.deleteFile("${success.value.payload!.appVersionResponse!.appLink!.split('/').last}");
    _chechIfForceUpdateAvialable(success);
   }
+
 
 
   navigateToSupport() {

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
 import 'package:turno_customer_application/app/core/tracker/tracker.dart';
 import 'package:turno_customer_application/app/routes/app_route.dart';
-import 'package:turno_customer_application/presentation/controllers/landing_page/more_controller.dart';
+import 'package:turno_customer_application/presentation/controllers/more/more_controller.dart';
 import '../../app/config/dimentions.dart';
 import '../../app/constants/images.dart';
 import '../widgets/custom_label.dart';

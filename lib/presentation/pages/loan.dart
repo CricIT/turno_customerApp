@@ -12,7 +12,7 @@ import 'package:turno_customer_application/presentation/widgets/custom_label.dar
 import 'package:turno_customer_application/presentation/widgets/error_widget.dart';
 import '../../app/constants/network_used_case.dart';
 import '../../domain/entities/loan.dart';
-import '../controllers/loan_controller/loan_controller.dart';
+import '../controllers/loan/loan_controller.dart';
 import '../widgets/coming_soon.dart';
 
 class LoanView extends GetView<LoanController> {

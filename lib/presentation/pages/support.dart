@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:turno_customer_application/app/config/app_text_styles.dart';
 import 'package:turno_customer_application/app/config/constant.dart';
+import 'package:turno_customer_application/app/core/tracker/tracker.dart';
 import 'package:turno_customer_application/presentation/controllers/support/support_controller.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_button.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -133,6 +134,7 @@ class SupportView extends GetView<SupportController> {
         width: Constants.deviceWidth,
         buttonAction: () {
           controller.makePhoneCall();
+          TrackHandler.trackEvent(eventName: 'CustomerSupportCall');
         },
         child: CustomLabel(
           title: 'call_for_free'.tr,

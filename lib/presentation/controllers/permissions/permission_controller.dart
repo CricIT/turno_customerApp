@@ -4,6 +4,7 @@ import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:telephony/telephony.dart';
 import 'package:get/get.dart';
+import 'package:turno_customer_application/app/core/tracker/tracker.dart';
 import 'package:turno_customer_application/app/routes/app_route.dart';
 import 'package:turno_customer_application/app/services/local_storage.dart';
 import 'package:turno_customer_application/app/util/util.dart';
@@ -13,6 +14,7 @@ class PermissionsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    TrackHandler.trackScreen(screenName: '/PermissionsScreen');
   }
 
   final store = Get.find<LocalStorageService>();
@@ -32,6 +34,8 @@ class PermissionsController extends GetxController {
     if (locationPermission.isDenied) {
       locationPermission = await Permission.location.request();
       if (!locationPermission.isGranted) {
+        TrackHandler.trackEvent(
+            eventName: 'LocationPermissionPermanentlyDenied');
         Utils.showAlertDialog(
           title: 'Alert!',
           message:
@@ -41,6 +45,8 @@ class PermissionsController extends GetxController {
               onPressed: () async {
                 Get.back();
                 AppSettings.openAppSettings();
+                TrackHandler.trackEvent(
+                    eventName: 'AppSettingsOpenedForLocation');
               },
               child: const CustomLabel(
                 title: 'Open App Settings',
@@ -56,6 +62,8 @@ class PermissionsController extends GetxController {
     if (storagePermission.isDenied) {
       storagePermission = await Permission.storage.request();
       if (!storagePermission.isGranted) {
+        TrackHandler.trackEvent(
+            eventName: 'StoragePermissionPermanentlyDenied');
         Utils.showAlertDialog(
           title: 'Alert!',
           message:
@@ -65,6 +73,8 @@ class PermissionsController extends GetxController {
               onPressed: () async {
                 Get.back();
                 AppSettings.openAppSettings();
+                TrackHandler.trackEvent(
+                    eventName: 'AppSettingsOpenedForStorage');
               },
               child: const CustomLabel(
                 title: 'Open App Settings',
@@ -87,6 +97,7 @@ class PermissionsController extends GetxController {
             : Get.offNamed(AppRoutes.LANGUAGE);
       }
     } catch (e) {
+      TrackHandler.trackEvent(eventName: 'SmsPermissionPermanentlyDenied');
       Utils.showAlertDialog(
         title: 'Alert!',
         message:
@@ -96,6 +107,7 @@ class PermissionsController extends GetxController {
             onPressed: () async {
               Get.back();
               AppSettings.openAppSettings();
+              TrackHandler.trackEvent(eventName: 'AppSettingsOpenedForSMS');
             },
             child: const CustomLabel(
               title: 'Open App Settings',
