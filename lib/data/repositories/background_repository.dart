@@ -1,7 +1,5 @@
 
 
-
-
 import 'package:get/get.dart';
 import 'package:telephony/telephony.dart';
 
@@ -21,5 +19,5 @@ class BackGroundRepositoryIml extends BackGroundServiceRepository {
     }
     return response;
 
-  }
+   }
 }

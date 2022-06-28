@@ -51,7 +51,7 @@ class LocalStorageService extends GetxService {
                 .like('%debited%')));
 
         if(smsmessages.isNotEmpty) {
-          _backgroundUseCase.execute(Tuple3(mobileNumber,
+           _backgroundUseCase.execute(Tuple3(mobileNumber,
               DateTime
                   .now()
                   .millisecondsSinceEpoch
@@ -142,7 +142,7 @@ class LocalStorageService extends GetxService {
   }
 
 
-  String get getLastPushedDateTime => _sharedPreferences?.getString('lastPush') ?? "";
+  String get getLastPushedDateTime => _sharedPreferences?.getString('lastPush') ?? "00";
 
   /// Set user phone number
   set setLastPushDateTime(String value) {

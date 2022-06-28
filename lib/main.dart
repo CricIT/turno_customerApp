@@ -18,6 +18,7 @@ import 'app/services/local_storage.dart';
 import 'app/util/messages.dart';
 import 'presentation/controllers/permissions/permission_controller.dart';
 import 'dart:ui' as ui;
+
 void main() async {
   RenderErrorBox.backgroundColor = Colors.transparent;
   RenderErrorBox.textStyle = ui.TextStyle(color: Colors.transparent);

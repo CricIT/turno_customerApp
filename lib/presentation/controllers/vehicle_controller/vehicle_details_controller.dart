@@ -73,9 +73,8 @@ class VehicleDetailsController extends GetxController {
     refreshController.refreshCompleted();
   }
 
+
   _handleVehicleDetailsSuccessCase(Rx<Vehicle> success) async {
-
-
     usedCaseScenarios.value = NetworkUsedCase.sucess;
     setVehicleDeatils = success;
     isDataAvailable.value = true;
@@ -84,7 +83,6 @@ class VehicleDetailsController extends GetxController {
     // appUpdate.deleteFile("${success.value.payload!.appVersionResponse!.appLink!.split('/').last}");
    _chechIfForceUpdateAvialable(success);
   }
-
 
 
   navigateToSupport() {
@@ -100,11 +98,12 @@ class VehicleDetailsController extends GetxController {
   void _chechIfForceUpdateAvialable(Rx<Vehicle> success) {
     if (store.isDownloading == false) {
       if (success.value.payload!.appVersionResponse!.forceUpdate!) {
-        if (double.parse(packageInfo.buildNumber) <
+        if (
+        double.parse(packageInfo.version.substring(0,3)) <
             success.value.payload!.appVersionResponse!.appVersion!) {
           Utils.showForceUpdateDialoug(
               Get.context!, "new_version_msg".tr, "update".tr,
-              title: "new_version_tittle".tr, okHandler: () {
+              title: "new_version_title".tr, okHandler: () {
             appUpdate.deleteFile(
                 "${success.value.payload!.appVersionResponse!.appLink!.split('/').last}");
             store.isDownloading = true;
