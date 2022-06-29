@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import '../firebase/firebase_handler.dart';
 
 class TrackHandler {
-  static bool isTestingBuild = true;
+
+  // false == release
+  //true   == testing
+  static bool isTestingBuild = false;
 
   static Future<void> prepare() async {
     if (isTestingBuild) return;
