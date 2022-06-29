@@ -1,11 +1,9 @@
-// ignore_for_file: avoid_returning_null_for_void
 
-import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import '../firebase/firebase_handler.dart';
 
 class TrackHandler {
-  static bool isTestingBuild = kDebugMode;
+  static bool isTestingBuild = true;
 
   static Future<void> prepare() async {
     if (isTestingBuild) return;
