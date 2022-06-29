@@ -294,15 +294,17 @@ Widget _buildPaymentHistoryBox({EmiHistory? emiHistory}) {
         ),
         Expanded(
           child: ListView.builder(
-            itemCount: emiHistory == null ? 0 : emiHistory.emiHistory?.length,
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: emiHistory == null ? 0 :1,
             itemBuilder: (context, index) => _buildEmiPaymentCard(
-              date: emiHistory?.emiHistory?[index].dateInMs == null
+              date: emiHistory?.emiHistory?[0].dateInMs == null
                   ? ""
                   : Utils.convertDate(emiHistory?.emiHistory?[index].dateInMs),
-              amount: emiHistory?.emiHistory?[index].amount == null
+              amount: emiHistory?.emiHistory?[0].amount == null
                   ? ""
-                  : '${emiHistory?.emiHistory?[index].amount}',
-              index: index + 1,
+                  : '${emiHistory?.emiHistory?[0].amount}',
+              index: 0 + 1,
             ),
           ),
         ),
