@@ -34,7 +34,6 @@ class Utils {
   }*/
 
   static String mileageStatusText(int percent) {
-
     if (percent == 2) return 'danger'.tr;
     if (percent == 1) return 'not_good'.tr;
     if (percent == 0) return 'good'.tr;
@@ -57,20 +56,17 @@ class Utils {
   }
 
   static String chargingStatusText(int charge) {
-    if (charge < 5) return 'danger'.tr;
-    if (charge >= 5 && charge < 15) return 'not_good'.tr;
-    if (charge >= 15 && charge <= 85) return 'good'.tr;
-    if (charge > 85 && charge <= 95) return 'not_good'.tr;
-    if (charge > 95) return 'danger'.tr;
+    if (charge == 2) return 'danger'.tr;
+    if (charge == 1) return 'not_good'.tr;
+    if (charge == 0) return 'good'.tr;
+
     return '';
   }
 
   static String chargingStatusIcon(int charge) {
-    if (charge < 5) return Images.icon_danger;
-    if (charge >= 5 && charge < 15) return Images.icon_not_good;
-    if (charge >= 15 && charge <= 85) Images.icon_good;
-    if (charge > 85 && charge <= 95) return Images.icon_not_good;
-    if (charge > 95) return Images.icon_danger;
+    if (charge == 2) return Images.icon_danger;
+    if (charge == 1) return Images.icon_not_good;
+    if (charge == 0) Images.icon_good;
     return '';
   }
 
@@ -277,12 +273,11 @@ class Utils {
     }
   }
 
-static  bool checkIfTheDecimalIsGreaterThanZero(String string){
-    RegExp reg1 =  RegExp(r'(^[1-9](?:\.[1-9])?$)');
-    if(reg1.stringMatch(string)!=null){
+  static bool checkIfTheDecimalIsGreaterThanZero(String string) {
+    RegExp reg1 = RegExp(r'(^[1-9](?:\.[1-9])?$)');
+    if (reg1.stringMatch(string) != null) {
       return true;
     }
     return false;
   }
-
 }

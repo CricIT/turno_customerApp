@@ -32,16 +32,30 @@ class BestChargingPractice extends GetView<VehicleDetailsController> {
                       height: 5,
                     ),
                     _previousChargePerformance(
-                       previousChargeDepthOfDischarge:controller.getVehicelDetails.value
-                           ?.payload?.chargeStatisticsResponse?.previousChargeDepthOfDischarge,
-                       previousChargeHeightOfCharge :controller.getVehicelDetails.value
-                        ?.payload?.chargeStatisticsResponse?.previousChargeHeightOfCharge,
-                       depthOfDischargeStatus:controller.getVehicelDetails.value
-                        ?.payload?.chargeStatisticsResponse?.depthOfDischargeStatus,
-                       heightOfChargeStatus
-                           :controller.getVehicelDetails.value
-                           ?.payload?.chargeStatisticsResponse?.heightOfChargeStatus
-                    ),
+                        previousChargeDepthOfDischarge: controller
+                            .getVehicelDetails
+                            .value
+                            ?.payload
+                            ?.chargeStatisticsResponse
+                            ?.previousChargeDepthOfDischarge,
+                        previousChargeHeightOfCharge: controller
+                            .getVehicelDetails
+                            .value
+                            ?.payload
+                            ?.chargeStatisticsResponse
+                            ?.previousChargeHeightOfCharge,
+                        depthOfDischargeStatus: controller
+                            .getVehicelDetails
+                            .value
+                            ?.payload
+                            ?.chargeStatisticsResponse
+                            ?.depthOfDischargeStatus,
+                        heightOfChargeStatus: controller
+                            .getVehicelDetails
+                            .value
+                            ?.payload
+                            ?.chargeStatisticsResponse
+                            ?.heightOfChargeStatus),
                     const SizedBox(
                       height: 10,
                     ),
@@ -120,7 +134,8 @@ class BestChargingPractice extends GetView<VehicleDetailsController> {
   }) {
     return Container(
       padding: const EdgeInsets.all(
-          Dimensions.PADDING_SIZE_LARGE,),
+        Dimensions.PADDING_SIZE_LARGE,
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -130,7 +145,7 @@ class BestChargingPractice extends GetView<VehicleDetailsController> {
             children: [
               Expanded(
                 child: SizedBox(
-                  height: Constants.deviceHeight*0.12,
+                  height: Constants.deviceHeight * 0.12,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -148,10 +163,9 @@ class BestChargingPractice extends GetView<VehicleDetailsController> {
                           fontWeight: FontWeight.w600,
                           color: AppColors.black),
                       const Spacer(),
-                        PrefixIconTextView(
-                        icon: Utils.mileageStatusIcon(depthOfDischargeStatus),
-                        text: Utils.mileageStatusText(
-                            depthOfDischargeStatus),
+                      PrefixIconTextView(
+                        icon: Utils.chargingStatusIcon(depthOfDischargeStatus),
+                        text: Utils.chargingStatusText(depthOfDischargeStatus),
                       ),
                     ],
                   ),
@@ -159,7 +173,7 @@ class BestChargingPractice extends GetView<VehicleDetailsController> {
               ),
               Expanded(
                 child: SizedBox(
-                  height: Constants.deviceHeight*0.12,
+                  height: Constants.deviceHeight * 0.12,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -171,16 +185,15 @@ class BestChargingPractice extends GetView<VehicleDetailsController> {
                           fontWeight: FontWeight.w400,
                           color: AppColors.black),
                       const Spacer(),
-                       CustomLabel(
+                      CustomLabel(
                           title: previousChargeHeightOfCharge.toString(),
                           fontSize: Dimensions.FONT_SIZE_XXLARGE,
                           fontWeight: FontWeight.bold,
                           color: AppColors.black),
                       const Spacer(),
                       PrefixIconTextView(
-                        icon: Utils.mileageStatusIcon(heightOfChargeStatus),
-                        text: Utils.mileageStatusText(
-                            heightOfChargeStatus),
+                        icon: Utils.chargingStatusIcon(heightOfChargeStatus),
+                        text: Utils.chargingStatusText(heightOfChargeStatus),
                       ),
                     ],
                   ),
