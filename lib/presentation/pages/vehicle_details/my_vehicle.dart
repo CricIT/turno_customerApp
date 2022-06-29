@@ -8,18 +8,18 @@ import 'package:turno_customer_application/app/routes/app_route.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:turno_customer_application/presentation/controllers/vehicle_controller/vehicle_details_controller.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_text_button.dart';
-import '../../app/config/app_colors.dart';
-import '../../app/config/app_text_styles.dart';
-import '../../app/constants/images.dart';
+import '../../../app/config/app_colors.dart';
+import '../../../app/config/app_text_styles.dart';
+import '../../../app/constants/images.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../app/util/util.dart';
-import '../widgets/custom_label.dart';
-import '../widgets/custom_rich_text.dart';
-import '../widgets/error_widget.dart';
-import '../widgets/guage_card.dart';
-import '../widgets/home_appbar.dart';
+import '../../../app/util/util.dart';
+import '../../widgets/custom_label.dart';
+import '../../widgets/custom_rich_text.dart';
+import '../../widgets/error_widget.dart';
+import '../../widgets/guage_card.dart';
+import '../../widgets/home_appbar.dart';
 
-import '../widgets/coming_soon.dart';
+import '../../widgets/coming_soon.dart';
 
 class MyVehicle extends GetView<VehicleDetailsController> {
   const MyVehicle({Key? key}) : super(key: key);

@@ -8,7 +8,7 @@ import 'package:turno_customer_application/domain/entities/loan.dart';
 import 'package:turno_customer_application/presentation/controllers/payment/payment_history_controller.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
 
-import '../widgets/generic_appbar.dart';
+import '../../widgets/generic_appbar.dart';
 
 class PaymentHistory extends GetView<PaymentHistoryController> {
   const PaymentHistory({Key? key}) : super(key: key);

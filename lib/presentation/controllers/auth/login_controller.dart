@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:turno_customer_application/app/core/tracker/tracker.dart';
 import 'package:turno_customer_application/app/routes/app_route.dart';
 import 'package:turno_customer_application/domain/usecases/auth/login_usecase.dart';
-import 'package:turno_customer_application/presentation/pages/error.dart';
+import 'package:turno_customer_application/presentation/widgets/error.dart';
 
 import '../../../app/util/util.dart';
 import '../../widgets/custom_label.dart';

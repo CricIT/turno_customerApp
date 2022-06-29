@@ -5,14 +5,14 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:turno_customer_application/app/config/constant.dart';
 import 'package:turno_customer_application/presentation/controllers/vehicle_controller/vehicle_details_controller.dart';
-import '../../app/config/app_colors.dart';
-import '../../app/config/app_text_styles.dart';
-import '../../app/config/dimentions.dart';
-import '../../app/constants/images.dart';
-import '../../app/util/util.dart';
-import '../widgets/custom_label.dart';
-import '../widgets/generic_appbar.dart';
-import '../widgets/prefix_icon_text.dart';
+import '../../../app/config/app_colors.dart';
+import '../../../app/config/app_text_styles.dart';
+import '../../../app/config/dimentions.dart';
+import '../../../app/constants/images.dart';
+import '../../../app/util/util.dart';
+import '../../widgets/custom_label.dart';
+import '../../widgets/generic_appbar.dart';
+import '../../widgets/prefix_icon_text.dart';
 
 class BestChargingPractice extends GetView<VehicleDetailsController> {
   @override

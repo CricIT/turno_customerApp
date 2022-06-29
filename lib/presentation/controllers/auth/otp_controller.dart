@@ -10,7 +10,7 @@ import 'package:turno_customer_application/presentation/controllers/auth/login_c
 import '../../../app/core/tracker/tracker.dart';
 import '../../../app/services/local_storage.dart';
 import '../../../app/util/util.dart';
-import '../../pages/error.dart';
+import '../../widgets/error.dart';
 import '../../widgets/custom_label.dart';
 
 class OtpController extends GetxController {

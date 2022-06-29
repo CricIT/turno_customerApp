@@ -16,8 +16,8 @@ import '../controllers/landing_page/landing_page_controller.dart';
 import '../controllers/loan/loan_binding.dart';
 import '../controllers/loan/loan_controller.dart';
 import '../controllers/vehicle_controller/vehicle_binding.dart';
-import 'my_vehicle.dart';
-import 'loan.dart';
+import 'vehicle_details/my_vehicle.dart';
+import 'loan_details/loan.dart';
 import 'more.dart';
 
 class LandingPage extends GetView<LandingPageController> {

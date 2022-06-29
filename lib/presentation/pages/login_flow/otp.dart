@@ -6,10 +6,10 @@ import 'package:turno_customer_application/app/config/app_colors.dart';
 import 'package:turno_customer_application/app/config/dimentions.dart';
 import 'package:turno_customer_application/presentation/controllers/auth/otp_controller.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
-import '../../app/config/constant.dart';
+import '../../../app/config/constant.dart';
 import 'package:get/get.dart';
 
-import '../widgets/custom_button.dart';
+import '../../widgets/custom_button.dart';
 
 class OtpScreen extends GetView<OtpController> {
   const OtpScreen({Key? key}) : super(key: key);

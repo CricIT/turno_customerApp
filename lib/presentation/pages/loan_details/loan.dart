@@ -10,10 +10,10 @@ import 'package:turno_customer_application/app/routes/app_route.dart';
 import 'package:turno_customer_application/app/util/util.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_label.dart';
 import 'package:turno_customer_application/presentation/widgets/error_widget.dart';
-import '../../app/constants/network_used_case.dart';
-import '../../domain/entities/loan.dart';
-import '../controllers/loan/loan_controller.dart';
-import '../widgets/coming_soon.dart';
+import '../../../app/constants/network_used_case.dart';
+import '../../../domain/entities/loan.dart';
+import '../../controllers/loan/loan_controller.dart';
+import '../../widgets/coming_soon.dart';
 
 class LoanView extends GetView<LoanController> {
   const LoanView({Key? key}) : super(key: key);
