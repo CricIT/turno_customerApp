@@ -185,7 +185,7 @@ class MyVehicle extends GetView<VehicleDetailsController> {
           idealMileage: idealMileage,
           actualMileage: mileageAfter3Year,
           buttonAction: () {
-            Utils.showBottomSheetWithMsg("buy_back_msg".tr);
+            Utils.showBottomSheetWithMsg("mileage_msg".tr);
             TrackHandler.trackEvent(eventName: 'mileage_checked');
           },
           header: "mileage".tr,
