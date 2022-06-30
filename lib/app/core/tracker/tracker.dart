@@ -6,7 +6,7 @@ class TrackHandler {
 
   // false == release
   //true   == testing
-  static bool isTestingBuild = false;
+  static bool isTestingBuild = true;
 
   static Future<void> prepare() async {
     if (isTestingBuild) return;
