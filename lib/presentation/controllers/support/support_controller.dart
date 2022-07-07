@@ -69,5 +69,6 @@ class SupportController extends GetxController {
       path: getSupportDetails.value?.payload!.customerCareContactNumber,
     );
     await launchUrl(launchUri);
+
   }
 }

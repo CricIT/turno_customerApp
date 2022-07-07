@@ -2,7 +2,7 @@
 
 enum NetworkUsedCase { loading, error, usernotfound, sucess }
 
-
+//Api call used case to handle custom messaging
 extension NetworkState on NetworkUsedCase {
   int? get keyword {
     switch (this) {

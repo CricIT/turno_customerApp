@@ -20,18 +20,21 @@ class LoanView extends GetView<LoanController> {
 
   @override
   Widget build(BuildContext context) {
-    return GetX(
-      init: controller,
-      builder: (builder) {
-        return SmartRefresher(
-          controller: controller.refreshController,
-          onRefresh: controller.fetchLoanDetails,
-          header: const WaterDropHeader(),
-          child: SingleChildScrollView(
-            child: renderUI(),
-          ),
-        );
-      },
+    return Scaffold(
+      backgroundColor: AppColors.whiteColor,
+      body: GetX(
+        init: controller,
+        builder: (builder) {
+          return SmartRefresher(
+            controller: controller.refreshController,
+            onRefresh: controller.fetchLoanDetails,
+            header: const WaterDropHeader(),
+            child: SingleChildScrollView(
+              child: renderUI(),
+            ),
+          );
+        },
+      ),
     );
   }
 

@@ -212,6 +212,7 @@ class Utils {
     );
   }
 
+  // show apk download progress
   static showProgressDialog(BuildContext context, String title) {
     var controller = Get.find<AppUpdate>();
     try {
@@ -257,7 +258,7 @@ class Utils {
                                   },
                                   child: Text(
                                     "Install".tr,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: Dimensions.FONT_SIZE_LARGE),
                                   )));
                         }),
@@ -273,6 +274,7 @@ class Utils {
     }
   }
 
+  //return true if the decimal value is greater than 0 else return false
   static bool checkIfTheDecimalIsGreaterThanZero(String string) {
     RegExp reg1 = RegExp(r'(^[1-9](?:\.[1-9])?$)');
     if (reg1.stringMatch(string) != null) {

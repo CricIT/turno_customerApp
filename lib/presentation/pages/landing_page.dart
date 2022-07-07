@@ -28,7 +28,7 @@ class LandingPage extends GetView<LandingPageController> {
     Constants.deviceHeight = MediaQuery.of(context).size.height;
     Constants.deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: AppColors.whiteColor,
+      backgroundColor: AppColors.lightPurple,
       bottomNavigationBar: buildBottomNavigationMenu(context, controller),
       body: SafeArea(
         child: Obx(() => _getallclasse()),
@@ -100,7 +100,6 @@ class LandingPage extends GetView<LandingPageController> {
       case 0:
         VehicleBinding().dependencies();
         Get.find<VehicleDetailsController>().fetchVehicleData();
-
         return const MyVehicle();
       case 1:
         LoanBinding().dependencies();

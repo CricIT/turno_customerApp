@@ -10,7 +10,7 @@ class VehicleRepositoryIml extends VehicleRepository {
     if (response.status == "success") {
       return Right(response);
     } else {
-      return Left("Something went wrong");
+      return const Left("Something went wrong");
     }
   }
 }

@@ -6,7 +6,6 @@ import 'package:turno_customer_application/app/config/constant.dart';
 import 'package:turno_customer_application/app/core/tracker/tracker.dart';
 import 'package:turno_customer_application/presentation/controllers/support/support_controller.dart';
 import 'package:turno_customer_application/presentation/widgets/custom_button.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../app/config/app_colors.dart';
 import '../../app/constants/network_used_case.dart';
@@ -19,18 +18,21 @@ class SupportView extends GetView<SupportController> {
 
   @override
   Widget build(BuildContext context) {
-    return GetX(
-        init: controller,
-        builder: (builder) {
-          return SmartRefresher(
-            controller: controller.refreshController,
-            onRefresh: controller.fetchSupportDetails,
-            header: const WaterDropHeader(),
-            child: SingleChildScrollView(
-              child: _renderUI(),
-            ),
-          );
-        });
+    return Scaffold(
+      backgroundColor: AppColors.whiteColor,
+      body: GetX(
+          init: controller,
+          builder: (builder) {
+            return SmartRefresher(
+              controller: controller.refreshController,
+              onRefresh: controller.fetchSupportDetails,
+              header: const WaterDropHeader(),
+              child: SingleChildScrollView(
+                child: _renderUI(),
+              ),
+            );
+          }),
+    );
   }
 
   _renderUI() {

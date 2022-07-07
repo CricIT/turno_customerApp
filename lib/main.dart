@@ -20,10 +20,11 @@ import 'presentation/controllers/permissions/permission_controller.dart';
 import 'dart:ui' as ui;
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  DependencyCreator.init();
+  await initServices();
   RenderErrorBox.backgroundColor = Colors.transparent;
   RenderErrorBox.textStyle = ui.TextStyle(color: Colors.transparent);
-  DependencyCreator.init();
-  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
@@ -32,7 +33,7 @@ void main() async {
     statusBarIconBrightness: Brightness.light, // For Android (dark icons)
     statusBarBrightness: Brightness.light, // For iOS (dark icons)
   ));
-  await initServices();
+
   //fetch all languages .json files and convert
   Map<String, Map<String, String>> languages =
       await Messages.getAllTranslations();
@@ -40,7 +41,7 @@ void main() async {
 }
 
 initServices() async {
-  await Firebase.initializeApp();
+
   // Plugin must be initialized before using
   await FlutterDownloader.initialize(
       debug:
@@ -48,6 +49,7 @@ initServices() async {
       ignoreSsl:
           false // option: set to false to disable working with http links (default: false)
       );
+  await Firebase.initializeApp();
   hasAllPermissions = await checkPermissions();
   await Get.putAsync(() => LocalStorageService().init());
   Get.put(FirebaseService(), permanent: true);

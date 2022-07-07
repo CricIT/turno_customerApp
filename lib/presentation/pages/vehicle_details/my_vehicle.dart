@@ -27,6 +27,7 @@ class MyVehicle extends GetView<VehicleDetailsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(Constants.deviceHeight * 0.09),
           child: Obx(() {

@@ -11,16 +11,24 @@ import 'package:android_path_provider/android_path_provider.dart';
 import 'package:path_provider/path_provider.dart';
 
 class AppUpdate extends GetxController {
+
+  //device path to download
   late String _localPath;
+
+  //port to receive updte on notification bar
   final ReceivePort _port = ReceivePort();
+
+  //Download progress
   RxDouble progress = 0.0.obs;
 
   @override
   void onInit() {
-    _bindBackgroundIsolate();
+    if(Platform.isAndroid) {
+      //create background isolate to listen for progreesss
+      _bindBackgroundIsolate();
 
-    FlutterDownloader.registerCallback(downloadCallback);
-
+      FlutterDownloader.registerCallback(downloadCallback);
+    }
     super.onInit();
   }
 
@@ -139,12 +147,15 @@ class AppUpdate extends GetxController {
       return;
     }
     _port.listen((dynamic data) {
-      final taskId = (data as List<dynamic>)[0] as String;
+      (data as List<dynamic>)[0] as String;
       final status = data[1] as DownloadTaskStatus;
       final progress = data[2];
+
+      //if(progress is more than zero update the ui with current value
       if (progress >= 0) {
         this.progress.value = progress.toDouble();
       }
+      //if the status is 4 the download is failed go back to update pop up
       if (status.value == 4) {
         Get.back();
       }
@@ -152,13 +163,14 @@ class AppUpdate extends GetxController {
 
         openDownloadedFile(Get.find<VehicleDetailsController>().task.taskId);
       }*/
-      debugPrint(
+  /*    debugPrint(
         'Callback on UI isolate: '
         'task ($taskId) is in status ($status) and process ($progress)',
-      );
+      );*/
     });
   }
 
+  //unbinbd isolate once the controler is is destroyed
   void _unbindBackgroundIsolate() {
     IsolateNameServer.removePortNameMapping('downloader_send_port');
   }
@@ -170,6 +182,7 @@ class AppUpdate extends GetxController {
   }
 }
 
+//basic information if the apk
 class TaskInfo {
   TaskInfo({this.name, this.link});
 

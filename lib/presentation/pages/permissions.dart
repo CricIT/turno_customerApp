@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turno_customer_application/app/config/app_colors.dart';
@@ -47,8 +49,8 @@ class Permissions extends GetView<PermissionsController> {
                   const SizedBox(
                     height: 20,
                   ),
-                  _buildPermissionDesc(const Icon(Icons.sms), 'SMS',
-                      'Your SMSes are analyzed to have clear visibility on repayment ability and also to take underwriting decisions for further loans. Your SMSes are never uploaded.'),
+                  Platform.isAndroid ?_buildPermissionDesc(const Icon(Icons.sms), 'SMS',
+                      'Your SMSes are analyzed to have clear visibility on repayment ability and also to take underwriting decisions for further loans. Your SMSes are never uploaded.'):Container(),
                   const Divider(
                     thickness: 1.5,
                   ),
@@ -59,8 +61,8 @@ class Permissions extends GetView<PermissionsController> {
                   const Divider(
                     thickness: 1.5,
                   ),
-                  _buildPermissionDesc(const Icon(Icons.storage), 'Storage',
-                      'We need storage permissions to push app updates on your mobile.'),
+                  Platform.isAndroid ? _buildPermissionDesc(const Icon(Icons.storage), 'Storage',
+                      'We need storage permissions to push app updates on your mobile.'):Container(),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.1,
                   ),

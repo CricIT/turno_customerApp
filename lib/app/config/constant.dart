@@ -27,8 +27,6 @@ class Constants {
 
   static const String poppins = 'Poppins';
 
-  static const int minHeight = 50;
-  static const int maxHeight = 80;
 
   static double deviceHeight = 0;
   static double deviceWidth = 0;

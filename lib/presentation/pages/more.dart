@@ -14,56 +14,59 @@ class More extends GetView<MoreController> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.whiteColor,
-      padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_XLARGE),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            _moreItem(
-                itemName: "vehicle_catalogue".tr,
-                itemIcon: Images.icon_vehicle_catalog,
-                onClick: () {
-                  Get.toNamed(AppRoutes.VEHICLE_CATALOUGE);
-                  TrackHandler.trackEvent(eventName: 'VehicleCatalougeClicked');
-                }),
-            _moreItem(
-                itemName: "apply_loan".tr,
-                itemIcon: Images.icon_loan_application,
-                onClick: () {
-                  Get.toNamed(AppRoutes.NEW_LOAN);
-                  TrackHandler.trackEvent(eventName: 'ApplyNewLoanClicked');
-                }),
-            _moreItem(
-                itemName: "choose_language".tr,
-                itemIcon: Images.icon_language,
-                onClick: () {
-                  Get.toNamed(AppRoutes.LANGUAGE);
-                  TrackHandler.trackEvent(eventName: 'ChangeLanguageClicked');
-                }),
-            _moreItem(
-                itemName: "refer_earn".tr,
-                itemIcon: Images.icon_refer,
-                onClick: () {
-                  Get.toNamed(AppRoutes.REFER_AND_EARN);
-                  TrackHandler.trackEvent(eventName: 'ReferAndEarnClicked');
-                }),
-            _moreItem(
-                itemName: "rewards".tr,
-                itemIcon: Images.icon_rewards,
-                onClick: () {
-                  Get.toNamed(AppRoutes.COMING_SOON);
-                  TrackHandler.trackEvent(eventName: 'RewardsClicked');
-                }),
-            _moreItem(
-                itemName: "logout".tr,
-                itemIcon: Images.icon_logout,
-                onClick: () {
-                  controller.logout();
-                  TrackHandler.trackEvent(eventName: 'LoggedOut');
-                }),
-          ],
+    return Scaffold(
+      backgroundColor: AppColors.whiteColor,
+      body: Container(
+        color: AppColors.whiteColor,
+        padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_XLARGE),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              _moreItem(
+                  itemName: "vehicle_catalogue".tr,
+                  itemIcon: Images.icon_vehicle_catalog,
+                  onClick: () {
+                    Get.toNamed(AppRoutes.VEHICLE_CATALOUGE);
+                    TrackHandler.trackEvent(eventName: 'VehicleCatalougeClicked');
+                  }),
+              _moreItem(
+                  itemName: "apply_loan".tr,
+                  itemIcon: Images.icon_loan_application,
+                  onClick: () {
+                    Get.toNamed(AppRoutes.NEW_LOAN);
+                    TrackHandler.trackEvent(eventName: 'ApplyNewLoanClicked');
+                  }),
+              _moreItem(
+                  itemName: "choose_language".tr,
+                  itemIcon: Images.icon_language,
+                  onClick: () {
+                    Get.toNamed(AppRoutes.LANGUAGE);
+                    TrackHandler.trackEvent(eventName: 'ChangeLanguageClicked');
+                  }),
+              _moreItem(
+                  itemName: "refer_earn".tr,
+                  itemIcon: Images.icon_refer,
+                  onClick: () {
+                    Get.toNamed(AppRoutes.REFER_AND_EARN);
+                    TrackHandler.trackEvent(eventName: 'ReferAndEarnClicked');
+                  }),
+              _moreItem(
+                  itemName: "rewards".tr,
+                  itemIcon: Images.icon_rewards,
+                  onClick: () {
+                    Get.toNamed(AppRoutes.COMING_SOON);
+                    TrackHandler.trackEvent(eventName: 'RewardsClicked');
+                  }),
+              _moreItem(
+                  itemName: "logout".tr,
+                  itemIcon: Images.icon_logout,
+                  onClick: () {
+                    controller.logout();
+                    TrackHandler.trackEvent(eventName: 'LoggedOut');
+                  }),
+            ],
+          ),
         ),
       ),
     );

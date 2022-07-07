@@ -14,6 +14,7 @@ class BaseAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
@@ -31,6 +33,12 @@ class PermissionsController extends GetxController {
     }
 
     var locationPermission = await Permission.location.request();
+    if (locationPermission.isPermanentlyDenied) {
+      // The user opted to never again see the permission request dialog for this
+      // app. The only way to change the permission's status now is to let the
+      // user manually enable it in the system settings.
+      openAppSettings();
+    }
     if (locationPermission.isDenied) {
       locationPermission = await Permission.location.request();
       if (!locationPermission.isGranted) {
@@ -39,7 +47,7 @@ class PermissionsController extends GetxController {
         Utils.showAlertDialog(
           title: 'Alert!',
           message:
-              'We require permissions to prevent fraudulent activities. Go to  Permissions ->  Location -> Allow',
+          'We require permissions to prevent fraudulent activities. Go to  Permissions ->  Location -> Allow',
           actions: [
             TextButton(
               onPressed: () async {
@@ -57,24 +65,66 @@ class PermissionsController extends GetxController {
       }
     }
 
-    //storage permission
-    var storagePermission = await Permission.storage.request();
-    if (storagePermission.isDenied) {
-      storagePermission = await Permission.storage.request();
-      if (!storagePermission.isGranted) {
-        TrackHandler.trackEvent(
-            eventName: 'StoragePermissionPermanentlyDenied');
+    if(locationPermission.isGranted && Platform.isIOS){
+      store.isLoggedIn
+          ? Get.offNamed(AppRoutes.LANDING_PAGE)
+          : Get.offNamed(AppRoutes.LANGUAGE);
+    }
+
+    if(Platform.isAndroid ) {
+      //storage permission
+      var storagePermission = await Permission.storage.request();
+      if (storagePermission.isDenied) {
+        storagePermission = await Permission.storage.request();
+        if (!storagePermission.isGranted) {
+          TrackHandler.trackEvent(
+              eventName: 'StoragePermissionPermanentlyDenied');
+          Utils.showAlertDialog(
+            title: 'Alert!',
+            message:
+            'We require permissions to prevent fraudulent activities. Go to  Permissions ->  Storage -> Allow',
+            actions: [
+              TextButton(
+                onPressed: () async {
+                  Get.back();
+                  AppSettings.openAppSettings();
+                  TrackHandler.trackEvent(
+                      eventName: 'AppSettingsOpenedForStorage');
+                },
+                child: const CustomLabel(
+                  title: 'Open App Settings',
+                ),
+              ),
+            ],
+          );
+        }
+      }
+
+
+
+      //sms permissions
+      final telephony = Telephony.instance;
+      try {
+        final bool? result = await telephony.requestPhoneAndSmsPermissions;
+        if (result == true &&
+            storagePermission.isGranted &&
+            locationPermission.isGranted) {
+          store.isLoggedIn
+              ? Get.offNamed(AppRoutes.LANDING_PAGE)
+              : Get.offNamed(AppRoutes.LANGUAGE);
+        }
+      } catch (e) {
+        TrackHandler.trackEvent(eventName: 'SmsPermissionPermanentlyDenied');
         Utils.showAlertDialog(
           title: 'Alert!',
           message:
-              'We require permissions to prevent fraudulent activities. Go to  Permissions ->  Storage -> Allow',
+          'We require permissions to prevent fraudulent activities. Go to  Permissions ->  SMS -> Allow',
           actions: [
             TextButton(
               onPressed: () async {
                 Get.back();
                 AppSettings.openAppSettings();
-                TrackHandler.trackEvent(
-                    eventName: 'AppSettingsOpenedForStorage');
+                TrackHandler.trackEvent(eventName: 'AppSettingsOpenedForSMS');
               },
               child: const CustomLabel(
                 title: 'Open App Settings',
@@ -83,38 +133,6 @@ class PermissionsController extends GetxController {
           ],
         );
       }
-    }
-
-    //sms permissions
-    final telephony = Telephony.instance;
-    try {
-      final bool? result = await telephony.requestPhoneAndSmsPermissions;
-      if (result == true &&
-          storagePermission.isGranted &&
-          locationPermission.isGranted) {
-        store.isLoggedIn
-            ? Get.offNamed(AppRoutes.LANDING_PAGE)
-            : Get.offNamed(AppRoutes.LANGUAGE);
-      }
-    } catch (e) {
-      TrackHandler.trackEvent(eventName: 'SmsPermissionPermanentlyDenied');
-      Utils.showAlertDialog(
-        title: 'Alert!',
-        message:
-            'We require permissions to prevent fraudulent activities. Go to  Permissions ->  SMS -> Allow',
-        actions: [
-          TextButton(
-            onPressed: () async {
-              Get.back();
-              AppSettings.openAppSettings();
-              TrackHandler.trackEvent(eventName: 'AppSettingsOpenedForSMS');
-            },
-            child: const CustomLabel(
-              title: 'Open App Settings',
-            ),
-          ),
-        ],
-      );
     }
   }
 }

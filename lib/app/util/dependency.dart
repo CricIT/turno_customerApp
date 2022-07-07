@@ -1,3 +1,5 @@
+
+
 import 'package:get/get.dart';
 import 'package:turno_customer_application/data/repositories/loan_repository.dart';
 import 'package:turno_customer_application/data/repositories/login_repository.dart';
@@ -25,6 +27,6 @@ class DependencyCreator {
     Get.lazyPut(() => ReferController(), fenix: true);
     Get.lazyPut(() => NewLoanController(), fenix: true);
     Get.lazyPut(() => SupportRepositoryIml(), fenix: true);
-    Get.lazyPut(() => AppUpdate(),fenix: true);
+    Get.lazyPut(() => AppUpdate(), fenix: true);
   }
 }
